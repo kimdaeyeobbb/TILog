@@ -1,0 +1,60 @@
+<!-- 버튼을 누르면 데이터가 서버로 전송되고, 서버에서 데이터를 꺼내갈 수 있는 것이 어떤 의미인지 아는지에 대해 스스로 생각해보기
+버튼을 누르면 해당 내용이 서버로 전송되고  -->
+
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./hw1.css" />
+    <title>웹 폼 사례</title>
+  </head>
+  <body>
+    <div class="items-container">
+      <h2>웹 폼 사례</h2>
+      <form method="get">
+        <table border="1">
+          <tbody align="center">
+            <tr>
+              <td>사용자이름</td>
+              <td><input placeholder="이름을 입력하세요." /></td>
+            </tr>
+            <tr align="center">
+              <td>이메일</td>
+              <td><input placeholder="메일주소를 입력하세요." /></td>
+            </tr>
+            <tr align="center">
+              <td>검색단어</td>
+              <td><input placeholder="검색어를 입력하세요." /></td>
+            </tr>
+            <tr>
+              <td align="center">취미</td>
+              <td align="center">
+                <input type="checkbox" />운동 <input type="checkbox" />악기
+                <input type="checkbox" />여행
+              </td>
+            </tr>
+            <tr>
+              <td align="center">성별</td>
+              <td align="center">
+                <input type="radio" />남자 <input type="radio" />여자
+              </td>
+            </tr>
+            <tr>
+              <td align="center">점심메뉴</td>
+              <td align="center">
+                <select>
+                  <option value="jajangmyeon">짜장면</option>
+                  <option value="jjamppong">짬뽕</option>
+                  <option value="fried-rice">볶음밥</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
