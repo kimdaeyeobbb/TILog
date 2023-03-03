@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb";
 
 // Replace the uri string with your MongoDB deployment's connection string.
-const uri = "localhost";
+const uri = "mongodb://127.0.0";
 
 const client = new MongoClient(uri);
 

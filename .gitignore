@@ -1,0 +1,16 @@
+
+03/week01/0302/mongodb-database-tools-windows-x86_64-100.7.0/bin/bsondump.exe
+
+03/week01/0302/mongodb-database-tools-windows-x86_64-100.7.0/bin/mongodump.exe
+
+03/week01/0302/mongodb-database-tools-windows-x86_64-100.7.0/bin/mongoexport.exe
+
+03/week01/0302/mongodb-database-tools-windows-x86_64-100.7.0/bin/mongostat.exe
+
+03/week01/0302/mongodb-database-tools-windows-x86_64-100.7.0/bin/mongotop.exe
+
+03/week01/0302/mongodb-database-tools-windows-x86_64-100.7.0/bin/mongofiles.exe
+
+03/week01/0302/mongodb-database-tools-windows-x86_64-100.7.0/bin/mongoimport.exe
+
+*.exe
