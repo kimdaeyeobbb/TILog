@@ -1,5 +1,6 @@
-<!-- 버튼을 누르면 데이터가 서버로 전송되고, 서버에서 데이터를 꺼내갈 수 있는 것이 어떤 의미인지 아는지에 대해 스스로 생각해보기
-버튼을 누르면 해당 내용이 서버로 전송되고  -->
+<!-- 버튼을 누르면 데이터가 서버로 전송되고, 
+  서버에서 데이터를 꺼내갈 수 있는 것이 어떤 의미인지 아는지에 대해 스스로 생각해보기
+  -->
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -7,42 +8,48 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./reset.css" />
     <link rel="stylesheet" href="./hw1.css" />
     <title>웹 폼 사례</title>
   </head>
   <body>
     <div class="items-container">
-      <h2>웹 폼 사례</h2>
-      <form method="get">
-        <table border="1">
+      <div class="wrapper">
+        <h2>웹 폼 사례</h2>
+      </div>
+      <!-- action 속성값으로 입력된 폼 데이터 정보를 보낼 임의의 서버 페이지 주소를 입력 -->
+      <!-- submit버튼 클릭시 해당 form태그 내에 지정된 값들이 action 태그에 지정된 페이지로 넘어감 -->
+      <!-- 메모리가 적게들고 보안유지가 불필요한 데이터이므로 post 대신 get 방식 사용 -->
+      <form method="get" action="submit_page.php">
+        <table>
           <tbody align="center">
             <tr>
-              <td>사용자이름</td>
+              <th>사용자이름</th>
               <td><input placeholder="이름을 입력하세요." /></td>
             </tr>
             <tr align="center">
-              <td>이메일</td>
+              <th>이메일</th>
               <td><input placeholder="메일주소를 입력하세요." /></td>
             </tr>
             <tr align="center">
-              <td>검색단어</td>
+              <th>검색단어</th>
               <td><input placeholder="검색어를 입력하세요." /></td>
             </tr>
             <tr>
-              <td align="center">취미</td>
+              <th>취미</th>
               <td align="center">
                 <input type="checkbox" />운동 <input type="checkbox" />악기
                 <input type="checkbox" />여행
               </td>
             </tr>
             <tr>
-              <td align="center">성별</td>
+              <th>성별</th>
               <td align="center">
                 <input type="radio" />남자 <input type="radio" />여자
               </td>
             </tr>
             <tr>
-              <td align="center">점심메뉴</td>
+              <th>점심메뉴</th>
               <td align="center">
                 <select>
                   <option value="jajangmyeon">짜장면</option>
@@ -53,7 +60,16 @@
             </tr>
           </tbody>
         </table>
-        <button type="submit">Submit</button>
+        <div class="wrapper">
+          <!-- 입력된 내용을 서버로 전송함 -->
+          <!-- input대신 버튼 사용 (디자인이 용이) -->
+          <!-- html5로 넘어오면서 버튼이라는 것을 가시적으로 표기하기 위한 태그임 -->
+          <!-- input보다 더 명시적으로 submit임을 한눈에 알 수 있음 -->
+
+          <!-- 버튼이 훨씬 분명하고 읽기 쉽다. -->
+          <!-- 버튼이 훨씬 디자인이 용이하다. -->
+          <button type="submit">Submit</button>
+        </div>
       </form>
     </div>
   </body>
