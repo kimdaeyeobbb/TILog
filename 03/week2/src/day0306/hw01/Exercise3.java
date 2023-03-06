@@ -7,5 +7,7 @@ public class Exercise3 {
         char name3 = '엽';
 
         System.out.printf("%c%c%c",name1,name2,name3);
+        System.out.println();
+        System.out.printf(""+name1+name2+name3);
     }
 }
