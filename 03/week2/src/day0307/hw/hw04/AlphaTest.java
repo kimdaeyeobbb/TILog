@@ -1,4 +1,4 @@
-package day0307.hw04;
+package day0307.hw.hw04;
 
 public class AlphaTest {
     public static void main(String[] args) {

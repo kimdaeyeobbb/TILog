@@ -1,4 +1,4 @@
-package day0307.hw02;
+package day0307.hw.hw02;
 
 public class OperAndLab {
     public static void main(String[] args) {

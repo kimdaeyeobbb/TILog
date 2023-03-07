@@ -1,4 +1,4 @@
-package day0307.hw01;
+package day0307.hw.hw01;
 
 public class TimeTest {
     public static void main(String[] args) {
