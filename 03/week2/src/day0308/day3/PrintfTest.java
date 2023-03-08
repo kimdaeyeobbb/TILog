@@ -6,6 +6,7 @@ public class PrintfTest {
 		System.out.printf("테스트입니당%n");
 		System.out.printf("%d %x %o %c\n", 100, 100, 100, 100);
 		System.out.printf("%d %1$x %1$o %1$c\n", 100);
+		System.out.printf("0x%X 0x%x\n", (int)'가', (int)'각');
 		System.out.printf("%c %c %c %c\n", '가', 'A', '!', '3');
 		System.out.printf("%b\n", true);
 		System.out.printf("%f %e\n", 100.0, 100.0);
@@ -16,11 +17,3 @@ public class PrintfTest {
 		System.out.printf("%,d원\n", 1000000);			
 	}
 }
-
-
-
-
-
-
-
-
