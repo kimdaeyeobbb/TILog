@@ -1,4 +1,4 @@
-package day0309.courese;
+package day0309.course;
 
 public class TwoArrayTest3 {
 	public static void main(String[] args) {
