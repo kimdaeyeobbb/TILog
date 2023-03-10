@@ -10,6 +10,8 @@ public class MethodLab1 {
 
         /* 금액 변환 */
         int howMuch = getPrice();
+//        System.out.printf("%,d", howMuch);
+
         DecimalFormat dc = new DecimalFormat("##,###");
         String ch = dc.format(howMuch);
         System.out.printf("\t가격은 %s원입니다.",ch);
