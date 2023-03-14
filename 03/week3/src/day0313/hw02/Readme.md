@@ -61,7 +61,7 @@ public class GradeTest {
       arr[i] = scanner.nextInt();
     }
 
-    day0313.course.hw02.GradeExpr ge = new day0313.course.hw02.GradeExpr(arr);
+    GradeExpr ge = new GradeExpr(arr);
     System.out.print("점수들 : ");
     for (int i = 1; i < arr.length; i++) {
       System.out.printf(", %d", arr[i]);
@@ -137,7 +137,7 @@ public class CalculatorTest {
       if (beingPlay == 0) {
         break;
       } else {
-        day0313.course.hw02.CalculatorExpr ce = new day0313.course.hw02.CalculatorExpr(number1, number2);
+        CalculatorExpr ce = new CalculatorExpr(number1, number2);
         System.out.println("덧셈 : " + ce.getAddition());
         System.out.println("뺄셈 : " + ce.getSubtraction());
         System.out.println("곱셈 : " + ce.getMultiplication());
@@ -208,7 +208,7 @@ public class CalculatorTest {
       if (beingPlay == 0) {
         break;
       } else {
-        day0313.course.hw02.CalculatorExpr ce = new day0313.course.hw02.CalculatorExpr(number1, number2);  // 계속 추가적으로 생성자 사용하므로 잘못됨
+        CalculatorExpr ce = new CalculatorExpr(number1, number2);  // 계속 추가적으로 생성자 사용하므로 잘못됨
         System.out.println("덧셈 : " + ce.getAddition());
         System.out.println("뺄셈 : " + ce.getSubtraction());
         System.out.println("곱셈 : " + ce.getMultiplication());
@@ -267,7 +267,7 @@ class CalculatorExpr {
 public class CalculatorTest {
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
-    day0313.course.hw02.CalculatorExpr ce = new day0313.course.hw02.CalculatorExpr(number1, number2);
+    CalculatorExpr ce = new CalculatorExpr(number1, number2);
 
     int beingPlay = 1;
     while (beingPlay != 0) {
@@ -343,7 +343,7 @@ public class CalculatorTest {
     System.out.println("숫자 두개를 입력하세요.");
     num1 = sc.nextInt();
     num2 = sc.nextInt();
-    day0313.course.hw02.CalculatorExpr ce = new day0313.course.hw02.CalculatorExpr(num1, num2);
+    CalculatorExpr ce = new CalculatorExpr(num1, num2);
     System.out.print("입력된 숫자 : %d, %d\n", num1, num2);
     System.out.printf("덧셈 : %d\n" + ce.getAddition());
     System.out.printf("뺄셈 : %d\n" + ce.getSubtraction());
