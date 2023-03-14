@@ -1,5 +1,7 @@
 package day0313.hw01;
 
+import day0310.hw01.MethodLab5;
+
 class SalaryExpr {
     int bonus;
 
@@ -34,8 +36,8 @@ class SalaryExpr {
 
 public class SalaryExam {
     public static void main(String[] args) {
-        int month = (int)(Math.random()*12)+1;
-        int grade = (int)(Math.random()*4)+1;
+        int month = MethodLab5.getRandom(12);
+        int grade = MethodLab5.getRandom(4);
 
         if (month%2 == 0){
             SalaryExpr se = new SalaryExpr(100);
