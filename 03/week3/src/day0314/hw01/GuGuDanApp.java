@@ -1,6 +1,6 @@
 package day0314.hw01;
-
-import java.util.Random;
+import day0310.hw01.MethodLab5;
+//import java.util.Random;
 
 class Multiplication {
     private int dan;
@@ -52,9 +52,13 @@ class GuGuDanExpr extends Multiplication{
 public class GuGuDanApp {
     public static void main(String[] args) {
         // 파란색이 출력결과
-        Random random = new Random();
-        int dan = (random.nextInt(20)+1);
-        int number = (random.nextInt(20)+1);
+//        Random random = new Random();
+//        int dan = (random.nextInt(20)+1);
+//        int number = (random.nextInt(20)+1);
+
+        int dan = MethodLab5.getRandom(20);
+        int number = MethodLab5.getRandom(20);
+
 //        System.out.println(dan);
 //        System.out.println(number);
 
