@@ -100,6 +100,91 @@ public class 클래스명{
 
 - 스택 영역에 생성된 클래스 변수는 힙 영역에 생성된 객체를 참조함
 
+
+
+### 클래스의 용도
+
 ```java
-public class
+/* Student.java */
+public class Student{
+    
+}
+
+/* StudentExample.java */
+public class StudentExample {
+    public static void main(String[] args){
+        Student s1 = new Student();
+        System.out.println("s1 변수가 Student 객체 참조");
+        
+        Studetn s2 = new Student();
+        System.out.println("s2 변수가  또다른 Student 객체 참조");
+    }
+}
+```
+
+#### 1. 라이브러리 클래스
+
+- 실행할 수 없으며 다른 클래스에서 이용하는 클래스
+
+- Student
+
+#### 2. 실행 클래스
+
+- 메서드를 가지고 있는 실행 가능한 클래스
+
+- StudentExample
+
+## 6.5 클래스의 구성 멤버
+
+
+```java
+public class ClassName{
+    int fieldName; // 필드 선언
+  
+    ClassName();   // 생성자 선언
+  
+    int methodName(){}   // 메서드 선언
+}
+```
+
+- 필드
+  - 객체의 데이터가 저장되는 곳
+
+- 생성자
+  - new 연산자로 객체를 생성할 경우 객체의 초기화 역할을 담당함
+
+- 메서드
+  - 객체가 수행할 동작
+  
+
+## 6.6 필드 선언과 사용
+
+- 필드
+  - 객체의 데이터를 저장하는 역할
+
+```java
+public class Car{
+    /* 고유 데이터를 저장하는 필드 선언 */
+  String company;
+  String model;
+  String color;
+  int maxSpeed;
+  
+  /* 상태 데이터를 저장하는 필드 선언 */
+  int speed;  // 현재속도
+  int rpm;   // 엔진회전 수
+  
+  /* 부품 데이터를 저장하는 필드 선언 */
+  Body body;  // 차체
+  Engine engine;  // 엔진
+  Tire tire;   // 타이어
+}
+```
+
+
+### 필드 선언
+
+- 필드는 반드시 클래스 블록에서 선언되어야 함
+```java
+타입 필드명 [= 초기값 ]; 
 ```
