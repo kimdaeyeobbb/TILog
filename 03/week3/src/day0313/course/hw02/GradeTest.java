@@ -1,4 +1,4 @@
-package day0313.hw02;
+package day0313.course.hw02;
 
 import java.util.Scanner;
 
