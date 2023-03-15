@@ -1,7 +1,7 @@
 
 # 3.1 선언위치에 따른 변수의 종류
 
-- 변수의 선언위치가
+- 변수의 선언위치에 따라서 변수의 종류와 범위가 결정됨. 
 
 ```java
 class Vairables{
@@ -27,7 +27,146 @@ class Vairables{
 - static이 붙지않은 변수
   - non-static 변수
   - 인스턴스 변수
-  - 메모리 영역을 한번만 할당함 (아무리 우리가 클래스 객체를 여러개 생성했다 하더라도 iv변수는 1번만 생성되나 cv 변수는 ~)
+  - 메모리 영역을 한번만 할당함 
+  (아무리 우리가 클래스 객체를 여러개 생성했다 하더라도 iv변수는 1번만 생성됨)
+
+## 정적 멤버
+
+```java
+클래스 
+-> [loading (바이크코드 읽기)] 
+-> class loader 
+-> [바이크코드 저장] 
+-> 메서드 영역 (내부에 클래스 포함 (클래스 내부에는 정적 필드와 정적 메서드 포함))
+```
+
+- `정적 멤버`란 메서드 영역의 클래스에 고정적으로 위치하는 멤버
+
+- 자바는 class loader를 이용해서 클래스를 메서드 영역에 저장하고 사용
+- 정적 멤버는 객체를 생성할 필요 없이 클래스를 통해 바로 사용이 가능함
+
+### 정적 멤버 선언
+
+- 필드와 메서드는 static 키워드를 추가하여 정적 멤버로 만들 수 있음
+
+```java
+public class ClassName{
+    /* 정적 필드 선언 */
+  static type field; // (= 초기값)
+  
+  /* 정적 메서드 */
+  static return_type method(parameter){
+      
+  }
+}
+```
+
+- 공통으로 사용되는 필드(객체의 속성)는 정적 필드로 선언하는 것이 좋다
+<br> (객체마다 가지고 있을 필요가 없는 필드에 해당)
+
+```java
+public class Calculator{
+    String color;  // 계산기별로 색상이 다를 수 있음
+  static double pi = 3.141592;  // 계산기상에서 사용되는 파이값은 동일함
+}
+```
+
+- 인스턴스 필드를 사용하지 않는 메서드는 정적 필드로 선언하는 것이 좋다
+- Calculator 클래스의 plus()메서드나 minus() 메서드는 외부에서 주어진 매개값들을 가지고 처리하므로 정적 메서드로 선언하는 것이 좋다
+<br> (하지만 인스턴스 필드인 color를 변경하는 setColor() 메서드는 인스턴스 메서드로 선언해야 함)
+
+```java
+public class Calculator{
+    String color;   // 인스턴스 필드
+  void setColor(String color){this.color = color;}  // 인스턴스 메서드
+  static int plus(int x, int y){ return x+y;}  // 정적 메서드
+  static int minus(int x, int y){return x-y};   // 정적 메서드
+}
+```
+
+### 정적 멤버 사용
+
+- 클래스가 메모리에 로딩되면 정적 멤버를 바로 사용할 수 있고, 클래스명과 함께 점(.) 연산자로 접근하면 됨
+
+- 정적 필드와 정적 메서드는 객체 참조 변수로 접근할 수 있음
+
+```java
+public class Calculator{
+    static double pi = 3.141592;
+    static int plus(int x, int y){}
+  static int minus(int x, int y){}
+}
+
+/* 정적 필드 pi와 정적 메서드 plus(), minus()를 사용 */
+double result = 20*20*(Calculator.pi);
+int result2 = Calculator.plus(15, 10);
+int result3 = Calculator.minus(30,20);
+
+/* 객체 참조 변수를 이용해서 정적 필드와 정적 메서드에 접근 */
+Calculator myCalc = new Calculator();
+double result4 = 20*20*(myCalc.pi);
+int reuslt5 = myCalc.plus(30,40);
+int result6 = myCalc.minus(60,50);
+```
+
+
+#### 유의사항
+
+- 정적 요소는 클래스명으로 접근하는 것이 좋다
+
+### 정적 블록
+
+- 정적 필드는 필드 선언과 동시에 초기값을 주는 것이 일반적임
+
+```java
+static double pi = 3.141592;
+```
+
+- 정적 블록은 클래스가 메모리에 로딩될 때 자동으로 실행됨
+- 정적 블록이 클래스 내부에 여러개가 선언되어 있는 경우에는 선언된 순서대로 실행됨
+- 정적 필드는 객체 생성 없이도 사용할 수 있음 (따라서 초기화 작업을 하지 않음. 생성자는 객체 생성 후 실행됨.)
+
+### 정적 메서드와 정적 블록은 인스턴스 멤버 사용 불가
+
+- 정적 메서드와 정적 블록은 객체가 없어도 실행되기 때문에 내부의 인스턴스 필드나 인스턴스 메서드를 사용할 수 없다.
+  (또한 객체 자신의 참조인 this도 사용할 수 없음)
+
+```java
+public class ClassName{
+    /* 인스턴스 필드와 메서드 선언 */
+  int field1;
+  void method1(){}
+  
+  /* 정적 필드와 정적 메서드 선언 */
+  static int field2;
+  static void method2(){}
+  
+  /* 정적 블록 선언 */
+  static{
+      field1 = 10;  // compile error
+    metho1();  // compile error
+  
+    field2 = 20; // ok
+    method2(); // ok
+  }
+  
+  /* 정적 메서드 선언 */
+  static void method3(){
+      this.field1 = 50; // compile error
+    this.method1();  // compile error
+    field2 = 60; // ok
+    method2();  // ok
+  }
+}
+```
+
+- 정적 메스드와 정적 블록에서 인스턴스 멤버를 사용하고 싶은 경우 객체를 먼저 생성하고 나서 참조 변수로 접근해야 함
+```java
+static void Method3(){
+    /* 객체 생성 */
+        ClassName obj = new ClassName();
+}
+```
 
 
 - 클래스 로딩
