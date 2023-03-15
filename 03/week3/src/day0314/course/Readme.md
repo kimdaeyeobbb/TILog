@@ -160,13 +160,107 @@ public class ClassName{
 }
 ```
 
-- 정적 메스드와 정적 블록에서 인스턴스 멤버를 사용하고 싶은 경우 객체를 먼저 생성하고 나서 참조 변수로 접근해야 함
+- 정적 메소드와 정적 블록에서 인스턴스 멤버를 사용하고 싶은 경우 
+객체를 먼저 생성하고 나서 참조 변수로 접근해야 함
 ```java
+// 정적 메서드
 static void Method3(){
     /* 객체 생성 */
-        ClassName obj = new ClassName();
+    ClassName obj = new ClassName();
+    
+    /* 인스턴스 멤버 사용 */
+    obj.field1 = 10;
+    obj.method1();
 }
 ```
+
+- main() 메서드는 정적 메서드이다.
+따라서 객체 생성 없이 인스턴스 필드와 인스턴스 메서드를 main() 메서드에서 바로 사용할 수 없다.
+그러므로 main()메서드에서 인스턴스 멤버를 사용하고 싶은 경우
+객체를 먼저 생성하고 난 다음에 참조 변수로 접근해야 한다
+
+```java
+public class Car{
+    /* 인스턴스 필드 선언 */
+  int speed;
+  
+  /* 인스턴스 메서드 선언 */
+  void run(){}
+  
+  /* 메인 메서드 선언 */
+  public static void main(String[] args){
+      speed = 60;  // compile error
+    run();  // compile error
+  }
+}
+```
+
+```java
+public class Car{
+  /* 인스턴스 필드 선언 */
+  int speed;
+
+  /* 인스턴스 메서드 선언 */
+  void run(){}
+
+  /* 메인 메서드 선언 */
+  public static void main(String[] args){
+      /* 객체 생성 */
+      Car myCar = new Car();
+    
+      /* 인스턴스 멤버 사용 */
+      myCar.speed = 60;
+      myCar.run();
+  }
+}
+```
+
+# final 필드 & 상수
+
+- 인스턴스 필드와 정적 필드는 언제든지 값을 변경할 수 있지만 읽기만 허용해야하는 경우가 존재하는데,
+이 때 final 필드와 상수를 선언해서 사용함
+
+## final 필드 선언
+
+- final 필드는 초기값이 저장되면 프로그램 실행 도중에 수정할 수 없음
+
+- final 필드에 초기값을 대입하는 방법
+1. 필드 선언 시에 초기값 대입
+2. 생성자에서 초기값 대입
+
+- 유의사항
+  - 복잡한 초기화 코드가 필요한 경우 혹은
+  - 객체 생성 시에 외부에서 전달된 값으로 초기화하는 경우 생성자에서 해야 함
+
+## 상수 선언
+
+- 불변의 값을 저장하는 필드를 `상수`라 함
+- 상수는 static이면서 final한 특징을 가짐 (객체마다 저장할 필요가 없고, 여러 개의 값을 가져서도 안되기 떄문)
+- 상수명은 대문자로 작성하는 것이 관례 (서로 다른 단어가 혼합된 경우 언더바로 연결)
+
+```java
+static final 타입 상수 
+
+/* 복잡한 초기화 -> 정적 블록에서 초기화 */
+static{
+    상수 = 초기값;
+}
+        
+static final double PI = 3.141592;
+static final double EARTH_SURFACE_AREA = 5.147185;
+
+// 상수는 정적 필드이므로 클래스로 접근해서 읽을 수 있음
+public class Earth{
+    static final double EARTH_SURFACE_AREA = 5.147185;
+}
+
+public class EarthEx{
+  public static void main(String[] args) {
+    System.out.println(Earth.EARTH_SURFACE_AREA);
+  }
+}
+```
+
 
 
 - 클래스 로딩
