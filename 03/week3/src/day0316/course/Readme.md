@@ -921,5 +921,161 @@ public class TVTest {
 }
 
 ```
+## 실습 해석
+
+- 계층도
+```java
+Object
+
+TV
+
+SaleTV
+```
+
+- TV에 대한 객체 생성시 조상인 Object에 대한 객체도 생성됨 
+  - Object에 대한 멤버도 사용할 수 있게 됨
+
+- 자손의 객체는 조상유형의 객체에 대입할 수 있음
+- Object형 변수는 Object 까지. Tv형 멤버변수는 Object + Tv가 가지는 멤버들까지 참조할 수 있음.
+- 어떤 객체를 생성한다
+  - 어떤 객체냐에따라 해당 클래스 유형의 변수에 담아서 써야 형변환 없이 편하게 담아서 사용할 수 있음
+
+- Object 클래스는 toString을 이미 가지고 있음. (TV는 toString을 가지고 있음! Object에게 물려받았으므로 toString을 호출할 수 있다!)
+- TV는 자기가 내장하고 있는 것 외에도 Object로부터 물려받은 것 까지는 호출할 수 있는 권한을 가지고 있다
 
 
+- TV타입의 매개 변수 선언 후
+  - SaleTV객체 생성시 SaleTV객체 & TV 객체 & Object는 한 덩어이라고 생각해야함.
+  - 따라서 조상으로부터 물려받은 모든 멤버를 객체 생성하게 됨 (메모리 할당하게 됨)
+  - 이 객체를 SaleTV형 매개변수에 담아서 사용하면 이 3개 모두의 멤버변수를 사용할 수 있음.
+
+- 자손에서 추가된 것은 호출할 수 없음. 호출하고 싶다면 자손으로 강제 형변환해서 호출해야함.
+- toString은 Object로부터 물려받았으므로 어디서든 호출할 수 있음
+- toString을 오버라이딩 안하고 호출하려고 하면 최하위 영역부터 최상단 영역까지 거슬러 올라가면서 호출할 toString을 찾아감.
+  (Object의 toString은 객체에 대한 참조값을 return함. toString을 하위영역에서 오버라이딩해서 사용해야 원하는대로 출력될 것임)
+
+### toString 
+- 어떤 객체든 toString을 호출 할 수 있다
+- 이 객체에 대한 정보를 하나의 문자열로 return 
+
+
+# java.lang.System
+
+- [참고 자료](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/System.html)
+- 자바상 static형은 미리 메모리영역을 할당
+- err과 out은 PrintStream객체를 참고함
+
+
+# html로 만드는 웹 페이지의 특징
+- 하이퍼링크를 쓸 수 있다 (클릭시 페이지 이동이 일어난다)
+
+# String class
+
+![img.png](img.png)
+
+- [사이트](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html)
+- 인자로 전달된 객체에 대한 정보를 하나의 문자열로 리턴 (toString 결과가 리턴)
+
+# [MySingletonTest](./MySingletonTest.java)
+
+- 생성자 중 팩토리 메서드중 대신 설계하도록 만들어진것이 있는데 그 중 하나가 싱글톤이다
+
+## 싱글톤
+
+- 자바 프로그램이 수행되는 동안 객체가 1개만 생성되도록 만들고 싶을 때 쓰는 것 중 대표적인 것이 `runtime`객체
+- 우리가 수행시키는 프로그램은 하나의 JVM위에서 수행됨
+- 하나의 싱글톤 중 대표적인 것이 `Runtime`
+
+- 생성자 메서드는 이미 만들어진 객체를 초기화하는 애임 (생성자 가지고는 객체를 1개만 만들라는 명령을 구현할 수 없음)
+
+```java
+package day0316.course;
+
+class MySingleton {
+	 // 클래스가 메모리에 올라갈 때 (클래스가 로딩될 때)
+
+	// 메모리에 객체를 (미리) 생성하도록 만듦
+	private static MySingleton obj = new MySingleton();
+	private MySingleton() {		
+	}
+
+	// 미리 생성한 마이 싱글톤 객체를 리턴
+	static MySingleton getMy() {
+		return obj;
+	}
+
+	void printMyName() {
+		System.out.println("유니코");	
+	}
+	void printFavoriteFood() {
+		System.out.println("떡볶이");	
+	}
+}
+public class MySingletonTest {
+	public static void main(String[] args) {
+		//MySingleton my = new MySingleton(); // error. Visible이 아님과 존재하지 않음은 다름
+		MySingleton my = MySingleton.getMy();  // 이 클래스는 객체 생성을 위해 getMy() 메서드를 호출해야 함
+		// 팩토리 메서드명은 뭘로 하든 상관없지만 일반적으로 `get인스턴스`라는 이름을 많이씀.
+		// 혹은 create땡땡땡으로 작명함
+		// MySingleton 객체가 생성된 후 리턴
+
+		my.printMyName();
+		my.printFavoriteFood();
+		System.out.println(my);  // 전달된 객체의 toString 리턴값 (마이싱글톤이 toString이 없으므로 Object의 toString 호출)
+		System.out.println(MySingleton.getMy());  // 마이싱글톤 객체를 달라고 함
+		System.out.println(MySingleton.getMy());
+	}
+}
+
+```
+
+## 싱글톤 패턴 예제2
+```java
+package day0316.course;
+
+class MySingleton2 {
+    private static MySingleton2 obj = null; // 클래스 로딩할때 미리 객체생성하지 않음
+//    private MySingleton2() {
+//    } // 막아줘야 함
+
+    // getMy 호출시 객체 생성해서 리턴
+    // 계속 수행하는 것이 아님. 만들어진 객체를 갖다줌.
+    static MySingleton2 getMy() {
+        if(obj == null){
+            obj = new MySingleton2();
+        }
+        return obj;
+    }
+
+    void printMyName() {
+        System.out.println("듀크");
+    }
+    void printFavoriteFood() {
+        System.out.println("갈비");
+    }
+}
+public class MySingletonTest2 {
+    public static void main(String[] args) {
+        //MySingleton my = new MySingleton(); // error. Visible이 아님과 존재하지 않음은 다름
+        MySingleton2 my = MySingleton2.getMy();  // 이 클래스는 객체 생성을 위해 getMy() 메서드를 호출해야 함
+        // 팩토리 메서드명은 뭘로 하든 상관없지만 일반적으로 `get인스턴스`라는 이름을 많이씀.
+        // 혹은 create땡땡땡으로 작명함
+        // MySingleton 객체가 생성된 후 리턴
+
+        my.printMyName();
+        my.printFavoriteFood();
+        System.out.println(my);  // 전달된 객체의 toString 리턴값 (마이싱글톤이 toString이 없으므로 Object의 toString 호출)
+        System.out.println(MySingleton2.getMy());  // 마이싱글톤 객체를 달라고 함
+        System.out.println(MySingleton2.getMy());
+    }
+}
+
+```
+
+### `obj = new MySingleTon2()`
+
+```java
+
+// new 연산자를 이용해서 객체 생성하는 방법은 
+// 객체 생성 후 생성자를 던져줌 (초기화를하기 위함)
+```
