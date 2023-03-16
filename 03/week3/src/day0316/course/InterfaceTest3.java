@@ -1,4 +1,4 @@
-package day0315.course;
+package day0316.course;
 
 interface InterCalculator {
 
