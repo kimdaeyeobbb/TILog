@@ -31,9 +31,7 @@ class Student extends Human{
     private String number;
     private String major;
 
-    public Student(){
-
-    }
+    public Student(){}
 
     // number, major는 직접 세팅. 나머지는 조상 생성자를 통해 세팅 
     public Student(String name, int age, int height, int weight, String number, String major){
@@ -61,10 +59,64 @@ public class StudentTest {
         }
     }
 }
+```
+## 멤버변수
 
+- 클래스 내에 선언된 변수
+- `인스턴스 변수`, `정적 변수`가 멤버변수임
+
+```java
+class Person{
+    String name;   // 인스턴스 변수
+    int age;  // 인스턴스 변수
+    String sex;  // 인스턴스 변수 
+    static String nation = "KOREA";  // 정적 변수
+}
 ```
 
+
+### 인스턴스 변수
+
+- 인스턴스를 생성하고나서 접근이 가능한 변수 
+- 인스턴스의 생명주기와 동일한 주기를 가짐
+
+```java
+class Person{
+    String name;   // 인스턴스 변수
+    int age;  // 인스턴스 변수
+    String sex;  // 인스턴스 변수 
+    static String nation = "KOREA";  // 정적 변수
+}
+
+Person person1 = new Person();
+person1.name = "카세미루";  // 인스턴스 변수
+person1.sex = "male";  // 인스턴스 변수 
+```
+
+### 정적 변수
+
+- 인스턴스를 생성하지 않아도 접근이 가능한 변수
+- `클래스 변수`라고도 함
+- 정적 변수 `nation`은 Person 클래스에서 동일한 메모리를 참조하므로 변수를 공유한다고 볼 수 있음
+- 인스턴스의 생성과 소멸 생명주기와 상관없이 프로그램이 시작되면 메모리에 적재되므로 인스턴스 생성없이 접근이 가능함
+
+
+```java
+class Person{
+    String name;   // 인스턴스 변수
+    int age;  // 인스턴스 변수
+    String sex;  // 인스턴스 변수 
+    static String nation = "KOREA";  // 정적 변수
+}
+
+String nation2 = Person.nation;  // 정적 변수
+```
+
+
+## 객체 생성자
+
 - 객체 생성자는 호출시 조상 생성자부터 호출
+
 
 # Tip
 
