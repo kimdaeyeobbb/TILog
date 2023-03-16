@@ -56,6 +56,7 @@ public class GuGuDanApp {
 //        int dan = (random.nextInt(20)+1);
 //        int number = (random.nextInt(20)+1);
 
+        /* 난수추출 재활용 */
         int dan = MethodLab5.getRandom(20);
         int number = MethodLab5.getRandom(20);
 
