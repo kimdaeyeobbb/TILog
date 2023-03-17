@@ -1229,9 +1229,23 @@ private 클래스() {}
 - 예제
 ```java
 public class 클래스명{
-    private static 클래스 singleton = new 클래스();
+    private static 클래스 singleton = new 클래스();  // (1)
     // private 접근 권한을 갖는 static 데이터(필드) 선언과 초기화
   
+  private 클래스() {}
+  // private 접근 권한을 갖는 생성자 선언 
   
+  public static 클래스 getInstance(){  // (2)
+      return singleton;
+  }
+  // public 접근 권한을 갖는 정적 메서드 선언
 }
 ```
+
+- (1)
+  - 자신의 타입으로 정적 필드를 선언하고 미리 객체를 생성해서 초기화시킴
+  - private 접근 제한자를 붙여서 외부에서 데이터(필드)값을 변경하지 못하도록 막음
+
+- (2)
+  - 외부에서 객체를 얻는 유일한 방법은 `getInstance()` 메서드를 호출하는것이 되도록 설정
+  - 
