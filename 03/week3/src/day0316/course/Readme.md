@@ -1079,3 +1079,159 @@ public class MySingletonTest2 {
 // new 연산자를 이용해서 객체 생성하는 방법은 
 // 객체 생성 후 생성자를 던져줌 (초기화를하기 위함)
 ```
+
+
+# 내용 보충
+
+## Getter & Setter
+
+- 객체의 데이터(필드)를 외부에서 마음대로 읽고 변경한다면 객체의 무결성이 깨질 수 있음<br>
+ex) 자동차의 속력은 음수X => 외부에서 자동차 속력 (데이터 객체)을 음수로 변경할 경우 무결성이 깨짐
+
+```java
+Car myCar = new Car();
+myCar.speed = -100;  // 객체 데이터를 외부에서 조작 => 객체의 무결성 위배
+```
+
+- 이러한 문제점을 막고자 객체 지향 프로그래밍에서는 외부에서의 데이터(필드)접근을 막고 메서드를 통해 접근한다.
+- 메서드를 통해 객체의 데이터(필드)에 접근할 경우 메서드는 데이터를 검증하여 유효한 값만 객체의 데이터(필드)에 저장할 수 있다
+- 그러한 역할을 메소드는 `Setter`이다.
+
+
+### Setter 예제
+
+```java
+private double speed;
+
+public void setSpeed(double speed){
+    if(speed<0){
+        this.speed = 0; 
+        return;  // 매개값이 음수인 경우 메서드 실행 종료
+    } else {
+        this.speed = speed;
+    }
+}
+```
+
+- 객체의 데이터(필드)인 speed는 private 접근 제한을 가지므로 외부에서 접근하지 못함
+- speed 데이터(필드)를 변경하기 위해서는 Setter인 setSpeed() 메서드를 이용해야 함
+
+
+- 외부에서 객체의 데이터(필드)를 읽을 떄에도 메서드가 필요한 경우가 존재하는데 이럴 떄 `Getter`를 사용한다.<br>
+  (데이터(필드) 값이 객체 외부에서 사용하기에 부적절한 경우, 메서드로 적절한 값으로 변환해서 리턴할 수 있기 때문임)
+
+### Getter 예제
+
+```java
+private double speed;  // speed 단위는 마일
+
+public double getSpeed(){
+    double km = speed*1.6;
+    return km;
+}  // 필드값인 마일을 km 단위로 환산한 다음 외부로 리턴
+```
+
+- speed 데이터(필드)는 private 접근 제한을 가지므로 외부에서 읽지 못한다. 따라서 speed 데이터(필드)를 읽기 위해서는 Getter인 getSpeed()를 이용해야 한다.
+- getSpeed() 메서드는 마일 단위의 데이터(필드)값을 km 단위로 변환해서 외부로 리턴함
+
+### Getter & Setter 기본 작성 방법
+
+```java
+private 타입 fieldName;   // 필드 접근 제한자 - private
+
+/* Getter */
+public 타입 getFieldName(){
+    return fieldName;
+}
+// 접근 제한자 - public
+// 리턴타입 - fieldtype
+// 메서드 - get + 필드명(첫 글자를 대문자로 씀)
+
+/* Setter */
+public void setFieldName(타입 fieldName){
+    this.fieldName = fieldName;  
+}
+// 접근 제한자 - public 
+// 리턴 타입 - void
+// 메서드명: set + 필드명(첫 글자를 대문자로 씀)
+// 매개변수 타입 - 필드타입
+```
+
+### Getter & Setter 예제
+
+- 예제1
+```java
+class Car{
+    // 데이터(필드) 선언
+  private int speed;
+  private boolean stop;
+  
+  // speed 데이터(필드)의 Getter & Setter 선언
+  public int getSpeed(){
+      return speed;
+  }
+  
+  public void setSpeed(int speed){
+      if (speed < 0){
+          this.speed = 0;
+          return;
+      } else {
+          this.speed = speed;
+      }
+  }
+  
+  // stop 데이터(필드)의 Getter & Setter 선언
+  public boolean isStop(){
+      return stop;
+  }
+  
+  public void setStop(boolean stop){
+      this.stop = stop;
+      if(stop == true){
+          this.speed = 0;
+      }
+  }
+}
+
+public class CarExample{
+  public static void main(String[] args) {
+    Car myCar = new Car();  // 객체 생성
+
+    /* 속도변경을 잘못한 사례 */
+    myCar.setSpeed(-50);
+    System.out.println("현재 속도: "+myCar.getSpeed());
+
+    /* 올바른 속도변경 사례 */
+    myCar.setSpeed(60);
+    System.out.println("현재 속도: "+myCar.getSpeed());
+
+    /* 차량 정지 */
+    if(myCar.isStop()){
+      myCar.setStop(true);
+    }
+    System.out.println("현재 속도: "+myCar.getSpeed());
+  }
+}
+```  
+
+## 싱글톤 패턴
+
+```java
+private 클래스() {}
+```
+
+- 애플리케이션 전체에서 단 한개의 객체만 생성해서 사용하고 싶을 때 사용하는 패턴
+- 생성자의 접근 제어자를 private으로 설정해서 외부에서 new 연산자를 통해 생성자를 호출할 수 없도록 막음
+- 이렇게 되면 생성자를 호출할 수 없게 되므로 외부에서 마음대로 객체를 생성하는 것이 불가능진다.
+  (싱글톤 패턴만이 제공할 수 있는 static method를 통해서 간접적으로 객체를 얻을 수 있게 된다.)
+
+
+- 예제
+```java
+public class 클래스명{
+    private static 클래스 singleton = new 클래스();
+    // private 접근 권한을 갖는 static 데이터(필드) 선언과 초기화
+  
+  
+}
+```
