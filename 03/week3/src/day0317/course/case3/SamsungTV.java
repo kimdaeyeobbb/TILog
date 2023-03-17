@@ -1,6 +1,6 @@
-package day0316.course.case1;
+package day0317.course.case3;
 
-public class SamsungTV {
+public class SamsungTV implements TV{
 	public void powerOn(){
 		System.out.println("SamsungTV --- 전원을 켠다.");
 	}

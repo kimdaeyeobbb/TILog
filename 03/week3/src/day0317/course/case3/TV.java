@@ -1,4 +1,4 @@
-package day0316.course.case3;
+package day0317.course.case3;
 
 public interface TV {
 	public void powerOn();

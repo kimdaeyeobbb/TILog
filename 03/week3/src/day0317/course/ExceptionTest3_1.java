@@ -1,4 +1,4 @@
-package day0316.course;
+package day0317.course;
 import java.util.Random;
 
 public class ExceptionTest3_1 {

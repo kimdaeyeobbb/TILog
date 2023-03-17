@@ -1,4 +1,4 @@
-package day0316.course.case1;
+package day0317.course.case1;
 
 public class LgTV {
 	public void turnOn(){
