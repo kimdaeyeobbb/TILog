@@ -4,7 +4,23 @@ import java.util.Random;
 import java.lang.Exception;
 import day0310.hw02.MethodLab7;
 
-class LottoMachine extends LottoGame{
+public class LottoGame {
+    public static void main(String[] args) {
+        LottoMachine lm = new LottoMachine();
+        lm.createLottoNums();
+        try{
+            lm.checkLottoNums();
+            MethodLab7.printArray(lm.getNums());
+        } catch(Exception e){
+            System.out.println(e.getMessage());  // 에러메시지
+//            System.out.println(e.toString());  // 예외의 종류 & 에러메시지
+//            e.printStackTrace();  // 예외의 종류 & 에러메시지 & 추적 내용
+            return;
+        }
+    }
+}
+
+class LottoMachine {
     /* 멤버변수 */
     private int[] nums;
 
@@ -35,17 +51,3 @@ class LottoMachine extends LottoGame{
     }
 }
 
-
-public class LottoGame {
-    public static void main(String[] args) {
-        LottoMachine lm = new LottoMachine();
-        lm.createLottoNums();
-        try{
-            lm.checkLottoNums();
-            MethodLab7.printArray(lm.getNums());
-        } catch(Exception e){
-            System.out.println(e.getMessage());
-            return;
-        }
-    }
-}
