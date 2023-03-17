@@ -1,0 +1,207 @@
+제출파일 : 3월16일실습_XXX.txt
+메일제목 : 자바OOP실습9-XXX
+
+다음에 제시된 메서드들의 도큐멘테이션을 찾아 보고
+
+예외 처리를 해야 하는지 여부를 검토한 후에 다음과 같이 작성한다.
+
+- XXXException 을 반드시 처리해야 한다.
+
+- 예외처리를 하지 않는다.
+
+
+(매개변수 표시 -> 여러개로 오버로딩된애. 
+매개변수 사양이. getByName은 매개변수가 1개. 오버로딩안된애들.
+
+
+- InetAddress 의 getByName()
+
+------>
+UnknownHostExecption 처리를 해야함
+(호스트의 IP주소를 찾을 수 없거나 글로벌 IPv6 주소에 대해 scope_id가 지정된 경우)
+
+SecurityException 처리를 해야함
+(보안 관리자가 있고, checkConnect 메서드가 작업을 허용하지 않는 경우)
+
+
+
+- URL 의 객체 생성 : (생성자 메서드 중에서 URL(String spec)을 기준으로)
+
+------> 
+MalformedURLException을 throws 해야함
+(프로토콜이 지정되지 않은경우)
+(알수 없는 프로토콜이 발견된 경우)
+(프로토콜 spec이 null인 경우)
+(구문 분석된 URL이 관련된 프로토콜의 특정 구문을 준수하지 않는 경우)
+
+
+
+- ArrayList 의 add​(E e)
+
+------>
+예외처리를 하지 않아도 됨
+
+
+
+- HashMap 의 put​(K key, V value)
+예외처리를 하지 않아도 됨
+
+
+
+- Reader 의 read()
+
+------>
+IOException 처리해야함 (일반 exception)
+(IO error가 발생한 경우)
+
+
+- Writer 의 write(String str)
+
+------>
+
+IOException 처리해야함 (일반 Exception)
+(IO error가 발생한 경우)
+
+
+
+- FileReader 의 객체 생성(생성자 메서드 중에서 FileReader(String fileName)을 기준으로)
+
+------>
+FileNotFoundException 처리해야함 
+(이름이 지정된 파일이 존재하지 않는 경우)
+
+
+
+- FileWriter 의 객체 생성
+
+------>
+IOException 처리해야함
+
+
+- Class 의 forName()
+
+------>
+NullPointerException  (주어진 모듈 혹은 이름이 null인 경우)
+LinkageErroR (linkage에 실패하는 경우)
+SecurityException(런타임허가가 거부된 경우. 모듈 컨텐츠에 접근이 거부된 경우.)
+
+
+- Random 클래스 객체 생성(생성자 메서드 중에서 Random()을 기준으로)
+
+------>
+예외처리 불필요
+
+
+- DriverManager 의 getConnection​(String url, String user, String password)
+
+------>
+SQLException (데이터베이스 접근 오류가 발생하거나 url이 null인 경우)
+SQLTimeoutException (드라이버가 setLoginTimeout 메서드에서 지정한 시간 초과 값을 확인하고 현재 데이터베이스 연결 시도를 취소하려고 시도한 경우)
+
+
+
+- Statement 의 executeQuery()
+
+------>
+SQLException
+SQLTimeoutException
+
+
+- Connection 의 createStatement()
+
+------>
+
+SQLException 
+
+
+- Runtime 의 exec​(String command)
+
+------>
+
+IOException
+
+SecurityException
+NullPointerException
+IllegalArgumentException
+
+
+
+- Object 의 equals()
+
+------>
+
+예외처리를 해주지 않아도 됨
+
+
+- Scanner 의 객체 생성(생성자 메서드 중에서 Scanner(InputStream source)을 기준으로)
+
+------>
+
+예외처리 불필요
+
+
+- Scanner 의 nextInt()
+
+------>
+
+InputMimatchException
+NoSuchElementException
+IllegalStateException
+
+
+
+- BufferedReader 의 readLine()
+
+------>
+IOException
+
+
+- URL 의 openStream()
+
+------>
+
+IOException
+
+
+- StringBuffer 의 append​(String str)
+
+------>
+예외처리 불필요
+
+
+
+- String 의 length()
+
+------>
+예외처리 불필요
+
+
+
+- ResultSet 의 next()
+
+------>
+SQLException
+
+
+
+- File 의 객체생성(생성자 메서드 중에서 File(String pathname)을 기준으로)
+
+------>
+
+NullPointerException
+
+
+- Socket 의 객체생성(생성자 메서드 중에서 Socket(InetAddress address, int port)을 기준으로)
+
+------>
+IOException
+
+
+- Iterator 의 hasNext()
+
+------>
+
+예외처리 불필요
+
+
+
