@@ -1225,8 +1225,8 @@ private 클래스() {}
 - 이렇게 되면 생성자를 호출할 수 없게 되므로 외부에서 마음대로 객체를 생성하는 것이 불가능진다.
   (싱글톤 패턴만이 제공할 수 있는 static method를 통해서 간접적으로 객체를 얻을 수 있게 된다.)
 
+### 기본 형태
 
-- 예제
 ```java
 public class 클래스명{
     private static 클래스 singleton = new 클래스();  // (1)
@@ -1247,5 +1247,102 @@ public class 클래스명{
   - private 접근 제한자를 붙여서 외부에서 데이터(필드)값을 변경하지 못하도록 막음
 
 - (2)
-  - 외부에서 객체를 얻는 유일한 방법은 `getInstance()` 메서드를 호출하는것이 되도록 설정
-  - 
+  - 외부에서 객체를 얻는 유일한 방법은 `getInstance()` 메서드를 호출하는것이 되도록 설정하는 것
+  - `getInstance()`메서드가 리턴하는 객체는 정적 데이터(필드)가 참조하는 싱글톤 객체임
+
+
+### 예제1
+
+```java
+package day0316.course;
+
+class MySingleton {
+	 // 클래스가 메모리에 올라갈 때 (클래스가 로딩될 때)
+
+	// 메모리에 객체를 (미리) 생성하도록 만듦
+	private static MySingleton obj = new MySingleton();
+	private MySingleton() {		
+	}
+
+	// 미리 생성한 마이 싱글톤 객체를 리턴
+	static MySingleton getMy() {
+		return obj;
+	}
+
+	void printMyName() {
+		System.out.println("유니코");	
+	}
+	void printFavoriteFood() {
+		System.out.println("떡볶이");	
+	}
+}
+public class MySingletonTest {
+	public static void main(String[] args) {
+		//MySingleton my = new MySingleton(); // error. Visible이 아님과 존재하지 않음은 다름
+		MySingleton my = MySingleton.getMy();  // 이 클래스는 객체 생성을 위해 getMy() 메서드를 호출해야 함
+		// 팩토리 메서드명은 뭘로 하든 상관없지만 일반적으로 `get인스턴스`라는 이름을 많이씀.
+		// 혹은 create땡땡땡으로 작명함
+		// MySingleton 객체가 생성된 후 리턴
+
+		my.printMyName();
+		my.printFavoriteFood();
+		System.out.println(my);  // 전달된 객체의 toString 리턴값 (마이싱글톤이 toString이 없으므로 Object의 toString 호출)
+		System.out.println(MySingleton.getMy());  // 마이싱글톤 객체를 달라고 함
+		System.out.println(MySingleton.getMy());
+	}
+}
+
+```
+
+- 팩토리 메서드 패턴
+  - 객체지향 디자인 패턴
+  - 부모 클래스에 알려지지 않은 구체적인 클래스를 생성하는 패턴
+  - 자식 클래스가 어떤 객체를 생성할지를 결정하는 패턴
+  - 부모 클래스 코드에 구체적인 클래스 이름을 감추기 위한 방법으로도 사용함
+  
+  
+- [팩토리 메서드](https://refactoring.guru/ko/design-patterns/factory-method)
+- [정적 팩토리 메서드](https://tecoble.techcourse.co.kr/post/2020-05-26-static-factory-method/)
+
+### 예제2
+
+```java
+package day0316.course;
+
+class MySingleton2 {
+    private static MySingleton2 obj = null; // 클래스 로딩할때 미리 객체생성하지 않음
+//    private MySingleton2() {
+//    }  // 막아줘야 함
+
+    // getMy 호출시 객체 생성해서 리턴
+    // 계속 수행하는 것이 아님. 만들어진 객체를 갖다줌.
+    static MySingleton2 getMy() {
+        if(obj == null){
+            obj = new MySingleton2();
+        }
+        return obj;
+    }
+
+    void printMyName() {
+        System.out.println("듀크");
+    }
+    void printFavoriteFood() {
+        System.out.println("갈비");
+    }
+}
+public class MySingletonTest2 {
+    public static void main(String[] args) {
+        //MySingleton my = new MySingleton(); // error. Visible이 아님과 존재하지 않음은 다름
+        MySingleton2 my = MySingleton2.getMy();  // 이 클래스는 객체 생성을 위해 getMy() 메서드를 호출해야 함
+        // 팩토리 메서드명은 뭘로 하든 상관없지만 일반적으로 `get인스턴스`라는 이름을 많이씀.
+        // 혹은 create땡땡땡으로 작명함
+        // MySingleton 객체가 생성된 후 리턴
+
+        my.printMyName();
+        my.printFavoriteFood();
+        System.out.println(my);  // 전달된 객체의 toString 리턴값 (마이싱글톤이 toString이 없으므로 Object의 toString 호출)
+        System.out.println(MySingleton2.getMy());  // 마이싱글톤 객체를 달라고 함
+        System.out.println(MySingleton2.getMy());
+    }
+}
+```
