@@ -438,3 +438,102 @@ public class ExceptionTest3 {
   (얘가 try-catch를 통해 직접적인 예외처치를 하지 않았으므로 b메서드를 호출하는 곳에서 try-catch를 통한 예외처리를 해주어야 함)
 
 - a메서드에서 try-catch를 통해 TestException에 대한 예외처리를 함
+
+
+# [public class 참고자료](https://wikidocs.net/262)
+
+# 예외 종류에 따른 처리
+
+- 처리해야 할 예외 클래스들이 상속 관계에 있을 때에는 하위 클래스의 catch 블록을 먼저 작성하고
+상위 클래스의 catch 블록을 나중에 작성해야 함
+- 예외가 발생하면 catch 블록은 위에서부터 차례대로 검사 대상이 된다.
+하위 예외 또한 상위 클래스 타입이므로 상위 클래스 catch 블록이 먼저 검사 대상이 되면 안된다.
+
+```java
+public class ExceptionEx{
+  public static void main(String[] args) {
+    String[] arr = {"100", "1oo"};
+    
+    for (int i=0; i<arr.length; i++){
+        try{
+            int value = Integer.parseInt(arr[i]);
+            System.out.printf("arr[%d] : %d\n",i,value);
+        } catch (ArrayIndexOutOfBoundsException e){
+          System.out.println("배열 인덱스가 초과됨: " + e.getMessage());
+        } catch (Exception e){  // 상위 예외 클래스는 아래쪽에 작성
+          System.out.println("실행에 문제가 있음");
+        }
+    }
+  }
+}
+```
+
+
+# [LottoGame 과제](../hw/LottoGame.java)
+
+- 중복요소 체크할 때 길이 20개짜리 배열생성해서 숫자등장할떄마다 횟수 카운팅하는 아이디어도 괜찮음
+
+# 예외 떠넘기기
+
+- 메서드를 호출한 곳으로 예외를 넘겨주려면 `throws`키워드를 사용하자
+  (메서드 내부에서 예외가 발생했을 경우 `try-catch`블록으로 예외를 처리하는 것이 기본임)
+- `throws`는 메서드의 선언부 끝에 작성하며 떠넘길 클래스를 쉼표로 구분하여 나열한다
+```java
+리턴타입 메서드명(매개변수1, 매개변수2, ...) throws 예외클래스1, 예외클래스2, ... {
+}
+```
+
+## 예제
+
+```java
+public class ExcPass{
+    public void method1(){
+        try{
+            method2();
+        } catch (ClassNotFoundException e){
+          System.out.println("예외 처리: " + e.getMessage());
+        }
+    }
+    
+    public void method2() throws ClassNotFoundException{
+        Class.forName("java.lang.String2");
+    }
+}
+```
+
+- method2에서 예외를 method1에게 떠넘겼으므로 method2를 호출하는 곳에서 예외를 받아서 처리함
+- 따라서 method1()에서 metho2()를 호출할 때 예외를 처리하게됨
+
+## 나열해야 하는 예외 클래스가 많은 경우
+
+- `throws Exception` 혹은 `throws Throwable`을 사용해서 모든 예외를 떠넘길 수 있음
+
+```java
+리턴타입 메서드명 (매개변수1, 매개변수2, ...) throws Exception{
+}
+```
+
+## 메인 메서드에서 throws 키워드를 사용
+
+- 메인 메서드에서 `throws` 키워드를 사용해서 예외를 떠넘기면 JVM이 최종적으로 예외 처리를 해줌
+  (JVM의 예외 처리방식은 예외의 내용을 콘솔에 출력하는 것임)
+
+```java
+public static void main(String[]args) throws Exception{
+    // 수행문장        
+}
+```
+
+### 예제
+
+```java
+public class ThrowsEx{
+  public static void main(String[] args) throws Exception {
+      findClass();
+  }
+  
+  public static void findClass() throws ClassNotFoundException{
+      Class.forName("java.lang.String2");
+  }
+}
+```
