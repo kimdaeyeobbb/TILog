@@ -125,15 +125,17 @@ String nation2 = Person.nation;  // 정적 변수
 
 # 7. 상속
 
-## 1.1 상속의 정의와 단점
+## 1.1 상속의 특징
 
 - 상속
   - 새로운 클래스를 만들 때 부모-자식 관계를 맺어주는 것
   - 이렇게 함으로써 부모 클래스에 있는 대부분의 멤버는 자식 클래스에 그대로 귀속됨
   - 이때, 상속이 안되는 것이 존재함 (생성자, static&인스턴스 초기화 블럭)<br>따라서 자손은 조상보다 멤버가 더 많거나 동일하다 (멤버가 더 적어질 수는 없다)
+  - 상속은 이미 잘 개발된 클래스를 재사용하여 새로운 클래스를 만드므로 중복되는 코드를 줄여서 개발 시간을 단축시킴
   - 상속을 이용하면 새로운 클래스를 만들 때 빠르게 생성이 가능함  
-  - 상속을 이용하면 프로그램 개발을 빠르게 할 수 있음
+  - 상속을 이용하면 클래스의 수정을 최소화할 수 있음
   - 서블릿은 상속을 이용하지 않으면 프로그래밍 짤 것이 많지만, 상속을 이용하면 편리하게 프로그램 개발이 가능함
+  - 자바는 다중 상속을 허용하지 않음
 
 ```java
 class Point {
@@ -158,6 +160,36 @@ class GrandChild extends Child {}
 - Parent는 Child에게는 부모이지만 GrandParent에게 있어서는 조상임
 - 조상의 변경은 자손에 영향을 미치지만 자손의 변경은 조상에 영향을 미치지 않음
 - 자바에서는 형제관계가 없다 (부모-자식, 조상-자손 관계등만 존재)
+
+### 예제
+
+```java
+public class Phone{
+    /* 필드 선언 */
+    public String model;
+    public String color;
+    
+    /* 메서드 선언 */
+  public void bell(){
+      System.out.println("벨이 울립니다.");
+  }
+  
+  public void sendVoice(String message){
+    System.out.println("자기: "+message);
+  }
+  
+  public void receiveVoice(String message){
+    System.out.println("상대방: "+ message);
+  }
+  
+  public void handUp(){
+    System.out.println("전화를 끊습니다.");
+  }
+}
+```
+
+
+
 
 ## 1.2 클래스간의 관계 - 포함 관계
 
