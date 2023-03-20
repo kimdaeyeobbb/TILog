@@ -648,4 +648,341 @@ class Value3<T>{
     }
 }
 ```
+### 제네릭 프로그램이 적용된 것
 
+#### ArrayList<E>
+#### LinkedList<E>
+#### HashSet<E>
+
+- 공통점
+  - 데이터들을 하나로 묶어서 보관하는 Collection 클래스
+
+#### HashMap<K,V>
+
+- 데이터값 + 데이터값에 고유한 이름(Key)을 저장 
+<br>=> key & value 쌍으로 정의
+
+- 객체 생성시 KEY에 해당되는 타입과 VALUE에 해당되는 타입을 같이 지정해주어야 함
+
+- 타입 파라미터를 주지않고 객체를 생성하는 경우
+<br> => 자동으로 타입 파라미터로 Object가 전달됨
+<br> => 꺼낼 때 형변환은 해야함
+
+# LinkedList
+
+
+- 문자열 객체들만 잔뜩 넣거나, Interger 객체들만 잔뜩 넣는것처럼 한가지 타입만 잔뜩 넣고 테스트하는것이 일반적
+
+```java
+package day0320.course;
+
+import java.util.Iterator;
+import java.util.LinkedList;
+
+public class GenericTest {
+	public static void main(String[] args) {
+		LinkedList list = new LinkedList();
+		// 타입 매개변수를 주지않았으므로 타입은 자동으로 Object로 설정됨
+
+		list.add("java");
+		list.add(100);
+		// String으로 바뀔 수 없는 것을 String으로 바꾸려고 해서 에러 발생
+		// 만약, 위에서 타입 매개변수를 Object 형이 아닌 String형으로 설정시 여기서 바로 에러가 남
+		
+		list.add("servlet");
+		list.add("jdbc");
+
+		for (int i = 0; i < list.size(); i++)
+			System.out.println(list.get(i));
+		System.out.println();
+
+		for (Object value : list) {
+			String s = (String) value;
+			System.out.println(s);
+		}
+		System.out.println();
+
+		Iterator iter = list.iterator();
+		while (iter.hasNext()) {
+			Object value = iter.next();
+			String s = (String) value;
+			System.out.println(s);
+		}
+	}
+}
+
+```
+
+
+```java
+package day0320.course;
+
+import java.util.Iterator;
+import java.util.LinkedList;
+
+public class GenericTestNew {
+  public static void main(String[] args) {
+    // 제네릭스 라는 구문이 적용되어 만들어진 클래스의 객체 생성시
+    // 타입 파라미터라는 것을 사용한다.
+    LinkedList<String> list = new LinkedList<>(); // 타입파라미터
+    list.add("java");
+    list.add("100");
+    list.add("servlet");
+    list.add("jdbc");
+
+    /* 속도가 느림 */
+    for (int i = 0; i < list.size(); i++)
+      System.out.println(list.get(i));
+    // 위에서 컬렉션 객체를 통해 데이터형을 미리 설정해뒀으므로 데이터를 넣을 때 제대로 된 타입의 데이터가 들어가는지 체킹 가능
+    System.out.println();
+
+    /* 속도가 빠름. */
+    for (String value : list) {
+      // 꺼내올 때 바로 String형으로 꺼내오겠다고 설정해놨으므로 바로 꺼내올 수 있었음
+      System.out.println(value);
+    }
+    System.out.println();
+
+    /* 속도가 빠름. 내부에서 iterator사용 */
+    Iterator<String> iter = list.iterator();
+    while (iter.hasNext()) {
+      String s = iter.next();
+      System.out.println(s);
+    }
+  }
+}
+```
+
+- 어떤 메서드를 전달할 때 iterator 객체를 받는다고 하면 제일 아래의 while문을 사용해야 함
+- iterator 내부에는 hasNext()메서드와 Next() 메서드가 있음
+  (다음것이 있는지 체킹하는 메서드 /  다음것을 읽어오는 메서드)
+
+# Collection API
+
+## 자료구조
+
+- 데이터를 효율적으로 사용할 수 있도록 구조를 만들어서 저장해둔 것
+- 자바는 각 자료구조를 지원하는 API를 내장하고 있음
+
+## 자료구조 클래스
+
+- 리스트
+  - 배열 리스트 (ArrayList)
+  - 연결 리스트 (LinkedList)
+
+- 스택
+  - LinkedList
+  - LastInFirstOut
+  - ex) Undo 버튼 (가장 최근에 수행한것부터 취소)
+- 큐
+  - LinkedList
+  - FirstInFirstOut
+  - 네트워크 프로그램에서 많이 사용
+  - ex) 메시지 큐
+- 해쉬 테이블
+  - HashMap
+    - 똑같은 데이터를 집어넣으면 오버라이딩
+  - Hashtable
+    - key & value 쌍으로 저장
+- 집합(set)
+  - HashSet
+    - 똑같은 데이터를 집어넣을 경우 error
+    - HashSet을 상속하는 애들은 HashSet의 특성을 물려받음
+
+
+- 리스트
+  - 중복된 데이터 저장이 가능함
+  - 저장순서가 중요할 경우에 사용
+
+- 집합
+  - 똑같은 값이 1번만 저장되게 만들고 싶을 때 사용
+  - 저장순서를 보장하지 않음
+
+## 자료구조 클래스 사용법
+
+```java
+ArrayList<String> list = new ArrayList<String>();
+// String: 타입 파라미터 (뒤에는 기재안하도 됨)
+// new ArrayList: String 객체를 담을 수 있는 ArrayList 객체를 생성
+        
+//타입 파라미터에 의해 저장 데이터의 타입이 제한됨
+list.add("포도");  // String 타입의 데이터 추가 가능
+lsit.add(new Integer(30)); // Integer 타입 데이터 추가 불가능
+```
+
+
+### 리스트
+
+- 데이터를 일렬로 늘어놓은 자료구조
+
+![img.png](img.png)
+
+- 리스트로 사용할 수 있는 클래스
+- 리스트 자료구조를 위해 제공되는 Collection API (저장/처리 방식이 다름)
+  - ArrayList 클래스
+    - 기본적으로 10개의 방을 만들어서 데이터를 채움
+    - 10개가 꽉차면 자동으로 늘어남
+    - 처리할 수 있는 데이터 개수의 제한이 없음 (방을 늘려서 처리함)
+    - 많은 양의 데이터를 넣고 읽는 용도로 쓸 떄 유리
+  - LinkedList 클래스
+    - 데이터를 집어넣고 나서 순차적으로 찾아갈 때 유리
+    - 편집 작업이 많을 경우에 유리
+  
+#### ArrayList
+
+- ArrayList 지정시 기본적으로 10개의 방을 가짐
+- 데이터를 가져올 때 get 메서드를 이용함 (인덱스에 해당하는 위치의 데이터를 가져옴)
+- 배열의 인덱스 계산을 이용하여 위치를 빠르게 찾아갈 수 있음
+- 실제로 저장되어 있는 크기만큼 가져옴
+
+
+#### LinkedList
+
+- 부모가 List임
+- ArrayList와 공통으로 쓰이는 것들은 List로부터 물려받음
+
+
+```java
+LinkedList<String> list = new LinkedList<String>();
+list.add("포도")
+```
+
+![img_1.png](img_1.png)
+
+- 객체 생성시 노드 객체가 만들어지고 거기에 코드가 들어감
+
+
+![img_2.png](img_2.png)
+
+- 첫 노드를 찾아가야 두번쨰 노드를 찾아갈 수 있음. 두번쨰 노드를 찾아가야 3번쨰 노드를 찾아갈 수 있음.....
+- 성능이 AraayList보다 떨어짐
+- 게시판의 데이터를 구현할 떄 LinkedList를 사용하면 매우 느림
+
+
+![img_3.png](img_3.png)
+
+- LinkedList는 편집에 유리함
+- 순서대로 데이터를 읽어올 떄 유리 (데이터를 읽어올 때 LinkedList의 get 대신 iterator 사용할 것 OR 향상된 for문 이용)
+
+
+
+# 해쉬 테이블
+
+- 여러개의 방/통(bucket)을 만들어 놓고 그에 알맞은 키 값을 이용하여 데이터를 방 번호를 계산하는 자료구조
+- 전체에서 계산하기 보다는 특정 범위의 방에서 계산하는것이 소요시간이 적음
+- 데이터를 찾을 때 훨씬 빠르게 찾을 수 있게 만들어 줌
+
+## HashMap 클래스
+
+- 해쉬 테이블로 사용할 수 있는 클래스
+- 타입 파라미터를 2개(key,value) 줘야함
+```java
+HashMap<Key, Value> hashtable = new HashMap<Key, Value>(n);
+// 버킷의 크기는 생성자를 이용해서 지정할 수 있음
+// n: 버킷의 크기 지정
+
+```
+
+- 리스트와 set은 조상 계열이 동일하나 Map은 조상이 다르다
+- 인자를 2개 줌 (key, value)
+- 키에 대한 해시코드를 계산함
+<br> => 이 결과값을 가지고 몇번째 통(bucket)에 저장할것인지를 결정함
+<br> => 이 해시코드를 기반으로 하여 내부적으로 통(buekct)을 결정
+
+```java
+hashtable.put("포터", new Integer(10));
+Integer num = hashtable.get("포터"); 
+// 포터라는 key를 줌
+// 이 해시코드를 기반으로해서 어느 버킷에 있는지를 계산
+// 키값을 기준으로해서 몇번쨰 통에 들어있는지를 파악하여 전체통을 계산하지 않고도 데이터를 가져올 수 있음
+
+hashtable.remove("포터")
+// 키를 가지고(키에 대한 해쉬코드를 가지고) 몇번째 통에 있는지 파악하여 삭제
+```
+
+
+## HashMap 클래스 예제
+
+```java
+package day0320.course;
+
+import java.util.HashMap;
+
+public class HashMapExample1 {
+	public static void main(String args[]) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("해리", Integer.valueOf(95));
+		map.put("헤르미온느", 100);
+		map.put("론", 85);
+		map.put("드레이코", 93);
+		map.put("네빌", 70);
+		map.put("헤르미온느", 55); // JDK 1.5 Auto Boxing 구문
+		System.out.println(map);
+		Integer num = map.get("헤르미온느");
+		System.out.println("헤르미온느의 성적은? " + num);
+		System.out.println(map);
+	}
+}
+
+```
+
+- 데이터가 몇개 들어있을까?
+  - 6개 (X)
+  - 5개 (O) => 헤르미온느 데이터를 새로운 애로 대체함
+
+- put을 했는데 사이즈가 늘어나지 않으면 똑같은애가 있었다는 뜻
+
+- key에 해당되는 객체는 동일한 값을 체킹할 수 있는 객체여야 함
+  (똑같은 값의 키가 이미 있으면 차장서 새로운 값으로 바꿈.)
+
+# 집합
+
+- 저장되는 데이터의 순서는 유지하지 않음
+- 중복데이터를 허용하지 않음
+- 내부적으로 새로운 데이터가 add될때마다 이미 들어가있는 데이터와 똑같은지 항상 확인하여 새로운 녀석은 넣어주지 않음
+  - 이러한 비교를 빨리 할 수 있도록 데이터를 보관할 때에는 haah구조를 활용함
+  - type parameter를 이용함
+- 이미 보관되어있는 애와 똑같은 애가 있으면 넣어주지 않음
+- 데이터를 꺼내는 메서드를 가지고 있지 않음
+  (get 메서드가 없음)
+- get 메서드는 없지만 iterator객체를 생성해서 데이터를 꺼내든지, enhancement for를 이용하든지, toArray를 이용해서 배열로 변환해서
+사용하는 방법, hashset에 있는 애들 모두를 array로 변환하는 방법 등을 추천
+
+```java
+package day0320.course;
+
+import java.util.HashSet;
+import java.util.Iterator;
+
+public class SetExample1 {
+	public static void main(String args[]) {
+		HashSet<String> set = new HashSet<String>();
+		System.out.println(set.add("자바"));
+		System.out.println(set.add("카푸치노"));
+		System.out.println(set.add("에스프레소"));
+		System.out.println(set.add("자바"));  // false. add가 실패
+		System.out.println("저장된 데이터의 수 = " + set.size());  // 3
+
+		for (String s : set)
+			System.out.println(s);
+
+		Iterator<String> iterator = set.iterator();
+		while (iterator.hasNext()) {
+			String str = iterator.next();
+			System.out.println(str);
+		}
+		System.out.println(set);
+	}
+}
+
+```
+
+- add수행시 데이터가 이미 들어갔는지를 계산함
+- set은 꺼낼 때에는 for-each문 혹은 iterator 객체 or 배열로 변환해서 사용해야 함
+
+
+# 실습1
+
+```java
+
+```
