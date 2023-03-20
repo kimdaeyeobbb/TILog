@@ -9,8 +9,8 @@ public class SetExample1 {
 		System.out.println(set.add("자바"));
 		System.out.println(set.add("카푸치노"));
 		System.out.println(set.add("에스프레소"));
-		System.out.println(set.add("자바"));
-		System.out.println("저장된 데이터의 수 = " + set.size());
+		System.out.println(set.add("자바"));  // false. add가 실패
+		System.out.println("저장된 데이터의 수 = " + set.size());  // 3
 
 		for (String s : set)
 			System.out.println(s);

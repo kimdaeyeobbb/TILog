@@ -13,15 +13,20 @@ public class GenericTestNew {
 		list.add("servlet");
 		list.add("jdbc");
 
+		/* 속도가 느림 */
 		for (int i = 0; i < list.size(); i++)
 			System.out.println(list.get(i));
+		// 위에서 컬렉션 객체를 통해 데이터형을 미리 설정해뒀으므로 데이터를 넣을 때 제대로 된 타입의 데이터가 들어가는지 체킹 가능
 		System.out.println();
 
+		/* 속도가 빠름. */
 		for (String value : list) {
+			// 꺼내올 때 바로 String형으로 꺼내오겠다고 설정해놨으므로 바로 꺼내올 수 있었음
 			System.out.println(value);
 		}
 		System.out.println();
 
+		/* 속도가 빠름. 내부에서 iterator사용 */
 		Iterator<String> iter = list.iterator();
 		while (iter.hasNext()) {
 			String s = iter.next();
