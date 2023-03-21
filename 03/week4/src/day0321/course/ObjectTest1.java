@@ -1,4 +1,4 @@
-package day0320.course;
+package day0321.course;
 
 class Member1 {
 	private int id;
@@ -11,6 +11,7 @@ class Member1 {
 		this.password = password;
 	}
 
+	/* IDE를 통해 만들었음을 추측할 수 있음 - 선택한 멤버변수의 값을 하나의 문자열로 리턴해줌 */
 	@Override
 	public String toString() {
 		return "Member1 [id=" + id + ", name=" + name + ", password=" + password + "]";
@@ -19,6 +20,7 @@ class Member1 {
 
 public class ObjectTest1 {
 	public static void main(String args[]) {
+		// Member1객체를 2개 생성
 		Member1 obj1 = new Member1(10, "자바", "duke");
 		Member1 obj2 = new Member1(10, "자바", "duke");
 
