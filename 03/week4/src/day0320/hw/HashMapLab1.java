@@ -44,5 +44,6 @@ public class HashMapLab1 {
         }
         System.out.println("5개가 모두 입력되었습니다.");
         System.out.println(result);
+        sc.close();
     }
 }

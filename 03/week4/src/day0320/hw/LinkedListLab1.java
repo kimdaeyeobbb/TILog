@@ -41,5 +41,9 @@ public class LinkedListLab1 {
         for (Friend el: list){
             System.out.println(el.getInfo());
         }
+//
+//        String[] names= {}
+//        String[] phoneNums ={}
+//        String[] emails ={}
     }
 }
