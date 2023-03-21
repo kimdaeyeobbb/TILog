@@ -846,6 +846,72 @@ IOException이 더 위에 줄이 위치하게 되면
 - 인자로 지정된 파일이 실제로 존재하지 않으면 새로 만듦
   - 새로 만들려고 보니 무엇인가가 안맞은 경우(디렉토리가 없는 경우 등) 에러 발생
 
+##### 예제
+
+```java
+package day0321.course;
+
+import java.io.File;
+import java.util.Scanner;
+
+public class FileTest1 {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("생성하려는 디렉토리명을 작성하세요 : ");
+		String dirName = scan.nextLine();
+		File f = new File(dirName); // 파일 객체 생성
+		if (f.exists()) {
+			System.out.println(dirName + "명의 디렉토리가 존재합니다.");
+		} else {
+			if (f.mkdirs()) { // s까지 붙여줘야 서브폴더까지 만들어줌
+				System.out.println(dirName + "명의 디렉토리가 생성되었습니다.");
+			} else {
+				System.out.println(dirName + "명의 디렉토리 생성에 실패했습니다.");
+			}
+		}
+		scan.close();
+	}
+}
+
+```
+
+- 절대경로를 기준으로    이클립스, 인텔리제이는 현재 프로젝트가 있는 경로에 폴더를 생성함
+
+- FileWriter가 추가 상속하는 클래스들
+  - Closeable, Flushable, Appendable, AutoCloseable
+
+
+# [FileReaderTest3](./FileReaderTest3.java)
+
+# [FileReaderTest4](./FileReaderTest4.java)
+
+# Scanner
+
+- System.in
+  - 표준 입출력 장치와 관련된 Input stream
+
+- 표준 입력을 받을 때 Scanner 객체 이용
+
+- 파일 객체로 Scanner 객체 생성
+  - 파일에서 읽겠다는 뜻
+
+- 토큰
+  - 분리문자를 기준으로 함 
+
+- useDelimeter
+  - 구분자로 콤마(,)를 사용함
+
+## [ScannerFromFile](./ScannerFromFile.java)
+
+
+
+
+# File 클래스
+
+- 자바는 모든것을 객체로 취급함. 파일을 자바에서 다룬다고 하면 파일 객체로 만들어서 다룸.
+- 객체 생성시 어떤 파일에 대한 객체를 생성하냐느에 따라 다른 생성자가 있음
+- 디렉토리도 파일임. isDirectory의 결과가 true.
+
 
 ### 입력 스트림
 
