@@ -29,11 +29,10 @@ class Product{
     /* toString 오버라이딩 */
     @Override
     public String toString(){
-        return productID + "\t" + productName + "\t" + productPrice;
+        return String.format("%-7s %-11s %s",productID,productName,productPrice);
     }
 
     /* hashCode 오버라이딩 */
-
     @Override
     public int hashCode() {
         return Objects.hash(productID);
@@ -42,12 +41,13 @@ class Product{
 
 public class ProductTest {
     public static void main(String[] args) {
-        Product p1 = new Product("p100","TV","        20000");
+        HashSet<Product> set = new HashSet<>();
+
+        Product p1 = new Product("p100","TV","20000");
         Product p2 = new Product("p200","Computer","10000");
         Product p3 = new Product("p100","MP3","700");
-        Product p4 = new Product("p300","Audio","    1000");
+        Product p4 = new Product("p300","Audio","1000");
 
-        HashSet<Product> set = new HashSet<>();
 
         if(set.contains(p1)){
             System.out.println("동일한 ID의 제품이 이미 저장되어 있습니다");
