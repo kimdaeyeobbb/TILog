@@ -330,4 +330,67 @@ System.out.printf("8 : 오늘의 날짜는 %1$tY 년 %1$tm 월 %1$td 일 입니�
 ### openStream() 메서드
 - 웹 서버 호출시 사용
 - 응답한 내용을 읽어서 사용할 때 이용 (따라서 return 값이 inputStream 객체임)
-- 
+
+# JSON
+
+- JavaScript Object Notation
+- 자바의 객체와 비슷한 형식으로 작성하는 문서 작성 형식
+- 각 언어별 JSON을 다루기 위해 필요한 API를 지원함
+- https://www.json.org/json-en.html
+
+```java
+package day0322.course;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+public class URLTest8 {
+
+	public static void main(String[] args) {
+		try {
+			URL req = new URL(
+					"http://openapi.seoul.go.kr:8088/796143536a756e69313134667752417a/json/LampScpgmtb/1/100/");
+
+			InputStream is = req.openStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			StringBuffer bf = new StringBuffer();
+			String line;
+			while (true) {
+				line = br.readLine();
+				if (line == null)
+					break;
+				bf.append(line);
+			}
+
+			JSONObject obj = null;
+
+//			try {
+				obj = new JSONObject(bf.toString());
+				// JSON Object로 만들어서 처리
+			
+//			} catch (Exception e) {
+//				System.out.println("파싱 오류");
+//				e.printStackTrace();
+//			}
+
+			System.out.println(obj.toString());
+			System.out.println(obj.keySet());
+			JSONObject lamp = obj.getJSONObject("LampScpgmtb");
+			JSONArray row = lamp.getJSONArray("row");
+
+			for(Object e : row) {
+				System.out.println(((JSONObject)e).getString("CLS_NM"));
+			}
+		} catch (Exception e) {
+			System.out.println("오류 : " + e.getMessage());
+		}
+	}
+}
+```
+
+- .xml파일과 .JSON 파일은 응답되는 문서형식이 다르기 떄문에 문서를 읽고 처리하는 API와 방법이 달라진다.
