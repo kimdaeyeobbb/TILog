@@ -2,21 +2,26 @@ package day0313.course;
 
 // Student는 public class일 수 없음 (퍼블릭은 접근제어잦. 이렇게되면 누구나 얘를 가져다 쓸 수 있게 되는것)
 // 중요한 것은 public class는 클래스명과 솟스명이 동일해야 함
-class Student2 {
-    /* 멤버 변수 */
-    String name;
-    int age;
-    String subject;
-
-
-    void printStudentInfo(){
-        System.out.printf("%s학생의 나이는 %d입니다.\n", name, age);
-    }
-
-    void study(){
-        System.out.printf("%s학생은 %s과목을 학습합니다.\n" , name, subject);
-    }
-}
+//class Student2 {
+//    /* 멤버 변수 */
+//    String name;
+//    int age;
+//    String subject;
+//
+//    public Student2(String name, int age, String subject){
+//        this.name = name;
+//        this.age = age;
+//        this.subject = subject;
+//    }
+//
+//    void printStudentInfo(){
+//        System.out.printf("%s학생의 나이는 %d입니다.\n", name, age);
+//    }
+//
+//    void study(){
+//        System.out.printf("%s학생은 %s과목을 학습합니다.\n" , name, subject);
+//    }
+//}
 
 public class StudentTest2 {
     public static void main(String[] args) {
