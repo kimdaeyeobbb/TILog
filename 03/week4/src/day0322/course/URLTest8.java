@@ -31,6 +31,7 @@ public class URLTest8 {
 //			try {
 				obj = new JSONObject(bf.toString());
 				// JSON Object로 만들어서 처리
+			// 한 덩이리의 제이슨 객체
 
 //			} catch (Exception e) {
 //				System.out.println("파싱 오류");
@@ -38,9 +39,10 @@ public class URLTest8 {
 //			}
 
 			System.out.println(obj.toString());
-			System.out.println(obj.keySet());
-			JSONObject lamp = obj.getJSONObject("LampScpgmtb");
+			System.out.println(obj.keySet()); // 키로 추출
+			JSONObject lamp = obj.getJSONObject("LampScpgmtb");  //
 			JSONArray row = lamp.getJSONArray("row");
+			// array로 리턴받음
 
 			for(Object e : row) {
 				System.out.println(((JSONObject)e).getString("CLS_NM"));
