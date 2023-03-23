@@ -333,6 +333,30 @@ public class InnerTest4 {
 - 인터페이스를 상속한다?
   - 인터페이스를 추가 상속함으로서 인터페이스의 자격을 갖춤
   <br>(클래스 상속은 걔를 상속하면 추가 상속 못함)
-  
 
-# 실습
+<br>  
+
+# JDBC
+
+## MySQL
+
+```sql
+mysql> create database edudb; -- edudb 생성
+Query OK, 1 row affected (0.01 sec)
+
+mysql> create user 'jdbctest'@'%'identified by '비밀번호';
+-- '%' : 클라이언트의 제한을 주지 않음
+    
+mysql> grant all on edudb.* to 'jdbctest'@'%';
+Query OK, 0 rows affected (0.01 sec)
+    
+mysql> flush privileges;
+Query OK, 0 rows affected (0.00 sec)
+```
+
+- cmd창에서 로그인
+```sql
+mysql -u jdbctest -p
+-- 로그인
+```
+
