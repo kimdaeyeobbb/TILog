@@ -61,3 +61,9 @@ public int compare(Book o1, Book o2) {
 - sort
   - -1,0,1을 뽑아내는게 중요한게 아니라 음,양 판단을 위한것인데 그것 대신 두 인자의 차이값을 리턴함으로서 크기 비교를 할 수 있음.
 
+
+## 참고자료
+
+- [Comparator](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Collections.html#sort(java.util.List,java.util.Comparator))
+- [추상메서드 오버라이딩](http://www.tcpschool.com/java/java_polymorphism_abstract)
+- 
