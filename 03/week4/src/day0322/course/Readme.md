@@ -394,3 +394,197 @@ public class URLTest8 {
 ```
 
 - .xml파일과 .JSON 파일은 응답되는 문서형식이 다르기 떄문에 문서를 읽고 처리하는 API와 방법이 달라진다.
+
+
+# Enum
+
+- 요일이나 계절처럼 한정된 값으로 이루어진 타입
+- Enum으로 작성된 데이터 값만 가질 수 있는 타입
+- public enum 혹은 enum 처럼 사용하기는 하지만 실제로는 클래스임
+- 열거 타입 이름으로 소스 파일(.java)을 생성하고 한정된 값을 코드로 정의
+- 열거 타입 이름은 첫 문자를 대문자로 하고 카멜 스타일로 작명하는 것이 관례
+- 상수로 쓰임
+  <br> => static & final임
+  <br> => 자동으로 메모리에 할당되므로 클래스명으로 접근할 수 있음
+
+- 한정된 상수만 구성되는 특별한 클래스를 만들고 싶을 때 사용
+- 컴파일시 Enum을 상속하는 클래스가 됨
+
+
+## [EnumTest1](./EnumTest1.java)
+
+
+```java
+package day0322.course;
+
+enum Season {
+  // enum 타입 내에 4개의 상수가 정의되어 있음. 이 4개의 값만 가질 수 있고 다른 값은 가질 수 없게됨
+  // 콤마(,)로 구분해서 정의 되었음 (행단위로 구분해도 됨)
+  // 메서드를 추가할 경우 끝에 세미콜론(;)을 줘야함 (상수만 정의할 경우에는 생략해도 됨)
+  // Season 유형의 변수 선언시 (SPRING ~ WINTER) Season 타입으로 만들어짐
+  // 계절들은 static형이므로 enum 타입의 클래스(Season)로 접근할 수 있음.
+  SPRING, SUMMER, FALL, WINTER
+}
+
+public class EnumTest1 {
+  public static void main(String args[]) {
+    System.out.println(Season.SPRING);
+    System.out.println(Season.SUMMER);
+    System.out.println(Season.FALL);
+    System.out.println(Season.WINTER);
+    Season data1 = Season.FALL;  // data1 => Season이라는 enum이 가지고 있는 상속값 중 하나만 가질 수 있음.
+    /* if문 - enum이 가진 데이터 확인시 사용 */
+    if (data1 == Season.FALL)
+      System.out.println("당신이 좋아하는 계절은 가을!!");
+
+    /* switch문 - enum이 가진 데이터 확인 할 때 사용 */
+    switch (data1) {
+      case SPRING:
+        System.out.println("대저토마토");
+        break;
+      case SUMMER:
+        System.out.println("복숭아");
+        break;
+      case FALL:
+        System.out.println("홍로");
+        break;
+      case WINTER:
+        System.out.println("레드향");
+        break;
+    }
+
+    for (Season v : Season.values())
+      // Enum은 values라는 메서드가 자동으로 만들어짐
+      // 상수들의 리스트를 보여줌. 여기서는 Season 타입의 배열임.
+      // Season 타입의 객체를 담아서 출력하고 있음.
+      System.out.print(v + " ");
+    // Enum의 toString이 호출되어서 현재의 Enum의 값이 출력됨. (SUMMER라는 이름이 상수명이자 값이 됨)
+    // 출력시 한 행에 출력됨.
+    System.out.println();
+
+    Season data2 = Season.valueOf("SUMMER");
+    // valueOf도 자동으로 만들어짐.
+    // SUMMER 값에 알맞은 Enum 상수객체를 리턴
+    // 이떄는 SUMMER라는 Season 객체가 리턴됨
+
+    System.out.println(data2);
+  }
+}
+
+
+```
+- Enum
+  - switch-case문에 Enum의 상수를 지정할 경우에는 상수만 나열함
+  - 정해진 값들의 상수만 다루는 특별한 자바타입임
+  - 컴파일시 Enum을 상속하는 클래스로 바뀜
+  - 정해진 규격의 메서드를 가짐 (values, valueOf)
+  - Enum 클래스를 상속하므로 Enum 클래스에 있는 toString도 상속받고, 출력시 상수를 출력하게 됨
+
+
+- 상수를 한글로도 기재할 수 있다
+  - 자바는 유니코드이므로 변수명등을 한글로도 쓸 수 있다
+```java
+package day0322.course;
+enum Season2{
+     봄, 여름, 가을 ,겨울
+}
+public class EnumTest2 {
+   public static void main(String args[]) {
+      System.out.println(Season2.봄);
+      System.out.println(Season2.여름);
+      System.out.println(Season2.가을);
+      System.out.println(Season2.겨울);     
+   }
+}
+```
+
+
+- Enum을 클래스 안에 정의할 수 있다
+  - 필요에 의해 클래스안에 또 클래스를 정의할 수 있다(Inner class)
+  - 클래스 내에 포함된 내부 클래스의 경우 외부 클래스명을 적고 내부 클래스를 써주어야 사용할 수 있다
+
+```java
+package day0322.course;
+class Tour  {
+   enum Season{
+      SPRING, SUMMER, FALL, WINTER;
+      
+      String getMyName() {
+    	  return "enum 입니당";
+      }
+   }
+}
+public class EnumTest3 {
+   public static void main(String args[]) {
+      Tour.Season day[] = Tour.Season.values();  
+      // 외부 클래스명.내부 클래스명 꼴로 써야 사용 가능
+      
+     for(Tour.Season value  : day)
+         System.out.println(value); 
+      Tour.Season season = Tour.Season.valueOf("SUMMER");
+      System.out.println("Tour.Season.valueOf(\"SUMMER\") : " + season); 
+      System.out.println(season.getMyName());      
+   }
+}
+```
+
+
+```java
+package day0322.course;
+enum SeasonInit{
+   SPRING("봄"), SUMMER("여름"), FALL("가을"), WINTER("겨울");
+   private final String name;
+   // 1. 상수의 값을 보관하기 위한 용도 (반드시 private final형 이어야 함)
+
+   // 2. 상수값을 전달받는 생성자 메서드
+   SeasonInit(String name){
+      this.name = name;
+   }
+   
+   // 1.과 2.가 있으면 Enum에 정의된 상수의 값을 바꿀 수 있음
+   // 다른 값으로 초기화되는 상수를 사용할 수 있게 만들어준다!
+   
+   String returnName(){
+      return name;
+   }
+}
+public class EnumTest4 {
+   public static void main(String args[]) {
+      SeasonInit day[] = SeasonInit.values();
+      for(SeasonInit value  : day)
+         System.out.println(value);
+      for(SeasonInit value  : day)
+    	 System.out.println(value.returnName()); 
+      SeasonInit season = SeasonInit.valueOf("SUMMER");
+      System.out.println("SeasonInit.valueOf(\"SUMMER\") : " + season); // SUMMER 출력
+      System.out.println(	"SeasonInit.valueOf(\"SUMMER\").returnName() : " + season.returnName());  // 여름 출력 
+   }
+}
+
+```
+
+
+- 원하는 값으로 초기화되게 하는 Enum을 만들 수 있다
+```java
+package day0322.course;
+public class EnumTest5 {
+   public static void main(String args[]) {      
+      SeasonInit input = SeasonInit.FALL;
+      switch(input) {
+	     case SPRING : // case 절에 상수로 사용할 때는 열거타입 명은 제거
+            System.out.println(input.returnName());
+            break;
+         case SUMMER :
+            System.out.println(input.returnName());
+            break;
+         case FALL :
+            System.out.println(input.returnName());
+            break;
+         case WINTER :
+            System.out.println(input.returnName());
+            break;
+      }    
+   }
+}
+
+```
