@@ -230,7 +230,7 @@ public class SerialTest5 {
     ObjectOutputStream oos =
             new ObjectOutputStream(fos);
 
-    day0323.day14.StepDTO dto = new day0323.day14.StepDTO("unico", "@12345", 33, 100);
+    day0324.day15.StepDTO dto = new day0324.day15.StepDTO("unico", "@12345", 33, 100);
     oos.writeObject(dto);
     oos.close();
     fos.close();
@@ -242,7 +242,7 @@ public class SerialTest5 {
 ```java
 package day0322.course;
 
-import day0323.day14.StepDTO;
+import day0324.day15.StepDTO;
 
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
