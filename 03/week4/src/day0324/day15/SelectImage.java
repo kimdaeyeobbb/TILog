@@ -33,6 +33,9 @@ public class SelectImage {
 				String imgName[] = rs.getString("filename").split("\\.");
 				// split 호출시 delimeter 지정함.
 				// 여기서는 점(.)을 기준으로해서 양쪽을 나눔
+				// \을 이용해서 점의 고유의미를 없앰. 자바에서는 더블 인용 부호내에 백슬래쉬를 쓰려면 2번을 써야함. 따라서 \\.가 된것.
+				// (\\을 통해 점(.)의 정규표현식에서의 고유의미를 없애고, 문자로서의 점으로 사용)
+				//
 
 				File imgFile = new File("c:/Temp/"+imgName[0]+new Date().getTime()+"."+imgName[1]);
 				// 현재 시스템 시간에 대한 timestamp값을 붙임 & 확장자 붙임
