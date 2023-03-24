@@ -336,7 +336,6 @@ public class InnerTest4 {
 
 <br>  
 
-# JDBC
 
 ## MySQL
 
@@ -358,5 +357,564 @@ Query OK, 0 rows affected (0.00 sec)
 ```sql
 mysql -u jdbctest -p
 -- 로그인
+```
+
+- 경로 설정
+  - 사용자 디렉토리에 넣은 경우 경로는 파일명만 지정해주면 됨
+
+
+```sql
+mysql> select USER(); -- 만들어져 있는 유저정보 확인
+```
+
+## DB, TABLE, 열의 이름이 확실하지 않을 때 조회하는 방법
+
+### 현재 서버에 어떤 DB가 있는지 보기
+SHOW DATABASES;
+
+### 현재 서버에 어떤 TABLE이 있는지 보기
+#### 데이터베이스에 있는 테이블 정보 조회
+SHOW TABLE STATUS;
+
+#### 테이블 이름만 간단히 보기
+SHOW TABLES;
+
+#### employees 테이블의 열이 무엇이 있는지 확인
+DESCRIBE emp 또는 DESC emp;
+
+
+## 중복된 것은 하나만 남기는 DISTINCT
+
+- 2개의 컬럼을 꺼낼 때 두 컬럼이 모두 같아야 중복된 것으로 봄 (둘 중에 하나만 같으면 중복된것이 아님.)
+- SELECT는 원래 SELECT ALL이라는 의미이나 여기서 쓰이는 것은 SELECT DISTINCT임
+
+
+## 날짜 관련 함수
+
+- %Y
+  - 네자리로 연도 표시
+
+- %y
+  - 두자리로 연도 표시
+
+## 서브쿼리
+
+- 결과가 하나의 데이터를 꺼내는지, 여러개 꺼내는지에 따라서 같이 사용되는 연산자가 달라짐
+  (단일 행 연산자의 경우)
+
+
+## 수업
+
+```sql
+mysql> show tables;
++-----------------+
+| Tables_in_edudb |
++-----------------+
+| course1         |
+| course2         |
+| dept            |
+| emp             |
+| locations       |
+| salgrade        |
++-----------------+
+6 rows in set (0.00 sec)
+
+mysql> insert into reply (name, content, refid) values ('도우너','탕수육',1);
+ERROR 1146 (42S02): Table 'edudb.reply' doesn't exist
+mysql> create table reply(
+    -> id int primary key auto_increment,
+    -> nam varchar(30),
+    ->
+    ->
+    -> ^C
+mysql> create table reply(
+    -> id int primary key auto_increment,
+    -> name varchar(30),
+    -> content varchar(120),
+    -> refid int references meeting (id) on delete cascade
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into reply(name, content, refid) values ('도우너', '탕수육' ,1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into reply(name, content, refid) values ('고길동', '짜장면' ,1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into reply(name, content, refid) values ('또치', '초밥' ,3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into reply(name, content, refid) values ('희동이', '깐풍기', 1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into reply(name, content, refid) values ('둘리', '우동', 3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from reply;
++----+--------+---------+-------+
+| id | name   | content | refid |
++----+--------+---------+-------+
+|  1 | 도우너 | 탕수육  |     1 |
+|  2 | 고길동 | 짜장면  |     1 |
+|  3 | 또치   | 초밥    |     3 |
+|  4 | 희동이 | 깐풍기  |     1 |
+|  5 | 둘리   | 우동    |     3 |
++----+--------+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_edudb |
++-----------------+
+| course1         |
+| course2         |
+| dept            |
+| emp             |
+| locations       |
+| reply           |
+| salgrade        |
++-----------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from information_schema_table_constraints where table_name;
+ERROR 1146 (42S02): Table 'edudb.information_schema_table_constraints' doesn't exist
+mysql> select * from information_schema_table_constraints where table_name = 'reply';
+ERROR 1146 (42S02): Table 'edudb.information_schema_table_constraints' doesn't exist
+mysql> select * from information_schema_table_constraints where table_name = 'reply';
+ERROR 1146 (42S02): Table 'edudb.information_schema_table_constraints' doesn't exist
+mysql>
+mysql> create table visitor (
+    ->   id int primary key auto_increment,
+    ->   name varchar(15) not null,
+    ->   writedate datetime not null,
+    ->   memo varchar(100) not null
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table imgtest (
+    ->     id int primary key auto_increment,
+    ->     filename  varchar(45) not null,
+    ->     imgcontent  mediumblob not null
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into visitor (name, writedate, memo) values('둘리', now(), '호이호이~~');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into visitor (name, writedate, memo) values('또치', '2021-12-25', '난 타조라네^^');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into visitor (name, writedate, memo) values('도우너', '1990-8-20', '깐따삐아 별이서 왔어용');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from visitor;
++----+--------+---------------------+------------------------+
+| id | name   | writedate           | memo                   |
++----+--------+---------------------+------------------------+
+|  1 | 둘리   | 2023-03-23 14:47:40 | 호이호이~~             |
+|  2 | 또치   | 2021-12-25 00:00:00 | 난 타조라네^^          |
+|  3 | 도우너 | 1990-08-20 00:00:00 | 깐따삐아 별이서 왔어용 |
++----+--------+---------------------+------------------------+
+3 rows in set (0.00 sec)
+
+mysql> create table meeting(
+    ->     id int primary key auto_increment,
+    ->     name  varchar(24),
+    ->     title  varchar(120),
+    ->     meetingdate  datetime
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into meeting (name, title, meetingdate) values('유니코', '일식먹을사람 메뉴 정하세요', '2023-04-23 12:30');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into meeting (name, title, meetingdate) values('듀크', '중식먹을사람 메뉴 정하세요', '2023-03-28 15:00');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into meeting (name, title, meetingdate) values('턱시', '분식먹을사람 메뉴 정하세요', '2023-03-31 10:30'));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql>
+mysql> select * from meeting;
++----+--------+----------------------------+---------------------+
+| id | name   | title                      | meetingdate         |
++----+--------+----------------------------+---------------------+
+|  1 | 유니코 | 일식먹을사람 메뉴 정하세요 | 2023-04-23 12:30:00 |
+|  2 | 듀크   | 중식먹을사람 메뉴 정하세요 | 2023-03-28 15:00:00 |
++----+--------+----------------------------+---------------------+
+2 rows in set (0.00 sec)
+
+mysql> create sequence reply_seq start with 1 increment by 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sequence reply_seq start with 1 increment by 1' at line 1
+mysql> select * from reply;
++----+--------+---------+-------+
+| id | name   | content | refid |
++----+--------+---------+-------+
+|  1 | 도우너 | 탕수육  |     1 |
+|  2 | 고길동 | 짜장면  |     1 |
+|  3 | 또치   | 초밥    |     3 |
+|  4 | 희동이 | 깐풍기  |     1 |
+|  5 | 둘리   | 우동    |     3 |
++----+--------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql> select * from information_schema.table_constraints where table_name = 'reply';
++--------------------+-------------------+-----------------+--------------+------------+-----------------+----------+
+| CONSTRAINT_CATALOG | CONSTRAINT_SCHEMA | CONSTRAINT_NAME | TABLE_SCHEMA | TABLE_NAME | CONSTRAINT_TYPE | ENFORCED |
++--------------------+-------------------+-----------------+--------------+------------+-----------------+----------+
+| def                | edudb             | PRIMARY         | edudb        | reply      | PRIMARY KEY     | YES      |
++--------------------+-------------------+-----------------+--------------+------------+-----------------+----------+
+1 row in set (0.02 sec)
+
+mysql>
+mysql> select * from information_schema.table_constraints where table_name = 'reply';
++--------------------+-------------------+-----------------+--------------+------------+-----------------+----------+
+| CONSTRAINT_CATALOG | CONSTRAINT_SCHEMA | CONSTRAINT_NAME | TABLE_SCHEMA | TABLE_NAME | CONSTRAINT_TYPE | ENFORCED |
++--------------------+-------------------+-----------------+--------------+------------+-----------------+----------+
+| def                | edudb             | PRIMARY         | edudb        | reply      | PRIMARY KEY     | YES      |
++--------------------+-------------------+-----------------+--------------+------------+-----------------+----------+
+1 row in set (0.00 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_edudb |
++-----------------+
+| course1         |
+| course2         |
+| dept            |
+| emp             |
+| imgtest         |
+| locations       |
+| meeting         |
+| reply           |
+| salgrade        |
+| visitor         |
++-----------------+
+10 rows in set (0.00 sec)
+
+```
+
+# JDBC
+
+- JDBC의 API는 대부분이 인터페이스임
+
+- 인터페이스의 자식 클래스를 직접 구현할 필요 없음
+  <br>(대부분의 API가 인터페이스이지만 인터페이스의 실행코드를 JDBC 드라이브 프로그램이 제공함)
+  <br>(자바로 DB 연결시 해당 DB서버에 알맞는 드라이버를 이용해야 함)
+
+- JDBC 의 경우 대부분의 API 가 인터페이스이다.
+  Connection, Statement, ResultSet, PreparedStatement …………
+- 여러 이유로 자식 클래스의 객체 생성을 대신 하여 사용되도록 하려는 경우 인터페이스 대부분의 JDBC 프로그램에서는 위의 API 들에서 제공되는 메서드를 호출해야 한다.
+  
+## 예를 들어
+  
+- Connection
+  - createStatement()
+  - getMetaData()
+  
+- Statement
+  - executeQuery()
+  - executeUpdate()
+  
+- ResultSet
+  - next()
+  - getXXX()
+  
+
+![img.png](img.png)
+
+- 이 API 들의 객체를 생성하기 위해서는 이 API 들을 상속하여 구현하고 있는 자식 클래스가 필요한데 그
+  자식 클래스들을 바로 JDBC 드라이버가 제공한다. JDBC 드라이버라는 것은 JDBC 에서 인터페이스를 설계되
+  어 있는 API 들의 자식 클래스들을 제공하는 프로그램이라고 할 수 있다. 즉 어떠한 DB 서버용 드라이버냐에
+  따라서 제공되는 자식 클래스들의 수행 코드가 다르게 만들어져 있는 것이다. JDBC API 내에서는 JDBC 드라
+  이버가 제공하는 각 인터페이스들의 자식 클래스가 어떠한 이름의 클래스인지 모르고도 프로그래밍 가능하도록
+  팩토리 메서드라는 것을 제공하고 있다. 일반 메서드로서 다른 클래스의 객체생성을 대신해주는 메서드를 팩
+  토리 메서드라고 한다.
+
+## JDBC 기술의 구성
+
+### JDBC API
+
+- 모든 DB 서버에 대해 공통적
+
+#### 인터페이스
+
+
+
+#### 클래스
+
+- DriverManager (중요)
+- Date
+- Time
+- TimeStamp
+
+
+### JDBC 드라이버
+  - DB 서버마다 달라짐
+
+## 예제
+
+- JDBC 드라이버를 로딩하는 부분
+```java
+package day0323.day14;
+
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class ConnectMySQL {
+  public static void main(String[] args) {
+      /* 드라이버를 찾을 수 없을 때 에러표시를 직접 구현 */
+    try {
+      Class.forName("com.mysql.cj.jdbc.Driver");
+      // JDBC를 상속하는 애가 대장
+    } catch (ClassNotFoundException cnfe) {
+      System.out.println("해당 클래스를 찾을 수 없습니다." + cnfe.getMessage());
+      return;
+    }
+    String url = "jdbc:mysql://localhost:3306/edudb?characterEncoding=UTF-8&serverTimezone=UTC";
+    // JDBC url
+    
+    String user = "jdbctest";
+  }
+}
+
+```
+
+- JDBC API는 대부분 껍데기 이다. 따라서 드라이버없이 JDBC는 실행되기 어렵다.
+- JDBC URL 문자열
+  - 기본 규격은 정해져 있음
+  - 접속하려는 DB서버와 드라이버에 따라서 조금씩 다름
+
+- JDBC URL 
+```java
+jdbc:DB서버이름:JDBC드라이버에 대한 정보와 드라이버에게 전달할 정보
+// JDBC드라이버에 대한 정보와 드라이버에게 전달할 정보는 드라이버마다 다름
+
+```
+  - 항싱 jdbc로 시작함 (HTTP URL이 http로 시작하는 것과 동일)
+  - 이후에 `:`가 오고 다음에 `접속할 DB 서버 이름`이 옴
+
+
+```java
+String passwd = "jdbctest";
+try (Connection conn = DriverManager.getConnection(url, user, passwd);){
+        DatabaseMetaData md = conn.getMetaData();
+        System.out.println("DBMS 서버 명 : "+md.getDatabaseProductName()); System.out.println("DBMS 서버 버전 : "+md.getDatabaseProductVersion());
+        System.out.println("사용자명 : "+md.getUserName());
+} catch (SQLException se) {
+    System.out.println(se.getMessage());
+}
+```
+- 기본적으로 MYSQL서버는 3306포트를 열어놓고 공유
+
+- DB서버는 사용하고 나서 close()해야함
+<br> (연결하고 사용한 다음에 접속 세션을 반납해야하는데 이것을 안하면 서버 프로그램에 문제가 생김)
+<br> (우리는 try catch 문으로 수행)
+
+
+- ![img_1.png](img_1.png)
+
+
+## 과정
+
+### 1. Driver 로드
+
+### 2. Connection 얻기
+
+### 3. (sql 객체를 얻기위해) Statement 작성
+
+### 4. SELECT 명령을 실행하고 실행 결과를 ResultSet에 담기
+
+```java
+ResultSet rs = stmt.excuteQuery("SELECT ename, sal FROM emp");
+```
+
+- where절이 없으므로 모든 행에 대해 ename컬럼과 sal 컬럼을 가져오겠다는 것
+
+### 5. ResultSet 객체에서 값 꺼내오기
+
+```java
+rs.next()
+String name = rs.getString("ename")
+int salary = rs.getInt("sal") 
+// 숫자를 숫자로 얻기 위해 getInt 사용
+```
+
+### 6. 커넥션 반환하기
+
+- 반환 작업은 사용했던 객체를 역순으로 담음
+
+```sql
+rs.close();
+stmt.close();
+conn.close();
+```
+
+## ResultSet
+
+```java
+while(rs.next()) { 
+    // next를 수행 -> 다음 행으로 넘어감 -> 반복 -> 거짓이면 더이상 행이 없음 -> while문 탈출
+    // 컬럼단위로 데이터를 추출한다.
+}
+
+// execute query가 리턴하는 것은 객체
+// 경우에 따라 select의 결과가 없을 수도 있다. 
+// 그때에는 execute query가 rs에게 내용이 비어있는 resultSet객체을 리턴한다.
+// 비어있는 resultSet객체가 없으면 select 결과가 없다는 뜻
+```
+
+- ResultSet 객체는 첫번쨰 추출된 객체의 0번째 줄을 가리키고 있음
+- 첫번째 행을 읽기 위해서는 `next() 메서드`를 호출해야 함
+
+![img_2.png](img_2.png)
+
+- 행 단위로 읽어옴
+
+![img_3.png](img_3.png)
+
+- 굵은 x: 타입별 권장되는 메서드
+
+# SelectEmp
+
+```java
+package day0323.day14;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class SelectEmp {
+  public static void main(String[] args) throws Exception {
+    String url = "jdbc:mysql://localhost:3306/edudb?characterEncoding=UTF-8&serverTimezone=UTC";
+    String user = "jdbctest";
+    String passwd = "jdbctest";
+    Connection conn = DriverManager.getConnection(url, user, passwd);
+
+    System.out.println(conn.getClass().getName());  // 실제 리턴된 객체 확인
+
+    Statement stmt = conn.createStatement(); // statement 객체 확인 (Statement는 인터페이스라 객체가 확인이 안되므로 자식 클래스의객체가 리턴됨)
+
+    System.out.println(stmt.getClass().getName());
+
+    ResultSet rs = stmt.executeQuery("select ename, job, format(sal, 0) sal, deptno  from emp");
+    // emp 테이블로 부터 ename ~ deptno 컬럼을 꺼냄
+    // sal만 format함수의 결과로 꺼냄 (format함수는 두번쨰 인자가 소수점 몇번쨰까지 나타낼 것인지를 지정. 0이면 소수점 이하는없음.)
+    // format 함수 쓰면 1000단위마다 콤마. 숫자가 아닌 문자열이 됨.
+    // format(sal, 0) sal 에서 뒤의 sal은 별칭
+
+    System.out.println(rs.getClass().getName());
+
+    /* 타이틀 출력 */
+    System.out.printf("%10s%10s%10s%10s\n", "성명", "직무", "급여", "부서");
+    System.out.println("  -----------------------------------------");
+
+    /* 중요 */
+    // rs에 담기는 resultSet 객체는 첫번째행 바로 전의 결과를 담고 있으므로 next를 호출해서 첫번쨰행으로 가야함
+    // 또 next 호출해서 그 다믕행으로 계속해서 옮겨가야함. next 결과가 거짓이면 더 이상 옮겨갈 행이 없는 것
+    while (rs.next()) {
+      System.out.printf("%10s%10s%10s원%10d\n",
+              /* select 절의 컬럼 순서에 따라서 추출해낼 수도 있음 */
+              rs.getString("ename"), rs.getString("job"),
+//						rs.getString("1"), rs.getString("2"), // 위와 동일
+
+              rs.getString("sal"), rs.getInt("deptno"));
+//						rs.getString("3"), rs.getInt("4"));  // 위와 동일
+    }
+    rs.close();
+    stmt.close();
+    conn.close();
+  }
+}
+
+```
+
+# [VisitorList.java](VisitorList.java)
+
+```sql
+mysql> select * from visitor;
++----+--------+---------------------+------------------------+
+| id | name   | writedate           | memo                   |
++----+--------+---------------------+------------------------+
+|  1 | 둘리   | 2023-03-23 14:47:40 | 호이호이~~             |
+|  2 | 또치   | 2021-12-25 00:00:00 | 난 타조라네^^          |
+|  3 | 도우너 | 1990-08-20 00:00:00 | 깐따삐아 별이서 왔어용 |
++----+--------+---------------------+------------------------+
+3 rows in set (0.00 sec)
+```
+
+
+```java
+package day0323.day14;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+public class VisitorList {
+  public static void main(String[] args) throws Exception {
+    String url = "jdbc:mysql://localhost:3306/edudb?characterEncoding=UTF-8&serverTimezone=UTC";
+    String user = "jdbctest";
+    String passwd = "jdbctest";
+    Connection conn = DriverManager.getConnection(url, user, passwd);
+    Statement stmt = conn.createStatement();
+    String sql = "SELECT id, name, writedate, memo FROM visitor";
+    // where 절이 없으므로 모든 행을 다 꺼내오겠다는 뜻
+    // id대신 1, name 대신 2, writedate 대신 3, memo 대신 4를 써도 됨
+
+    ResultSet rs = stmt.executeQuery(sql);
+    while (rs.next()) {
+      System.out.print(rs.getString("id") + "\t");
+      System.out.print(rs.getString("name") + "\t");
+      System.out.print(rs.getString("writedate") + "\t");
+      System.out.println(rs.getString("memo"));
+    }
+    rs.close();
+    stmt.close();
+    conn.close();
+  }
+}
+```
+
+- 가급적 `*`을 쓰지 말고 컬럼명을 나열하자
+  <br>(가독성 향상. *는 컬럼 순서대로 나열 됨)
+
+
+# [VisitorList4.java](VisitorList4.java)
+
+```java
+package day0323.day14;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+public class VisitorList4 {
+	public static void main(String[] args) {
+		String url = "jdbc:mysql://localhost:3306/edudb?characterEncoding=UTF-8&serverTimezone=UTC";
+		String user = "jdbctest";
+		String passwd = "jdbctest";
+		String sql = "SELECT id, name, DATE_FORMAT(writedate, '%Y년 %m월 %d일') writedate, memo FROM visitor";
+		try (Connection conn = DriverManager.getConnection(url, user, passwd);
+				Statement stmt = conn.createStatement();			
+				ResultSet rs = stmt.executeQuery(sql);) {	
+			// if문을 통해 이미 next했으므로 그다음행으로 넘어가고 그다음에 바로 while문을 쓰면 또 다음행으로 넘어가니까 첫번쨰행이 생략됨.
+			// 따라서 do while문을 통해 첫번쨰행을 반드시 읽게끔 만들어줌.
+			if(rs.next() ) {				
+				do {
+					System.out.print(rs.getString("id")+"\t");
+					System.out.print(rs.getString("name")+"\t");
+					System.out.print(rs.getString("writedate")+"\t");
+					System.out.println(rs.getString("memo"));
+				} while (rs.next());
+			} else {
+				System.out.println("추출된 행이 없숑!!");
+			}			
+		} catch (Exception e) {
+			System.err.println("오류 발생 : " + e);
+		} 
+	}
+}
 ```
 
