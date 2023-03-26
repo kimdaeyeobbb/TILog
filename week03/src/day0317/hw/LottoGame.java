@@ -1,6 +1,6 @@
 package day0317.hw;
 import java.util.Random;
-import java.lang.Exception;
+
 import day0310.hw02.MethodLab7;
 
 class LottoMachine {
