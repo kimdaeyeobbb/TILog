@@ -1,42 +1,42 @@
 # 03.27
 
-# �Ϲ����� SQL ����
+# 일반적인 SQL 명령
 
 ## SELECT
 
-- JDBC ������ executeUpdate ���
-  - return value: int�� (0�̸� ���ǿ� �´� �����Ͱ� ���� ��)
-    - 0�� �ƴ� ��� �ش� ���ڸ�ŭ ������ ����. -> �׿� �´� �޽����� �������� ��
+- JDBC 구성시 executeUpdate 사용
+  - return value: int형 (0이면 조건에 맞는 데이터가 없는 것)
+    - 0이 아닐 경우 해당 숫자만큼 수정된 것임. -> 그에 맞는 메시지를 내보내야 함
 
 
-- select�� executeQuery() ���
+- select는 executeQuery() 사용
   - return value: ResultSet
 
 
 ## DML
 
 - Data Manuplation Language
-- JDBC�� excuteUpdate()
+- JDBC상 excuteUpdate()
 
 
-- ����
+- 종류
   - INSERT
   - DELETE
   - UPDATE
 
 ### INSERT
 
-- INSERT�� ���ܰ� �߻����� ������ INSERT ����. ���� �߻��� INSERT ������ ��
-- executeUpdate�� INSERT ����ó���� ũ�� Ȱ����� ����
+- INSERT시 예외가 발생하지 않으면 INSERT 성공. 예외 발생시 INSERT 실패한 것
+- executeUpdate가 INSERT 예외처리시 크게 활용되지 않음
 
 ### DELETE
 
-- WHERE ���� ���� ������ ��� �����͸� ����
-- WHERE ���� �־ ���ǿ� �˸��� �༮���� �����ǰ� ���� �� ����
+- WHERE 절을 주지 않으면 모든 데이터를 삭제
+- WHERE 절을 주어서 조건에 알맞은 녀석들이 삭제되게 만들 수 있음
 
 ### UPDATE
 
-- UPDATE�� SET�� �Բ� ����ϱ⵵ ��
+- UPDATE는 SET과 함께 사용하기도 함
 
 ```java
 package day16.course;
@@ -55,22 +55,22 @@ public class UpdateData {
 		String passwd = "jdbctest";
 		try (Connection conn = DriverManager.getConnection(url, user, passwd);
 				PreparedStatement pstmt = conn.prepareStatement("update student set score = ? where name = ?");
-				// set��: �����ϰ� ���� �÷��� & ���� ������ �� ������ �� ����
-			 // �������� �÷��� �Ѳ����� �ٲٰ� ������ set score =? , �÷���2 = ������ �� ó�� ����
+				// set절: 변경하고 싶은 컬럼명 & 대입 연산자 및 변경할 값 지정
+			 // 여러개의 컬럼을 한꺼번에 바꾸고 싶으면 set score =? , 컬럼명2 = 변경할 값 처럼 나열
 				Scanner scan = new Scanner(System.in);){
-			System.out.print("�л� �̸��� �Է��ϼ��� : ");
+			System.out.print("학생 이름을 입력하세요 : ");
 		    String name = scan.nextLine();
-			System.out.print("�л� ������ �Է��ϼ��� : ");
+			System.out.print("학생 점수를 입력하세요 : ");
 			int score = Integer.parseInt(scan.nextLine());
 			pstmt.setInt(1,  score);
 		    pstmt.setString(2, name);
 			int updateNum = pstmt.executeUpdate();
-			// executeUpdate - ���ϰ��� �ǹ��ְ� ���̴� ��찡 ����
-			// �л� ���̺� name - PK
-			if (updateNum > 0) // ��� ���� ���� �Ǿ��� ���
-				System.out.println("student ���̺����� " +updateNum + "�� ���� �Ϸ�");
+			// executeUpdate - 리턴값이 의미있게 쓰이는 경우가 많다
+			// 학생 테이블 name - PK
+			if (updateNum > 0) // 몇개의 행이 변경 되었을 경우
+				System.out.println("student 테이블에서 " +updateNum + "행 변경 완료");
 			else 
-				System.out.println("���� ����!!");
+				System.out.println("변경 실패!!");
 		} catch (SQLException se) {
 			System.out.println(se.getMessage());
 		} 
@@ -80,168 +80,272 @@ public class UpdateData {
 
 ## DDL
 
-- JDBC�� excuteUpdate()
+- JDBC상 excuteUpdate()
 
-- ����
+- 종류
   - CREATE TABLE
   - DROP TABLE
   - ALTER TABLE
 
 ### CREATE TABLE
 
-- ���ο� ���̺� ����
+- 새로운 테이블 생성
 
 ### DROP TABLE
 
-- ���̺� ����
+- 테이블 삭제
 
 ### ALTER TABLE
 
-- ���̺��� �̹� ������� ���¿��� ���̺��� ��Ű���� �ٲ� �� �ʿ���
+- 테이블이 이미 만들어진 상태에서 테이블의 스키마를 바꿀 때 필요함
 
-- ���̺� ���� ���� ����
-  - ���� �÷� ����
-  - ���� �÷� Ÿ�� ����
-  - ���� ���� �߰�
+- 테이블 구조 변경 수행
+  - 기존 컬럼 삭제
+  - 기존 컬럼 타입 변경
+  - 제약 조건 추가
 
 
-- �ϰ��� �ϴ� �۾��� ����Ǵ� ��� ���� �Ұ�
-  - ALTER TABLE�� ��ɰ� �̹� ����ִ� �����͵��� ���迡 �־� ALTER TABLE�ϱ� �������� ������ �ȵ�
-  - ���̺� ���� �� PK�� �������� �ʾҴٰ� �ߺ� �����Ͱ� �̹� �� �ִ� ��� PK�� ������ �� ����
+- 하고자 하는 작업에 위배되는 경우 수행 불가
+  - ALTER TABLE의 기능과 이미 들어있는 데이터들의 관계에 있어 ALTER TABLE하기 적합하지 않으면 안됨
+  - 테이블 만들 때 PK를 생각하지 않았다가 중복 데이터가 이미 들어가 있는 경우 PK를 설정할 수 없음
 
-# Model View Controller ���� ����
+# Model View Controller 구현 패턴
 
-- MVC �����̶� ��
-- �� ����Ʈ ���߽� ���� ����ϴ� ����
-- ������ �ַ� ����ϴ� MVC ������ DB ������ �ʼ������� ����
-- �� ���α׷��� �������� �־��� ������ (UI ���߽� ���� ����ϴ� ����) => ���� ���� ����
-- ȭ��� ����ڿ��� �������� ��� Ȥ�� ����ڰ� ���α׷��� �̿��ϸ� ������ϴ� �κ� , ���α׷� ������ ��� (���� ó��, �޿� ó��)���� ����Ͻ� ����(���� ����)�̶� �ϴµ�
-�̷��� ����ڿ��� �������̽��� ����ϴ� ���α׷�, ����ڰ� ���ϴ� ����� �����ϴ� ���α׷��� �и����Ѽ� ������
-- ���������� ���ü���� � ���� �� ����Ͻ��� ���ø����̼� ���߽� ��ɿ� ���� ���� ������ ����
-  - �̷��� ��� �������̽� �κп� ���� ������ �پ��� ������ ���� ����/ ����Ͻ� ���� ���� ����� �����Ѵ�
+- MVC 패턴이라 함
+- 웹 사이트 개발시 많이 사용하는 패턴
+- 웹에서 주로 사용하는 MVC 패턴은 DB 연동시 필수적으로 사용됨
+- 웹 프로그래밍 이전부터 있었던 패턴임 (UI 개발시 많이 사용하던 패턴) => 이후 웹에 접목
+- 화면상 사용자에게 보여지는 기능 혹은 사용자가 프로그램을 이용하며 입출력하는 부분 , 프로그램 고유의 기능 (성적 처리, 급여 처리)등을 비즈니스 로직(서비스 로직)이라 하는데
+이렇게 사용자와의 인터페이스를 담당하는 프로그램, 사용자가 원하는 기능을 구현하는 프로그램을 분리시켜서 개발함
+- 실질적으로 기업체들이 어떤 업무 및 비즈니스용 애플리케이션 개발시 기능에 대한 구현 사항이 많다
+  - 이러한 경우 인터페이스 부분에 대한 구현과 다양한 목적의 서비스 로직/ 비즈니스 로직 등을 나누어서 개발한다
 
-- ������ �����ӿ�ũ�� MVC �������� �� ����Ʈ�� �����ϰԲ� �����Ǿ�����
-- DB���� ���α׷� ���߽� MVC ������ �����ϸ� ������������ ������
+- 스프링 프레임워크는 MVC 패턴으로 웹 사이트를 개발하게끔 구성되어있음
+- DB연동 프로그램 개발시 MVC 패턴을 적용하면 유지보수성이 좋아짐
 
 ## Model
 
 
-- �𵨿� �ش�Ǵ� ���� ���� �𵨰� ������ �𵨷� ����
+- 모델에 해당되는 것은 서비스 모델과 도메인 모델로 나뉨
 
-### ���� ��
+### 서비스 모델
 
-- DAO, VO, ENTITY�� ���� �����̳� ������ ������ �������� �ʰ� �����Ͱ��� �����ϴ� ������ �ؾ� ��
+- DAO, VO, ENTITY는 서비스 로직이나 데이터 로직을 구현하지 않고 데이터값만 보관하는 역할을 해야 함
 
 
-- DAO ��ü (Data Access Object)
-  - ������ ���� �ڵ带 ��� �ִ� ��ü
-  - DB ���� ���� ��ü
-  - DB ������ �����ϴ� Ŭ���� �۸��� `~DAO`�÷� �۸�
-  - �䰡 ����ڷκ��� �Է¹��� ������ ��Ʈ�ѷ� Ȥ�� �𵨿� �ѱ� �� �ϳ��ϳ� �����ϱ� ���ٴ� ��ü�� ��� ��ü�� �����ϴ� ���� ȿ���� (�̷� �� DAO ���)
+- DAO 객체 (Data Access Object)
+  - 데이터 연동 코드를 담고 있는 객체
+  - DB 연동 전담 객체
+  - DB 연동을 전담하는 클래스 작명시 `~DAO`꼴로 작명
+  - 뷰가 사용자로부터 입력받은 내용을 컨트롤러 혹은 모델에 넘길 때 하나하나 전달하기 보다는 전체를 묶어서 객체로 전달하는 것이 효율적 (이럴 떄 DAO 사용)
 
 
 - VO
   - Value Object
-  - `��`�� (readonly�θ� ��밡��)
-  - ������ ���� �д� �뵵�θ� ����� �� ����
-  - �����ϴ� ����� �ִ� ������ ���� VO��� �ؼ��� �ȵ�
+  - `값`임 (readonly로만 사용가능)
+  - 보관된 값을 읽는 용도로만 사용할 수 있음
+  - 변경하는 기능이 있는 도메인 모델은 VO라고 해서는 안됨
 
 
 - DTO
-  - ���� �а� ������ �� ����
+  - 값을 읽고 변경할 수 있음
   
 
 - Entity
-  - DB ���̺��� ���εǴ� ������ ��
-  - JPA���� ��ƼƼ�� �����
-  - DB �������� Ư���� ������ ����
+  - DB 테이블과 매핑되는 도메인 모델
+  - JPA에서 엔티티를 사용함
+  - DB 연동외의 특별한 역할은 없음
 
 
 
-- �Խ��� ������
-  - �Խ��� �ۼ��ڸ�
-  - �Խ��� �� ����
-  - �Խ��� �� �ۼ� ��¥
-  - �̸� �ϳ��� ���� Ŭ������ ������ ��
+- 게시판 데이터
+  - 게시판 작성자명
+  - 게시판 글 내용
+  - 게시판 글 작성 날짜
+  - 이를 하나로 묶는 클래스가 도메인 모델
   
 
 
 ## View 
 
 
-- ����� �������̽�
-- ����ڿ��� �������̽��� ����ϴ� ���α׷��� `��(View)`�� �� (����ڿ��� ģ���ϰ� ó�� ����� ��Ÿ��)
+- 사용자 인터페이스
+- 사용자와의 인터페이스를 담당하는 프로그램을 `뷰(View)`라 함 (사용자에게 친절하게 처리 결과를 나타냄)
 
 
 ## Controller
 
-- DB�� ���� CRUD �۾��� �ʿ�� �� �� ��Ʈ�ѷ��� ���� ��û��
-- ��Ʈ�ѷ��� ������ ���� �Һи��� �� ���� 
-  - �̶� ��Ʈ�ѷ��� ������ �信�� DAO �����ϰԲ� �ٷ� �����ϴ� ��쵵 ����
+- DB에 대한 CRUD 작업을 필요로 할 때 컨트롤러를 통해 요청함
+- 컨트롤러의 역할이 가끔 불분명할 수 있음 
+  - 이때 컨트롤러를 날리고 뷰에서 DAO 연동하게끔 바로 설정하는 경우도 있음
 
 <br>
 
 # DAO
 
-- DB ������ ����ؾ� ��
+- DB 연동에 충실해야 함
 
 # VO
 
-- �����Ͱ��� �����Ͽ��� �����ϴ� ����
+- 데이터값을 보관하여서 전달하는 역할
 
 # DTO
 
-- �����Ͱ��� �����Ͽ��� �����ϴ� ����
+- 데이터값을 보관하여서 전달하는 역할
 
 
 <br>
 
 
-# ���׸� Ÿ��
+# 제네릭 타입
 
-- �������� ���� Ÿ���� �Ű������� ������ Ŭ������ �������̽�
-- ����ο� `<>` ��ȣ�� �ٰ� �� ���̿� Ÿ�� �Ķ����(�Ű�����)���� ��ġ��
+- 결정되지 않은 타입을 매개변수로 가지는 클래스와 인터페이스
+- 선언부에 `<>` 부호가 붙고 그 사이에 타입 파라미터(매개변수)들이 위치함
 
 ```java
 public class ClassName <A, B, ...> { ... }
 public interface InterfaceName <A, B, ...> { ... }
 ```
 
-- Ÿ�� �Ķ���ʹ� �Ϲ������� �빮�� ���ĺ� �� ���ڷ� ǥ����
-- �ܺο��� ���׸� Ÿ���� ����ϱ� ���ؼ��� Ÿ�� �Ķ���Ϳ� ��ü���� Ÿ���� ������
-<br> (�������� ������ �Ϲ������� Object Ÿ���� ����)
+- 타입 파라미터는 일반적으로 대문자 알파벳 한 글자로 표현함
+- 외부에서 제네릭 타입을 사용하기 위해서는 타입 파라미터에 구체적인 타입을 지정함
+<br> (지정하지 않으면 암묵적으로 Object 타입이 사용됨)
 
 
-# ���ϵ�ī�� Ÿ�� �Ķ����
+# 와일드카드 타입 파라미터
 
-- ���׸� Ÿ���� �Ű����̳� ���� Ÿ������ ����� �� ������ �ִ� ��� Ÿ������ ��ü�� �� �ִ� Ÿ�� �Ķ����
-- `?` ��ȣ�� ǥ���� (`?`�� ���� ������ �� �� �ְԲ� �������)
-- API document�� ���ϵ�ī�� Ÿ�� �Ķ���͸� ����� �޼������ ����
+- 제네릭 타입을 매개값이나 리턴 타입으로 사용할 때 범위에 있는 모든 타입으로 대체할 수 있는 타입 파라미터
+- `?` 기호로 표시함 (`?`를 통해 누구나 올 수 있게끔 만들어줌)
+- API document상 와일드카드 타입 파라미터를 사용한 메서드들이 많다
 
 
-- ����
+- 예시
 
 ```
-// ��Ӱ��赵
+// 상속관계도
 Person > Worker 
 Person > Student > HighStudent & MiddleStudent
 ```
 
 
 ```java
-����Ÿ�� �޼���� (���׸�Ÿ��<? extends Student> ����) { ... }
-// Student�� Student�� ����� �ֵ鸸(Student�� �ڼ�) ���׸� Ÿ���� �Ķ���ͷ� ����        
+리턴타입 메서드명 (제네릭타입<? extends Student> 변수) { ... }
+// Student와 Student를 상속한 애들만(Student의 자손) 제네릭 타입의 파라미터로 적용        
         
-����Ÿ�� �޼���� (���׸�Ÿ��<? super Worker> ����) { ... }
-// � Ŭ������ �����ؼ� �ش� Ŭ����Ÿ���� ������ ���� ���� �����ϰ� ���� �� super�� ���
-// Worker�� Worker�� ������ Person�� ����
+리턴타입 메서드명 (제네릭타입<? super Worker> 변수) { ... }
+// 어떤 클래스를 기준해서 해당 클래스타입을 포함한 조상만 오게 제한하고 싶을 때 super를 사용
+// Worker와 Worker의 조상인 Person만 가능
 
         
-����Ÿ�� �޼���� (���׸�Ÿ��<?> ����) { ... }
+리턴타입 메서드명 (제네릭타입<?> 변수) { ... }
 // 
 ```
 
-- ���׸� Ÿ��
-  - Ŭ������ �������̽��� ������� �� Ŭ������ Ȥ�� �������̽��� �ڿ� `<Ÿ�� �Ķ����>`�� ����� ��
-  - AraayList, LinkedList ���� �ش�� 
-  - ���׸� Ÿ���� �Ű����� Ÿ������ ������ �� `ArrayList<Friend>`, `ArrayList<String>`, `ArrayList<StudentDTO>`, `ArrayList<Integer>`��� ���� ��ü Ÿ�� ���� �������� � Ÿ�������� ����
+- 제네릭 타입
+  - 클래스나 인터페이스가 만들어질 떄 클래스명 혹은 인터페이스명 뒤에 `<타입 파라미터>`가 적용된 것
+  - AraayList, LinkedList 등이 해당됨 
+  - 제네릭 타입을 매개변수 타입으로 지정할 때 `ArrayList<Friend>`, `ArrayList<String>`, `ArrayList<StudentDTO>`, `ArrayList<Integer>`등과 같이 객체 타입 생성 시점에서 어떤 타입인지를 정함
+
+
+```java
+My<T> obj;  // T라는 클래스로 인식
+My<?> obj2;  // 다양한 타입으로 인식
+```
+
+# 제네릭 메서드
+
+
+```java
+public <A, B, ... > 리턴타입 메서드명(매개변수, ...) { ... }
+// <A, B, ... > : 타입 파라미터 정의
+```
+
+- 타입 파라미터를 가지고 있는 메서드
+- 타입 파라미터가 메서드 선언부에 정의됨
+- 클래스와 관계없이 클래스 안에 정의되는 메서드에 따라서 제네릭 메서드로 정의할 수 있음
+<br> (클래스가 제네릭 타입인지 여부와는 무관)
+
+
+```java
+public <T> Box<T> boxing(T t) { ... }
+
+// Box<Integer> box1 = boxing(100); 
+// int형 객체를 다루는 Box 객체가 리턴됨
+
+// Box<String> box2 = boxing("안녕하세요");
+// String형 객체를 다루는 Box 객체가 리턴됨
+
+// 전달하는 인자의 타입에 따라 동적으로 처리함.
+```
+
+- 타입 파라미터 T는 메서드 호출시 전달되는 인자의 타입에 따라 컴파일 과정에서 구체적인 타입으로 대체됨
+<br>(메서드가 제네릭이든, 클래스가 제네릭이든 컴파일시 제네릭이 다 사라짐)
+<br>(객체만 남아있고 제네릭 타입 정보는 컴파일하고나서는 사라짐)
+
+
+# 제한된 타입 파라미터
+
+
+```java
+public <T extends 상위타입> 리턴타입 메서드(매개변수, ...) { ... }
+```
+
+- 모든 타입으로 대체할 수는 없고, 특정 타입과 자식 또는 구현 관계에 있는 타입만 대체할 수 있는 타입 파라미터로서 extends 절을 사용한다.( 상위 타입은 클래스뿐만 아니라 인터페이스도 가능)
+
+```java
+public <T extends Number> boolean compare(T t1, T t2){
+    // T extends Number: Number 객체 전달가능 & Number 객체를 확장
+    // String 객체는 안됨
+        
+    double v1 = t1.doubleValue();
+    double v2 = t2.doubleValue();
+    return (v1 == v2);
+}
+```
+
+
+- 제네릭 메서드를 만든다
+  - 이 메서드를 호출하는 시점에 이 메서드가 다루는
+
+<br>
+
+# 멀티스레드 프로그래밍
+
+```bash
+ps -ef 
+
+# ps: 현재 실행중인 프로세스 목록을 보여줌
+# -e: 모든 프로세스 출력
+# -f: 풀 포맷으로 보여줌
+```
+
+
+- 프로세스
+  - 실행 중인 상태인 프로그램
+
+
+- 멀티 태스킹
+  - 두 가지 이상의 작업을 동시에 처리하는 것
+
+
+- 스레드
+  - 프로세스 내에서 코드의 실행 흐름
+<br>(현재 실행중인 프로그램 내에서 수행중인 실행 흐름 하나)
+  - 메인 스레드 
+  <br>-> 메인 메서드를 호출
+  <br>-> 메인 메서드상에서 기동되는 프로그램이 실행됨
+  <br>-> 메인 메서드가 종료되면 작업이 종료
+    - 기본적으로 자바 프로그램은 메인 스레드 하나를 가지고 작업
+
+
+- 백그라운드 프로세스
+  - 내가 직접 기동시킨 프로그램에 의해 내부적으로 기동되거나 OS가 기동시킨 것
+
+## 멀티 프로세스
+
+- 실행 중인 프로그램이 2개 이상인 것
+
+## 멀티 스레드
+
+- 두 개의 코드 실행 흐름을 갖는 것
+- 두 가지 이상의 작업을 처리
