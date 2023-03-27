@@ -1,4 +1,4 @@
-package day0324.day15;
+package day15.course;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;

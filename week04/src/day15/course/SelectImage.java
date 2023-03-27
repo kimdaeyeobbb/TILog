@@ -1,4 +1,4 @@
-package day0324.day15;
+package day15.course;
 
 import java.io.File;
 import java.io.FileOutputStream;

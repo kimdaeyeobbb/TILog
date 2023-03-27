@@ -1,4 +1,4 @@
-package day0324.hw;
+package day15.hw;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

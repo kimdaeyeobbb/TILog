@@ -1,3 +1,5 @@
+package day15.hw;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,34 +17,34 @@ public class InsertBookLab {
 
             Scanner sc = new Scanner(System.in);){
             while(true){
-                /* µµ¼­¸í°ú °¡°İ ÀÔ·Â¹ŞÀ½ */
-                System.out.println("µµ¼­¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä : ");
+                /* ë„ì„œëª…ê³¼ ê°€ê²© ì…ë ¥ë°›ìŒ */
+                System.out.println("ë„ì„œëª…ì„ ì…ë ¥í•˜ì„¸ìš” : ");
                 String title = sc.nextLine();
-                System.out.println("°¡°İÀ» ÀÔ·°ÇÏ¼¼¿ä : ");
+                System.out.println("ê°€ê²©ì„ ì…ëŸ­í•˜ì„¸ìš” : ");
                 int price = Integer.parseInt(sc.nextLine());
-                System.out.println("µµ¼­ ºĞ·ù¿¡ ´ëÇÑ ³Ñ¹ö¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
-                System.out.println("1. ÇÁ·Î±×·¡¹Ö ¾ğ¾î");
-                System.out.println("2. À¥ ÇÁ·Î±×·¡¹Ö");
-                System.out.println("3. ºòµ¥ÀÌÅÍ");
-                System.out.println("4. µ¥ÀÌÅÍº£ÀÌ½º");
-                System.out.println("5. ÀÎÇÁ¶ó");
-                System.out.println("¼±ÅÃ (1~5) : ");
+                System.out.println("ë„ì„œ ë¶„ë¥˜ì— ëŒ€í•œ ë„˜ë²„ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+                System.out.println("1. í”„ë¡œê·¸ë˜ë° ì–¸ì–´");
+                System.out.println("2. ì›¹ í”„ë¡œê·¸ë˜ë°");
+                System.out.println("3. ë¹…ë°ì´í„°");
+                System.out.println("4. ë°ì´í„°ë² ì´ìŠ¤");
+                System.out.println("5. ì¸í”„ë¼");
+                System.out.println("ì„ íƒ (1~5) : ");
                 String kind = "b0";
                 kind += sc.nextLine();
-                System.out.println("Á¤º¸°¡ ÀÔ·ÂµÇ¾ú½À´Ï´Ù.");
+                System.out.println("ì •ë³´ê°€ ì…ë ¥ë˜ì—ˆìŠµë‹ˆë‹¤.");
 
-                /* ¼¼ÆÃ ¹× ¹İ¿µ */
+                /* ì„¸íŒ… ë° ë°˜ì˜ */
                 pstmt.setString(1,title);
                 pstmt.setInt(2, price);
                 pstmt.setString(3,kind);
                 pstmt.executeUpdate();
-                System.out.println("book Å×ÀÌºí¿¡ µ¥ÀÌÅÍ »ğÀÔ ¿Ï·á");
+                System.out.println("book í…Œì´ë¸”ì— ë°ì´í„° ì‚½ì… ì™„ë£Œ");
                 cnt++;
-                System.out.println("°è¼Ó ÀÔ·ÂÇÏ½Ã°Ú½À´Ï±î? (y/n) ");
+                System.out.println("ê³„ì† ì…ë ¥í•˜ì‹œê² ìŠµë‹ˆê¹Œ? (y/n) ");
                 String aws = sc.nextLine();
                 if (aws.equalsIgnoreCase("n")){
-                    System.out.println(cnt+"°³ÀÇ µ¥ÀÌÅÍ ÀÔ·Â ¿Ï·á!");
-                    System.out.println("book Å×ÀÌºí µ¥ÀÌÅÍ »ğÀÔ ÀÛ¾÷ Á¾·á");
+                    System.out.println(cnt+"ê°œì˜ ë°ì´í„° ì…ë ¥ ì™„ë£Œ!");
+                    System.out.println("book í…Œì´ë¸” ë°ì´í„° ì‚½ì… ì‘ì—… ì¢…ë£Œ");
                     break;
                 }
             }

@@ -1,4 +1,5 @@
-package day15.hw.review;
+package day15.hw;
+
 import java.sql.*;
 import java.util.Scanner;
 
@@ -19,7 +20,6 @@ public class SelectBookLab {
                 System.out.println("6. 도서명에 '자바'를 포함하는 도서들만 출력하기");
                 System.out.println("7. 분류별 도서 가격의 평균을 출력하기 (GROUP BY절 써서 평균구하기)");
                 System.out.println("원하는 메뉴의 번호를 선택 : ");
-
                 int num = Integer.parseInt(sc.nextLine());
                 ResultSet rs;
                 String sqlStr = "";
@@ -51,28 +51,29 @@ public class SelectBookLab {
                 String bookNum = rs.getString(1);
                 if(rs.next()) {
                     do {
-                        if(num < 3){
-                            System.out.println(rs.getString(1)+ " " + rs.getString(2) + " " + rs.getString(3) + "  " + rs.getString(4));
-                        } else if (num <7){
-                            System.out.println(rs.getString(1)+"의 가격은 "+rs.getString(2)+"원 입니다.");
-                        } else {
-                            if (bookNum.equals("b01")){
-                                bookName = "프로그래밍 언어";
-                            } else if (bookNum.equals("b02")){
-                                bookName = "웹 프로그래밍";
-                            } else if (bookNum.equals("b03")){
-                                bookName = "빅데이터";
-                            } else if (bookNum.equals("b04")){
-                                bookName = "데이터베이스";
-                            } else if (bookNum.equals("b05")){
-                                bookName = "인프라";
-                            }
-                            System.out.println(bookName+" 도서들의 가격 평균은 "+rs.getString(2)+"원 입니다.");
-                        }
+                       if(num < 3){
+                           System.out.println(rs.getString(1)+ " " + rs.getString(2) + " " + rs.getString(3) + "  " + rs.getString(4));
+                       } else if (num <7){
+                           System.out.println(rs.getString(1)+"의 가격은 "+rs.getString(2)+"원 입니다.");
+                       } else {
+                           if (bookNum.equals("b01")){
+                               bookName = "프로그래밍 언어";
+                           } else if (bookNum.equals("b02")){
+                               bookName = "웹 프로그래밍";
+                           } else if (bookNum.equals("b03")){
+                               bookName = "빅데이터";
+                           } else if (bookNum.equals("b04")){
+                               bookName = "데이터베이스";
+                           } else if (bookNum.equals("b05")){
+                               bookName = "인프라";
+                           }
+                           System.out.println(bookName+" 도서들의 가격 평균은 "+rs.getString(2)+"원 입니다.");
+                       }
                     } while (rs.next());
                 } else {
                     System.out.println("찾으시는 책이 없습니다.");
                 }
+
 
                 System.out.println("계속 입력하시겠습니까? (n 입력시 종료) ");
                 String aws = sc.nextLine();
