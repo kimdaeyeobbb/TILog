@@ -1,4 +1,4 @@
-package day16.hw;
+package day15.hw.review;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,56 +15,56 @@ public class InsertBookLab {
         try(Connection conn = DriverManager.getConnection(url, user, passwd);
             PreparedStatement pstmt = conn.prepareStatement("insert into book(title,price,kind) values (?,?,?)");
             Scanner sc = new Scanner(System.in);){
-            start: while(true){    // ¹İº¹¹®¿¡ start ¶ó´Â ¶óº§À» ºÙÀÓ
-                /* µµ¼­¸í°ú °¡°İ ÀÔ·Â¹ŞÀ½ */
-                System.out.print("µµ¼­¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä : ");
+            start: while(true){    // ë°˜ë³µë¬¸ì— start ë¼ëŠ” ë¼ë²¨ì„ ë¶™ì„
+                /* ë„ì„œëª…ê³¼ ê°€ê²© ì…ë ¥ë°›ìŒ */
+                System.out.print("ë„ì„œëª…ì„ ì…ë ¥í•˜ì„¸ìš” : ");
                 String title = sc.nextLine();
-                System.out.print("°¡°İÀ» ÀÔ·°ÇÏ¼¼¿ä : ");
+                System.out.print("ê°€ê²©ì„ ì…ëŸ­í•˜ì„¸ìš” : ");
                 int price = Integer.parseInt(sc.nextLine());
 
-                /* µµ¼­ ºĞ·ù¿¡ ´ëÇÑ ¼ıÀÚ ÀÔ·Â */
-                System.out.println("µµ¼­ ºĞ·ù¿¡ ´ëÇÑ ¼ıÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
-                System.out.println("1. ÇÁ·Î±×·¡¹Ö ¾ğ¾î");
-                System.out.println("2. À¥ ÇÁ·Î±×·¡¹Ö");
-                System.out.println("3. ºòµ¥ÀÌÅÍ");
-                System.out.println("4. µ¥ÀÌÅÍº£ÀÌ½º");
-                System.out.println("5. ÀÎÇÁ¶ó");
-                System.out.println("¼±ÅÃ (1~5) : ");
+                /* ë„ì„œ ë¶„ë¥˜ì— ëŒ€í•œ ìˆ«ì ì…ë ¥ */
+                System.out.println("ë„ì„œ ë¶„ë¥˜ì— ëŒ€í•œ ìˆ«ìë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+                System.out.println("1. í”„ë¡œê·¸ë˜ë° ì–¸ì–´");
+                System.out.println("2. ì›¹ í”„ë¡œê·¸ë˜ë°");
+                System.out.println("3. ë¹…ë°ì´í„°");
+                System.out.println("4. ë°ì´í„°ë² ì´ìŠ¤");
+                System.out.println("5. ì¸í”„ë¼");
+                System.out.println("ì„ íƒ (1~5) : ");
 
-                System.out.println("Á¤º¸°¡ ÀÔ·ÂµÇ¾ú½À´Ï´Ù.");
+                System.out.println("ì •ë³´ê°€ ì…ë ¥ë˜ì—ˆìŠµë‹ˆë‹¤.");
 
                 int kind = sc.nextInt();
-                sc.nextLine();  // ÀÔ·Â¹öÆÛ Ã»¼Ò
+                sc.nextLine();  // ì…ë ¥ë²„í¼ ì²­ì†Œ
                 if (kind > 5 || kind < 1){
-                    System.out.println("Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù. µµ¼­¸íºÎÅÍ ´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä");
-                    continue;  // ´Ù½Ã while¹® À§·Î ¿Ã¶ó°¡µµ·Ï ¸¸µê (µµ¼­¸íºÎÅÍ ´Ù½Ã ÀÔ·Â)
+                    System.out.println("ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤. ë„ì„œëª…ë¶€í„° ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”");
+                    continue;  // ë‹¤ì‹œ whileë¬¸ ìœ„ë¡œ ì˜¬ë¼ê°€ë„ë¡ ë§Œë“¦ (ë„ì„œëª…ë¶€í„° ë‹¤ì‹œ ì…ë ¥)
                 }
 
-                /* ¼¼ÆÃ ¹× ¹İ¿µ */
+                /* ì„¸íŒ… ë° ë°˜ì˜ */
                 pstmt.setString(1,title);
                 pstmt.setInt(2, price);
                 pstmt.setString(3, "b0"+String.valueOf(kind));
                 pstmt.executeUpdate();
-                System.out.println("\nbook Å×ÀÌºí¿¡ µ¥ÀÌÅÍ »ğÀÔ ¿Ï·á");
+                System.out.println("\nbook í…Œì´ë¸”ì— ë°ì´í„° ì‚½ì… ì™„ë£Œ");
                 cnt++;
                 while(true){
-                    System.out.println("°è¼Ó ÀÔ·ÂÇÏ½Ã°Ú½À´Ï±î? (y/n) ");
+                    System.out.println("ê³„ì† ì…ë ¥í•˜ì‹œê² ìŠµë‹ˆê¹Œ? (y/n) ");
                     String aws = sc.nextLine();
                     if (aws.equalsIgnoreCase("n")){
-                        System.out.println(cnt+"°³ÀÇ µ¥ÀÌÅÍ ÀÔ·Â ¿Ï·á!");
-                        break start;  // start¶ó´Â ¶óº§À» °¡Áö´Â ¹İº¹¹®À» ³¡³¿
+                        System.out.println(cnt+"ê°œì˜ ë°ì´í„° ì…ë ¥ ì™„ë£Œ!");
+                        break start;  // startë¼ëŠ” ë¼ë²¨ì„ ê°€ì§€ëŠ” ë°˜ë³µë¬¸ì„ ëëƒ„
                     } else if (aws.equalsIgnoreCase("y")) {
                         System.out.println();
-                        break;  // ÀÌ while¹®¸¸ ³¡³¿
+                        break;  // ì´ whileë¬¸ë§Œ ëëƒ„
                     } else {
-                        System.out.println("y¿Í n µÑ Áß ÇÏ³ª¸¦ ÀÔ·ÂÇÏ¼¼¿ä");
-                        System.out.println("y´Â °è½ïÇÏ°í nÀº ±×¸¸ÇÏ±â ÀÔ´Ï´Ù.");
+                        System.out.println("yì™€ n ë‘˜ ì¤‘ í•˜ë‚˜ë¥¼ ì…ë ¥í•˜ì„¸ìš”");
+                        System.out.println("yëŠ” ê³„ì™í•˜ê³  nì€ ê·¸ë§Œí•˜ê¸° ì…ë‹ˆë‹¤.");
                     }
                 }
             }
         } catch (SQLException se){
-            System.out.println("¿À·ù ¹ß»ı : "+se.getMessage());
-            se.printStackTrace(); // Äİ½ºÅÃ Á¤º¸ Ãâ·Â
-        }  // try-catch ±¸¹®À» »ç¿ëÇÏ¿´À¸¹Ç·Î close´Â ÀÚµ¿À¸·Î ¼öÇà
+            System.out.println("ì˜¤ë¥˜ ë°œìƒ : "+se.getMessage());
+            se.printStackTrace(); // ì½œìŠ¤íƒ ì •ë³´ ì¶œë ¥
+        }  // try-catch êµ¬ë¬¸ì„ ì‚¬ìš©í•˜ì˜€ìœ¼ë¯€ë¡œ closeëŠ” ìë™ìœ¼ë¡œ ìˆ˜í–‰
     }
 }

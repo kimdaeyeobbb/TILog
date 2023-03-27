@@ -1,4 +1,5 @@
-package day16.hw;
+package day15.hw.review;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,24 +8,24 @@ import java.sql.Statement;
 
 public class CreateBookLab {
     public static void main(String[] args) {
-        /* DB¿¬°áÀ» À§ÇÑ º¯¼ö ¼±¾ğ */
+        /* DBì—°ê²°ì„ ìœ„í•œ ë³€ìˆ˜ ì„ ì–¸ */
         String url = "jdbc:mysql://localhost:3306/edudb?characterEncoding=UTF-8&serverTimezone=UTC";
         String user = "jdbctest";
         String passwd = "jdbctest";
 
 
-        try( /* DB ¿¬°áÀ» À§ÇÑ °´Ã¼ »ı¼º - Å¬·ÎÀúºíÀ» Ãß°¡»ó¼ÓÇØ¾ßÇÔ */
+        try( /* DB ì—°ê²°ì„ ìœ„í•œ ê°ì²´ ìƒì„± - í´ë¡œì €ë¸”ì„ ì¶”ê°€ìƒì†í•´ì•¼í•¨ */
                 Connection conn = DriverManager.getConnection(url, user, passwd);
-            Statement stmt = conn.createStatement();){
-            /* Å×ÀÌºí ±¸¼º Á¤º¸ */
+                Statement stmt = conn.createStatement();){
+            /* í…Œì´ë¸” êµ¬ì„± ì •ë³´ */
             stmt.executeUpdate("create table book " +
                     "(id int primary key auto_increment not null " +
                     ",title varchar(90)" +
                     ", price int" +
                     ", kind char(3))");
-            System.out.println("book Å×ÀÌºí »ı¼º ¿Ï·á!");
+            System.out.println("book í…Œì´ë¸” ìƒì„± ì™„ë£Œ!");
         } catch (SQLException sel){
-            System.out.println("¿À·ù ¹ß»ı! ¿¡·¯ ¸Ş½ÃÁö: " +sel);
+            System.out.println("ì˜¤ë¥˜ ë°œìƒ! ì—ëŸ¬ ë©”ì‹œì§€: " +sel);
         }
     }
 }

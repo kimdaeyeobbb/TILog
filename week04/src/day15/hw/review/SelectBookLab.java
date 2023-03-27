@@ -1,5 +1,4 @@
-package day16.hw;
-
+package day15.hw.review;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -12,14 +11,14 @@ public class SelectBookLab {
             Statement stmt = conn.createStatement();
             Scanner sc = new Scanner(System.in);){
             while(true) {
-                System.out.println("1. ¸ğµÎ Ãâ·ÂÇÏ±â");
-                System.out.println("2. °¡°İÀÌ ³ôÀº ¼øÀ¸·Î Ãâ·ÂÇÏ±â");
-                System.out.println("3. 20000 ÀÌ»óÀÇ µµ¼­µé¸¸ Ãâ·ÂÇÏ±â (3¹ø ÀÔ·Â½Ã 2¸¸¿ø ÀÌ»óÀÇ µµ¼­µé¸¸ Ãâ·Â)");
-                System.out.println("4. À¥ ÇÁ·Î±×·¡¹Ö µµ¼­µé¸¸ Ãâ·ÂÇÏ±â");
-                System.out.println("5. µ¥ÀÌÅÍº£ÀÌ½º¿Í ÀÎÇÁ¶ó µµ¼­µé¸¸ Ãâ·ÂÇÏ±â");
-                System.out.println("6. µµ¼­¸í¿¡ 'ÀÚ¹Ù'¸¦ Æ÷ÇÔÇÏ´Â µµ¼­µé¸¸ Ãâ·ÂÇÏ±â");
-                System.out.println("7. ºĞ·ùº° µµ¼­ °¡°İÀÇ Æò±ÕÀ» Ãâ·ÂÇÏ±â (GROUP BYÀı ½á¼­ Æò±Õ±¸ÇÏ±â)");
-                System.out.println("¿øÇÏ´Â ¸Ş´ºÀÇ ¹øÈ£¸¦ ¼±ÅÃ : ");
+                System.out.println("1. ëª¨ë‘ ì¶œë ¥í•˜ê¸°");
+                System.out.println("2. ê°€ê²©ì´ ë†’ì€ ìˆœìœ¼ë¡œ ì¶œë ¥í•˜ê¸°");
+                System.out.println("3. 20000 ì´ìƒì˜ ë„ì„œë“¤ë§Œ ì¶œë ¥í•˜ê¸° (3ë²ˆ ì…ë ¥ì‹œ 2ë§Œì› ì´ìƒì˜ ë„ì„œë“¤ë§Œ ì¶œë ¥)");
+                System.out.println("4. ì›¹ í”„ë¡œê·¸ë˜ë° ë„ì„œë“¤ë§Œ ì¶œë ¥í•˜ê¸°");
+                System.out.println("5. ë°ì´í„°ë² ì´ìŠ¤ì™€ ì¸í”„ë¼ ë„ì„œë“¤ë§Œ ì¶œë ¥í•˜ê¸°");
+                System.out.println("6. ë„ì„œëª…ì— 'ìë°”'ë¥¼ í¬í•¨í•˜ëŠ” ë„ì„œë“¤ë§Œ ì¶œë ¥í•˜ê¸°");
+                System.out.println("7. ë¶„ë¥˜ë³„ ë„ì„œ ê°€ê²©ì˜ í‰ê· ì„ ì¶œë ¥í•˜ê¸° (GROUP BYì ˆ ì¨ì„œ í‰ê· êµ¬í•˜ê¸°)");
+                System.out.println("ì›í•˜ëŠ” ë©”ë‰´ì˜ ë²ˆí˜¸ë¥¼ ì„ íƒ : ");
 
                 int num = Integer.parseInt(sc.nextLine());
                 ResultSet rs;
@@ -41,7 +40,7 @@ public class SelectBookLab {
                         sqlStr = "select title, format(price, 0) from book where kind like '%b04%' and like '%b05%'";
                         break;
                     case 6:
-                        sqlStr = "select title, format(price, 0) from book where title like '%ÀÚ¹Ù%'";
+                        sqlStr = "select title, format(price, 0) from book where title like '%ìë°”%'";
                         break;
                     case 7:
                         sqlStr = "select kind, format(avg(price), 0) from book group by kind";
@@ -55,30 +54,30 @@ public class SelectBookLab {
                         if(num < 3){
                             System.out.println(rs.getString(1)+ " " + rs.getString(2) + " " + rs.getString(3) + "  " + rs.getString(4));
                         } else if (num <7){
-                            System.out.println(rs.getString(1)+"ÀÇ °¡°İÀº "+rs.getString(2)+"¿ø ÀÔ´Ï´Ù.");
+                            System.out.println(rs.getString(1)+"ì˜ ê°€ê²©ì€ "+rs.getString(2)+"ì› ì…ë‹ˆë‹¤.");
                         } else {
                             if (bookNum.equals("b01")){
-                                bookName = "ÇÁ·Î±×·¡¹Ö ¾ğ¾î";
+                                bookName = "í”„ë¡œê·¸ë˜ë° ì–¸ì–´";
                             } else if (bookNum.equals("b02")){
-                                bookName = "À¥ ÇÁ·Î±×·¡¹Ö";
+                                bookName = "ì›¹ í”„ë¡œê·¸ë˜ë°";
                             } else if (bookNum.equals("b03")){
-                                bookName = "ºòµ¥ÀÌÅÍ";
+                                bookName = "ë¹…ë°ì´í„°";
                             } else if (bookNum.equals("b04")){
-                                bookName = "µ¥ÀÌÅÍº£ÀÌ½º";
+                                bookName = "ë°ì´í„°ë² ì´ìŠ¤";
                             } else if (bookNum.equals("b05")){
-                                bookName = "ÀÎÇÁ¶ó";
+                                bookName = "ì¸í”„ë¼";
                             }
-                            System.out.println(bookName+" µµ¼­µéÀÇ °¡°İ Æò±ÕÀº "+rs.getString(2)+"¿ø ÀÔ´Ï´Ù.");
+                            System.out.println(bookName+" ë„ì„œë“¤ì˜ ê°€ê²© í‰ê· ì€ "+rs.getString(2)+"ì› ì…ë‹ˆë‹¤.");
                         }
                     } while (rs.next());
                 } else {
-                    System.out.println("Ã£À¸½Ã´Â Ã¥ÀÌ ¾ø½À´Ï´Ù.");
+                    System.out.println("ì°¾ìœ¼ì‹œëŠ” ì±…ì´ ì—†ìŠµë‹ˆë‹¤.");
                 }
 
-                System.out.println("°è¼Ó ÀÔ·ÂÇÏ½Ã°Ú½À´Ï±î? (n ÀÔ·Â½Ã Á¾·á) ");
+                System.out.println("ê³„ì† ì…ë ¥í•˜ì‹œê² ìŠµë‹ˆê¹Œ? (n ì…ë ¥ì‹œ ì¢…ë£Œ) ");
                 String aws = sc.nextLine();
                 if(aws.equalsIgnoreCase("n")){
-                    System.out.println("Á¾·áÇÕ´Ï´Ù.");
+                    System.out.println("ì¢…ë£Œí•©ë‹ˆë‹¤.");
                     rs.close();
                     break;
                 }
