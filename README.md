@@ -3,11 +3,11 @@
 
 # Today I Learned
 
-|ÁÖÂ÷| ³»¿ë                                                                 |          ÁÖÂ÷º° ³»¿ë Á¤¸®           |
+|ì£¼ì°¨| ë‚´ìš©                                                                 |          ì£¼ì°¨ë³„ ë‚´ìš© ì •ë¦¬           |
 |:---:|:-------------------------------------------------------------------|:----------------------------:|
-|1ÁÖÂ÷| ¸®´ª½º<br>³×Æ®¿öÅ© & À¥<br>DB<br>Git                                       | [1ÁÖÂ÷ ³»¿ë Á¤¸® ¸µÅ©](./week01/src) |
-|2ÁÖÂ÷| <b>Java</b><br>Á¦¾î¹®<br>¹Ýº¹¹®<br>¹è¿­<br>¸Þ¼­µå (+ ¿À¹ö·Îµù & ¿À¹ö¶óÀÌµù)            | [2ÁÖÂ÷ ³»¿ë Á¤¸® ¸µÅ©](./week02/src) |
-|3ÁÖÂ÷| OOP<br>»ó¼Ó / ´ÙÇü¼º / Ãß»óÅ¬·¡½º <br> ÀÎÅÍÆäÀÌ½º <br> ¿¹¿ÜÃ³¸®                       | [3ÁÖÂ÷ ³»¿ë Á¤¸® ¸µÅ©](./week03/src) |
-|4ÁÖÂ÷| Á¦³×¸¯ <br> Collection <br> Java I/O & URL <br> Inner Class <br> JDBC | [4ÁÖÂ÷ ³»¿ë Á¤¸® ¸µÅ©](./week04/src) |
-|5ÁÖÂ÷|                                                                   | [5ÁÖÂ÷ ³»¿ë Á¤¸® ¸µÅ©](./week05/src) |
+|1ì£¼ì°¨| ë¦¬ëˆ…ìŠ¤<br>ë„¤íŠ¸ì›Œí¬ & ì›¹<br>DB<br>Git                                       | [1ì£¼ì°¨ ë‚´ìš© ì •ë¦¬ ë§í¬](./week01/src) |
+|2ì£¼ì°¨| <b>Java</b><br>ì œì–´ë¬¸<br>ë°˜ë³µë¬¸<br>ë°°ì—´<br>ë©”ì„œë“œ (+ ì˜¤ë²„ë¡œë”© & ì˜¤ë²„ë¼ì´ë”©)            | [2ì£¼ì°¨ ë‚´ìš© ì •ë¦¬ ë§í¬](./week02/src) |
+|3ì£¼ì°¨| OOP<br>ìƒì† / ë‹¤í˜•ì„± / ì¶”ìƒí´ëž˜ìŠ¤ <br> ì¸í„°íŽ˜ì´ìŠ¤ <br> ì˜ˆì™¸ì²˜ë¦¬                       | [3ì£¼ì°¨ ë‚´ìš© ì •ë¦¬ ë§í¬](./week03/src) |
+|4ì£¼ì°¨| ì œë„¤ë¦­ <br> Collection <br> Java I/O & URL <br> Inner Class <br> JDBC | [4ì£¼ì°¨ ë‚´ìš© ì •ë¦¬ ë§í¬](./week04/src) |
+|5ì£¼ì°¨| MVC<br>ì œë„¤ë¦­<br>ë©€í‹° ìŠ¤ë ˆë“œ                                               | [5ì£¼ì°¨ ë‚´ìš© ì •ë¦¬ ë§í¬](./week05/src) |
 
