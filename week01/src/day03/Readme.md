@@ -423,12 +423,14 @@ order by (
 - 정렬할 것들도 (ORDER BY에 있는것들) GROUP BY내부에 포함시켜줘야함 
 <br> => 그래서 옆에 나란히 묶어서 써준 것
 
+<br>
+
 # Top n Query
 
 - limit & offet을 사용함
 
 ```sql
-# 입사일자가 가장 빠른 직원 3사람을 출력, 급여가 가장 작은 3명을 출력하라
+-- 입사일자가 가장 빠른 직원 3사람을 출력, 급여가 가장 작은 3명을 출력하라
 select * from employees order by hire_date asc limit 3;
 ```
 
@@ -439,68 +441,103 @@ select * from employees order by hire_date asc limit 3;
 - 인덱스의 칼럼에 대응되는 별도의 객체로 독립적인 저장 공간을 보유함
 - Optimizer가 최적의 실행경로를 설정하는데 중요한 Factor가 된다
 
+- WHERE절에 있는 컬럼에 INDEX를 사용하면 테이블전체를 뒤질 필요가 없다 (테이블 전체를 다 가지고 오는 것은 I/O를 일으키는 행위가 되고, 속도가 떨어지게 된다.)
+
+- 인덱스를 사용하면 인덱스를 먼저 뒤져서 해당 데이터를 읽어올 수 있으므로 전체를 읽어오는 행위를 피할 수 있다.
+  <br> => 별도의 정렬 없이 결과를 추출할 수 있으므로 성능이 향상됨
+
+## 인덱스를 사용하면 왜 빨라지는가?
+
+- 인덱스는 테이블처럼 별도로 존재하는 객체이다
+- 인덱스 객체를 뒤지면 해당되는 데이터(row)가 어디있는지 알 수 있고, 그 부분만 읽어올 수 있기 때문에. 전체를 다 읽지 않아도 되니까 I/O를 일으키는 횟수가 줄어든다
+
+
+
+## 데이터가 변경될 떄마다 외부에서 내부로 인덱스를 다시 정렬하나요?
+
+- 네
+  - 굉장히 많은 양의 데이터를 데이터 덤프받는다고함. 백업받는것. 데이터를 다시 부워넣을 떄 인덱스를 지우고 다시 인덱스를 넣고… 인덱스를 지우는 과정이 생긴다. 인덱스라는 것 자체가 지울 떄가있다. 많은 양의 데이터를 집어넣을 때에는 하나하나 집어넣을 떄마다 인덱스를 다 바꾸어야 한다. 어떤경우에는 데이터를 집어넣는데 하루종일 걸리는 경우가 있다. 이러한 경우 관련된 인덱스를 지워버리고, 드랍하고. 인덱스를 새로 생성한다.
+
+
+<br>
+
 # JOIN
 
+- 둘 이상의 테이블에 흩어져 있는 데이터를 서로 연결하여 조회하는 것
 
-join조건은 fk가 필요하다.
+- 주로 Foreign Key를 이용하여 참조함
+
+- 관계형 모델에서는 데이터의 일관성이나 저장 효율을 위해 데이터의 중복을 최소화한 구조(정규화)로 관리하므로,
+필요로 하는 데이터들이 여러 테이블에 흩어져 존재하기에 데이터를 조회할 경우 JOIN을 필요로 한다
+
+
+## Self Join
+
+- 자기 자신과 조인한 결과를 조회함
+
+## Inner Join
+
+- Join 조건을 만족하는 튜플만 조회됨
+
+## Outer Join
+
+- outer join은 join조건을 만족하지 않으면 사라지는 경우가 발생하는데, 이를 방지하는 쿼리이다.
+
+- Join 조건을 만족하지 않는 튜플 (짝이 없는 튜플)도 NULL과 함께 조회됨
+
 
 ```sql
-# 성, 입사일자, 급여, 부서명 출력 
-select e.last_name, e.hire_date, e.salary, d.department_name, d.department_id
-from employees e, departments d
-where e.department_id = d.department_id;
-```
-
-이렇게 조회했을 때 문제가 발생할  수 있다.
-
-outer join을 알고 있으면 문제를 알아차릴 수 있다.
-
-outer join은 join조건을 만족하지 않으면 사라지는 경우가 발생하는데, 이를 방지하는 쿼리이다.
-
-## outer join
-
----
-
-```sql
-# 아직 부서에 배치되지 않아서 부서명을 출력할 수 없는 경우는 사라진다. => outer join이 필요하다.
-# 부서에 배치되지 않은 사원이 사라질 수 있음
+-- 아직 부서에 배치되지 않아서 부서명을 출력할 수 없는 사원이 사라질 수 있다
+-- 이러한 경우 outer join이 필요하다.
 select count(*)
 from employees e;
 ```
 
-따라서 join을 할 때 표현을 달리해주는게 좋다.
+<br>
+
+
+- 아직 미배치 상태인 직원은 부서명없음이라고 출력하시오
 
 ```sql
-# 아직 미배치 상태인 직원은 부서명없음이라고 출력하시오.
 select last_name, salary, ifnull(d.department_name, '부서명없음')
 from employees e 
 LEFT JOIN departments d ON e.department_id = d.department_id;
 ```
 
-# self join
-
----
-
-입사하면 fk를 사용하지 않는 경우가 많다. (fk는 선택의 영역임)
+<br>
 
 
-자신의 관리자의 이름에 대한 정보를 출력하기
+### Left Outer Join
 
+- 외쪽 테이블은 모든 튜플 중 Join 조건을 만족시키지 못하는 NULL의 경우 또한 조회됨
+
+#### 예제
 ```sql
-# 관리자 이름도 출력
+-- 자신의 관리자의 이름에 대한 정보를 출력하기
+-- 관리자 이름도 출력
 select *
 from employees e
 join employees m on e.manager_id = m.employee_id;  -- m: 매니저
 ```
 
+### RIGHT Outer Join
+
+- 오른쪽 테이블의 모든 튜플이 조회됨 (NULL 포함)
+
+### Full Outer Join
+
+- 양쪽 테이블 내부의 데이터 중 Join 조건을 만족시키지 못하는 모든 Row들이 조회됨
+
+<br>
+
+
 # 서브 쿼리
 
----
+- 쿼리 내부에 포함되어 있는 쿼리
 
-쿼리 내부에 포함되어 있는 쿼리
-
+## 예제
 ```sql
-# Steven, King이 근무하는 부서의 부서원 정보를 출력
+-- Steven, King이 근무하는 부서의 부서원 정보를 출력
 select department_id from employees 
 where last_name = 'King' and first_name='Steven'
 
@@ -509,11 +546,10 @@ from employees
 where department_id = 90;
 ```
 
-이 두개의 쿼리를 하나으 ㅣ쿼리로 만들자
+이 두개의 쿼리를 하나의 쿼리로 만들면 다음과 같다
 
 ```sql
-# Steven, King이 근무하는 부서의 부서원 정보를 출력
-
+-- Steven, King이 근무하는 부서의 부서원 정보를 출력
 select *
 from employees
 where department_id = (select department_id 
@@ -521,87 +557,59 @@ where department_id = (select department_id
 						where last_name = 'King' and first_name='Steven');
 ```
 
-- 유의사항 - 에러케이스
 
-```sql
-#  King이 근무하는 부서의 부서원 정보를 출력
-# last_name이 king인 경우만.
-select *
-from employees
-where department_id = (select department_id 
-						from employees 
-						where last_name = 'King');
-```
-
-- 에러 케이스 수정 - 다중 행을 리턴하도록 수정함
-
-```sql
-# King이 근무하는 부서의 부서원 정보를 출력
-# last_name이 king인 경우만.
-select *
-from employees
-where department_id in (select department_id 
-						from employees 
-						where last_name = 'King');
-```
 
 ## 서브쿼리- 다중컬럼 리턴
 
 
+
 ```sql
-# 부서별로 최고 급여를 받는 직원정보 조회
+-- 부서별로 최고 급여를 받는 직원정보 조회
 select max(salary) from employees group by department_id;
 ```
 
-- 에러케이스
+### 에러케이스
 
 ```sql
-# 부서별로 최고 급여를 받는 직원정보 조회
+-- 부서별로 최고 급여를 받는 직원정보 조회
 
 select last_name,salary,department_id
 from employees
-where salary in (select max(salary) 
-from employees 
-group by department_id
+where salary in (
+    select max(salary) 
+    from employees 
+    group by department_id
 )
 order by 3;
 ```
 
-아, 어느사람이 받는 급여가 다른 부서에 가면 최고급여가 아니게 되는 경우가 생기는구나. 하고추측을 할 수 있다.
+- 아, 어느사람이 받는 급여가 다른 부서에 가면 최고급여가 아니게 되는 경우가 생기는구나. 하고추측을 할 수 있다.
 
-- 에러케이스 수정
+### 에러케이스 수정본
 
 ```sql
-# 부서별로 최고 급여를 받는 직원정보 조회
+-- 부서별로 최고 급여를 받는 직원정보 조회
 
 select last_name,salary,department_id
 from employees
 where (salary, department_id) in (select max(salary), department_id 
-from employees 
-group by department_id
+    from employees 
+    group by department_id
 )
 order by 3;
 ```
 
-다중컬럼을 리턴하는 케이스로 수정하였음.
+- 다중컬럼을 리턴하는 케이스로 수정하였음.
+  <br>(각 부서별 최고급여를 받는 사람에 대한 정보를 잘 추려서 보여줌)
 
-각 부서별 최고급여를 받는 사람에 대한 정보를 잘 추려서 보여줌
-
-여러개의 멀티row를 리턴하니까 ~을 쓴것임
 
 ## 서브쿼리 - 상호 연관 서브 쿼리
 
----
-
-상호 연관 서브 쿼리란,
-
-서브쿼리에서 메인 쿼리를 참조하는 것
-
-서브 쿼리를 예측해보면 ~
+- 서브 쿼리가 메인 쿼리에서 조회된 데이터의 적합 여부를 확인하는 역할을 수행하는 형태
 
 ```sql
-# correlated subquery
-# 자기 부서의 평균급여보다 많은 급여를 받는 직원조회
+-- correlated subquery
+-- 자기 부서의 평균급여보다 많은 급여를 받는 직원조회
 select *
 from employees e
 where salary > (
@@ -611,40 +619,23 @@ where salary > (
 );  -- 자기 부서 평균 급여 리턴하도록 할 것
 ```
 
-```sql
-# correlated subquery
-# 자기 부서의 평균급여보다 많은 급여를 받는 직원조회
-select *
-from employees e
-where salary > (
-	select avg(salary)
-    from employees
-    where department_id = e.department_id   -- e.departemend_id => 메인 쿼리
-);  -- 자기 부서 평균 급여 리턴하도록 할 것
-```
 
 ## 서브쿼리 - 스칼라 서브 쿼리
 
----
+- SELECT List 절에 사용한 서브쿼리이며, 단일 값을 리턴함
 
-select절에 쓰이는 서브 쿼리
+- 서브쿼리를 수행할 결과집합이 소량이고, 코드를 간직한 테이블과의 조인이 많음.
+<br>=> 실행 계획이 비효율적으로 수립될 가능성이 있는 경우에 사용
 
-결과집합이 소량이고, 코드를 간직한 테이블과의 조인이 많음.
-
-실제로 코드를 많이 사용함.
 
 인터넷 쇼핑몰에서 나의 주문정보가 궁금한 경우 (배송중인지 등),
-
 나의 주문정보가 테이블에 저장되어 있는데 주문상태가 배송중인지가 궁금함.
-
 내가 봤을때 주문중으로 뜨지만 테이블에는 배송중이라는 문자열을 저장하면 안됨.
-
 그렇게 저장하면 데이터량도 많아지고, 관리가 힘듦.
-
 따라서 001처럼 코드로 들어있으면 배송중인것임. 이렇게 표시하면 관리하기가 용이함.
 
 ```sql
-# 자기부서의 평균급여도 출력
+-- 자기부서의 평균급여도 출력
 select last_name, salary, department_id,
 round((select avg(salary) from employees where department_id = e.department_id)) 부서평균급여
 from employees e;
@@ -652,12 +643,10 @@ from employees e;
 
 ## from 절에 사용되는 서브쿼리
 
----
-
 ```sql
-# from절에 사용된 서브쿼리
-# 자기 부서의 평균 급여보다 많은 급여를 받는 사원 조회
-# 부서별 평균급여를 from절의 서브쿼리로 처리
+-- from절에 사용된 서브쿼리
+-- 자기 부서의 평균 급여보다 많은 급여를 받는 사원 조회
+-- 부서별 평균급여를 from절의 서브쿼리로 처리
 select *
 from employees e 
 join (select department_id, avg(salary) avg_salary
@@ -668,210 +657,6 @@ where e.salary > da.avg_salary;
 
 ```
 
-괄호안에 테이블과 같은 느낌의 서브쿼리를 넣음
-
-서브쿼리들을 쭉 보면서 서브쿼리란 다양한 형태가 있을 수 있다는것을 알아두면 됨
-
-단, 튜닝이나 최적화관점에서 접근하기는 어렵다.
-지금 당장은 힘들지만, 나중에는 꼭 접근해보기를 권고함.
-
-# 과제2
-
----
-
-## 1. 부서번호, 부서명, 부서장사번, 부서장성명, 부서장입사일자를 출력하시오. (단, 부서장이 없으면 부서장없음으로 출력)
-
----
-
-ㅁ
-
-## 2. 자신의 관리자보다 먼저 입사한 직원의 이름 사번, 성명, 입사일자, 관리자입사일자를 출력하시오
-
----
-
-ㅁ
-
-## 3. Seattle에 근무하는 직원의 사번, 성명, 입사일자, 부서번호, 부서명을 출력 (단.서브쿼리로 합니다.)
-
----
-
-ㅋ
-
-## 유의사항
-
----
-
-부서장
-
-→ 부서장이 없으면 부서장 사번도 없으므로 ‘없음’이라고 기재할 것
-(부서장 성명도 부서장이 없으면 ‘없음’으로 기재할 것)
-
-# 과제1
-
----
-
-```sql
-select
-	CONCAT(first_name, last_name) 성명,
-    CONCAT(email, '@kosa.com') 이메일,
-    CONCAT(FORMAT(TRUNCATE(salary*12*1240, -4),0), '원') 연봉,
-    date_format(DATE_ADD(hire_date, INTERVAL 30 YEAR),'%d-%m-%Y') 입사후30주년일자,
-    format(DATEDIFF(curdate(),hire_date)/365,2) 근속년수,
-    DATE_ADD(hire_date, INTERVAL 30 YEAR),
-    DATE_FORMAT(DATE_SUB(DATE_ADD(hire_date, INTERVAL 30 YEAR)), INTERVAL (WEEKDAY()
-from 
-	employees
-where 
-	department_id = 80
-order by
-	근속년수 desc
-```
-
-- 참고자료
-
-[MySQL 날짜 문제 풀기](https://i-am-lsw.tistory.com/5)
-
-[Mysql 특정 요일의 날짜 값 구하는 쿼리 작성법 (예: 저번주 토요일, 이번주 월요일)](https://bscnote.tistory.com/122)
-
-# INDEX
-
----
-
-인덱스가 있으면 쿼리 성능에 도움이 된다.
-
-WHERE절에 있는 컬럼에 INDEX를 사용하면 테이블전체를 뒤질 필요가 없다 (테이블 전체를 다 가지고 오는 것은 I/O를 일으키는 행위가 되고, 속도가 떨어지게 된다.)
-
-데이터는 디스크에 저장되어있다. 디스크에 있는것을 읽어오고 ~
-디스크에서 얼마나 읽어오는지가 성능을 결정한다.
-
-디스크에 있는것을 읽어오는 행위는 시간을 걸리게 만듦.
-
-디스크에서 읽어올 때 읽어오는 속도 단위는 밀리세컨드임
-
-읽어오는 량을 줄이는것이 성능을 결정한다.
-
-인덱스를 사용하면 인덱스를 먼저 뒤져서 해당 데이터를 읽어올 수 있으므로 전체를 읽어오는 행위를 피할 수 있다. 하지만 전체를 읽는것이 항상 느린것은 아니다.
-
-인덱스를 사용하면 좋긴하지만, 무조건적으로 사용하는것이 아니라 인덱스를 통해 성능저하를 얼마나 줄이느냐가 관건이다
-
-- 인덱스 읽어오기
-
-```sql
-show indexes from employees;
-```
-
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f81d1c07-b96f-4cb1-84f3-6e3e17cc2029/Untitled.png)
-
-전체에서 인덱스를 가져오는 이유?
-→ last_name에 인덱스가 없기 때문임
-
-→ 인덱스를 만들어주자
-
-## 인덱스 생성하기
-
----
-
-인덱스 생성시 컬럼명, 테이블명, 인덱스 걸고자하는 컬럼등을 포함하여 생성함
-
-```sql
-# K로 시작되는 이름 사원조회
-select *
-from employees
-where last_name like 'K%';
-create index emp_last_name_idx on employees(last_name);
-```
-
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3255edfb-96c5-424f-9411-dca937716725/Untitled.png)
-
-여기서의 cost는 상대적인 값임
-
-~에 따라 cost는 다 달라짐
-
-인덱스를 지워보자
-
-```sql
-# K로 시작되는 이름 사원조회
-select *
-from employees
-where last_name like 'K%';
-create index emp_last_name_idx on employees(last_name);
-drop index emp_last_name_idx on employees;
-```
-
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f5614dba-f046-460d-a57c-33adcc605852/Untitled.png)
-
-- 인덱스가 지워졌나 확인
-
-```sql
-# K로 시작되는 이름 사원조회
-select *
-from employees
-where last_name like 'K%';
-create index emp_last_name_idx on employees(last_name);
-drop index emp_last_name_idx on employees;
-show index from employees;
-```
-
-## 인덱스를 사용하면 왜 빨라지는가?
-
-인덱스는 객체이다. 인덱스는 테이블처럼 별도로 존재하는 객체이다.
-인덱스를 들여다보면 어떤 컬럼에 저장되어 있는 값들이 실제로는 테이블의 위치를 알 수 있다. 특정 값이 존재하는데, 값에 존재하는 데이터들은 ~
-거기가서 그것만 읽어올 수 있다. 그러면 전체를 읽어오지 않아도 된다.
-디테일하게 보자면 블록단위로 읽어오는 ~
-
-인덱스 객체를 뒤지면 해당되는 데이터(row)가 어디있는지 알 수 있고, 그 부분만 읽어올 수 있기 때문에. 전체를 다 읽지 않아도 되니까 I/O를 일으키는 횟수가 줄어들고.
-
-### PK가 ~되면 자동으로 인덱스가 만들어지는가?
-
-네 자동으로 만들어집니다.
-
-어떤 테이블을 만들어보자
-
-```sql
-create table mysample(
-	id int,
-    name varchar(45));
-    
-show index from mysample;
-```
-
-모든 DBMS는 PK가 생성되면 해당 PK에 대한 INDEX를 자동으로 생성한다. (MYSQL은 된다. 하지만 오라클은 안된다.)
-
-```sql
-create table mysample(
-	id int,
-    name varchar(45),
-    primary key(id));
-    
-show index from mysample;
-```
-
-# mysql 인덱스컬럼 변형 비교
-
-- 인덱스는 정렬되어있다.
-
-- 인덱스는 Btree 인덱스 구조이다.
-
-- 인덱스의 내부적인 알고리즘은 Btree이다.(balanced tree. 정렬되어 있다는 뜻)
-
-
-
-<br>
-
-# SQL-인덱스-개요
-
-- 인덱스는 테이블의 데이터가 변경되면 인덱스도 바꾸어야 한다.
-
-- 테이블의 데이터가 너무 자주 변경되면 인덱스가 오버헤드를 일으킨다.
-
-- 인덱스에는 별도의 저장공간이 필요하다.
-
-<br>
-
-# 데이터가 변경될 떄마다 외부에서 내부로 인덱스를 다시 정렬하나요?
-
-- 네
-  - 굉장히 많은 양의 데이터를 데이터 덤프받는다고함. 백업받는것. 데이터를 다시 부워넣을 떄 인덱스를 지우고 다시 인덱스를 넣고… 인덱스를 지우는 과정이 생긴다. 인덱스라는 것 자체가 지울 떄가있다. 많은 양의 데이터를 집어넣을 때에는 하나하나 집어넣을 떄마다 인덱스를 다 바꾸어야 한다. 어떤경우에는 데이터를 집어넣는데 하루종일 걸리는 경우가 있다. 이러한 경우 관련된 인덱스를 지워버리고, 드랍하고. 인덱스를 새로 생성한다.
 
 
 <BR>
