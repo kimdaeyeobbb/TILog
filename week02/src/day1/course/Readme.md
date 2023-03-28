@@ -333,6 +333,102 @@ true, false (소문자로 사용함)이 존재
 - 변수 선언
     - 어떤 타입의 데이터를 저장하고 변수명을 무엇을 사용할지 결정하는 것
 
+
+- 똑같은 이름의 변수를 같은 공간에 재선언하면 안됨
+
+```java
+package day1;
+public class VarTest2 {
+	public static void main(String[] args) {
+		System.out.println(100);
+		int num;  
+		num = 1000;
+		System.out.println("연산 전 : "+num);
+		
+        num = 10+20;
+		System.out.println("연산 후 : "+num);
+		
+        char munja = 'A';  
+		System.out.print(munja); 
+		
+        munja++;
+		System.out.print(munja); 
+		
+        munja += 1;
+		System.out.print(munja); 
+		
+        munja = (char)(munja+1); 
+		System.out.println(munja);  
+        
+		char munja = 'A';   // 에러
+		System.out.print(munja); 
+		
+        munja++;
+		System.out.print(munja); 
+		
+        munja += 1;
+		System.out.print(munja); 
+		
+        munja = (char)(munja+1); 
+		System.out.println(munja);   // munja = munja+1;
+	}
+}
+```
+
+- 따라서 똑같은 이름의 변수를 같은 공간에 재선언 하기보다 대입으로 바꾸는 것이 좋음
+
+```java
+package day1;
+public class VarTest2 {
+	public static void main(String[] args) {
+		System.out.println(100);
+		int num;  
+		num = 1000;
+		System.out.println("연산 전 : "+num);
+		
+        num = 10+20;
+		System.out.println("연산 후 : "+num);
+		
+        char munja = 'A';  
+		System.out.print(munja); 
+		
+        munja++;
+		System.out.print(munja); 
+		
+        munja += 1;
+		System.out.print(munja); 
+		
+        munja = (char)(munja+1); 
+		System.out.println(munja);  
+		
+        munja = '가';  
+		System.out.print(munja); 
+		
+        munja++;
+		System.out.print(munja); 
+		
+        munja += 1;
+		System.out.print(munja); 
+		
+        munja = (char)(munja+1); 
+		System.out.println(munja);  // munja = munja+1;
+	}
+}
+
+/* 결과값 */
+// 100
+// 연산 전 : 1000
+// 연산 후 : 30
+// ABCD
+// 가각갂갃
+```
+
+
+
+
+
+<br>
+
 ### 변수를 만들 때에는
 
 1. 변수에 저장할 값의 용도에 따라서 변수명을 결정해야 함
@@ -368,6 +464,17 @@ total = (int)(3.14)  // 비추천
 ```
 
 
+```java
+munja = (char)munja+1;   
+
+```
+
+- 자바는 int형보다 작은것과 연산시 int형으로 바꿔넣고 연산함
+- char + char형도 int형이 됨
+-  따라서 모든 연산을 마치고 char으로 형변환을 해야 char형이 됨.
+
+
+<br>
 
 
 ### 작명
@@ -408,4 +515,438 @@ sportsCar
 
 ### 2진수
 
-- 0b
+- 0b 또는 0B로 시작하고 0과 1로 작성
+```JAVA
+int x = 0b1011; // 11
+int y = 0B10100; // 20
+```
+
+### 8진수
+
+- 0으로 시작하고 0~7 숫자로 작성
+
+```java
+int x = 013;  //  1*8^1 + 3*8^0 = 11
+int y = 0206;  //  2*8^2 + 0*8^1 + 6*8^0 = 134
+```
+
+
+### 16진수
+
+- 0x 또는 0X로 시작하고 0~9 숫자나 A~F 또는 a~f로 작성
+```java
+int x = 0xB3;   // B(11)*16^1 + 3*16^0 = 179
+int y = 0x2A0F;   // 2*16^3 + A(10)*16^2 + 0*16^1 + F(15)*16^0 = 10767
+```
+
+<br>
+
+## 2.3 문자 타입
+
+
+```java
+package day1;
+public class TypeTest4 {
+	public static void main(String[] args) {
+		char c1 = 'A';          	//문자 저장
+		char c2 = 65;          	//유니코드 직접 저장
+		char c3 = '\u0041';    	//유니코드 직접 저장
+		
+		char c4 = '가';         	//문자 저장
+		char c5 = 44032;      	//유니코드 직접 저장
+		char c6 = '\uAC00';	//유니코드 직접 저장		
+		
+		System.out.println(c1);
+		System.out.println(c2);
+		System.out.println(c3);
+		System.out.println(c4);
+		System.out.println(c5);		
+		System.out.println(c6);		
+	}
+}
+```
+
+
+### char형
+
+  - char형은 정수형의 일부임
+  - 양의값만 저장할 수 있음
+  - signed & unsigned를 지정할 수 없음.
+  - char형은 문자 데이터를 처리하기에 적합한 타입.
+
+
+
+#### 대문자 A의 값을 저장하는 방법
+
+```java
+char c1 = 'A';          	//문자 저장 -> 가독성이 가장 좋음 
+char c2 = 65;          	//유니코드 직접 저장
+char c3 = '\u0041';    	//유니코드 직접 저장
+```
+
+- `\u`는 유니코드를 사용할 때 사용. `\u`뒤에 16진수가 옴. (4개의 숫자 등장)
+
+
+
+<br>
+
+## 2.4 실수 타입
+
+### 예제1
+
+```java
+package day1;
+public class TypeTest3 {
+	public static void main(String[] args) {
+		long var1 = 10;
+		long var2 = 20L;
+		//long var3 = 1000000000000; //컴파일러는 int로 간주하기 때문에 에러 발생
+		long var4 = 1000000000000L;
+
+		System.out.println(var1);
+		System.out.println(var2);
+		System.out.println(var4);
+	}
+}
+```
+
+- int형의 범위를 넘어설 경우 L을 붙여서 해결해도 됨 
+
+### TIP
+
+- 노란색 오류 
+  - warning error
+  - 변수는 선언했으나 실제로 이 변수를 사용하지 않았으므로 노란색 오류 발생
+  - 가장 안좋은 프로그래밍 습관으로 봄 → 메모리 공간의 낭비
+
+- 빨간색 오류 
+  - 컴파일 에러 → 실행을 못시킴
+
+<br>
+
+### 예제2
+
+```java
+package day1;
+
+public class TypeTest5 {
+	public static void main(String[] args) {
+		// 정밀도 확인
+		float var1 = 0.1234567890123456789f;
+		double var2 = 0.1234567890123456789;
+		System.out.println("var1: " + var1);
+		System.out.println("var2: " + var2);
+		System.out.printf("%.3f\n", var1);	
+		System.out.printf("%.6f\n", var1);	
+
+		// 10의 거듭제곱 리터럴
+		double var3 = 3e6;  // 3*10^6
+		float var4 = 3e6F;   // 3*10^6
+		double var5 = 2e-3;   // 2*10^-3
+		System.out.println("var3: " + var3);
+		System.out.println("var4: " + var4);
+		System.out.println("var5: " + var5);
+	}
+}
+```
+
+- 자바는 실수형 데이터 입력시 double형으로 인식
+- 따라서 float형 → double형으로 바로 넘겨줄 수 없음(명시를 해주어야 형변환이 가능)
+
+#### var1, var2의 결괏값 차이 해석
+
+- 오차가 발생. 몇째자리 까지 나온다라고 정해놓은 것은 없음
+- float는 보통 8째자리에서 짤리거나 8째자리에서 오차 발생
+- double은 17~18번쨰쯤에 오차가 발생하거나 오차가 발생
+
+
+- 자바의 정밀도에 대한 데이터를 다루는것에 대한 내용은 공식적으로 자세한 설명이 나와있지 않음
+- 실질적인 데이터 처리는 2진수로 바꾸어서 처리함
+
+
+- 정밀한 연산이 필요한 경우에는 자바로 짜면 안됨
+- floating point를 필요로하는 언어를 사용하는게 좋음
+
+
+
+
+<br>
+
+
+
+# 3. 연산자
+
+## 3.10. 대입연산자
+
+### l-value
+
+- l-value는 `방,장소`를 사용한다는 뜻
+
+- 좌측에는 반드시 변수가 와야함 (`l-value`)
+- 리터럴은 그 자체가 값이므로 l-value로 쓰일 수 없음.
+
+
+### r-value
+
+- r-value는 `값`을 사용한다는 뜻
+- 우측에는 변수, 리터럴, 연산식, 리턴값이 있는 메서드의 호출식 등 모든것이 등장할 수 있음. 
+- 우측에 있는것을 식이라 함 (r-value)
+
+```java
+변수 = 식  // l-value = r-value
+```
+
+- 메서드 호출시 매개변수, 인자 전달하는 것도 l-value, r-value관계임 
+- 리턴값이 없는 메서드의 호출식은 r-value자리에 갈 수 없음 
+- 초기화를 안한 변수는 l-value로 사용할 수는 있어도 r-value로는 사용할 수 없음
+  <br>(변수는 초기화를 한 상태에서만 r-value로 사용할 수 있다. 초기화하지 않으면 l-value로만 사용)
+
+<br>
+
+# 값을 표준 출력장치로 출력하는 방법
+
+- 자바상 어떤 값을 출력시 흔히 '표준 출력'한다고 함
+- 이는 표준 출력장치(기본적으로 '화면'을 뜻함)로 출력하는 것을 뜻함
+
+## 1. System.out.println() API 사용
+
+- 출력 & 행바꿈
+
+## 2. System.out.print() API 사용
+
+- 출력
+
+## 3. System.out.printf()
+
+- 본인 입맛대로 출력 
+
+
+### 예제
+
+```java
+package day1;
+public class VarTest2 {
+	public static void main(String[] args) {
+		System.out.println(100);
+		int num;  // 변수 선언
+		num = 1000;   // 변수 초기화
+		System.out.println("연산 전 : "+num);
+		num = 10+20;
+		System.out.println("연산 후 : "+num);  // 30
+		char munja = 'A';  
+		System.out.print(munja); 
+		munja++;  // 문자변수값을 1증가 시킴 -> B가 됨
+		System.out.print(munja); 
+		munja += 1;  // 문자 변수값을 1증가 시켜서 다시 문자 변수에 담아라 -> C가 됨
+		System.out.print(munja); 
+		munja = (char)(munja+1); // 문자변수+1 -> D가 됨 
+		System.out.println(munja);  
+	}
+}
+```
+
+<br>
+
+
+# 3. 연산자
+
+
+- 식에 포함된 데이터값을 계산할 때, 상황을 체크할 때 연산자를 사용함
+
+- 연산자는 대부분 기호로 되어있으며 기능에 따라 구분함
+
+
+## 3.1 증감 연산자
+
+| 연산식   | 설명              |
+|:------|:----------------|
+| ++피연산자| 피연산자의 값을 1 증가시킴 |
+| --피연산자| 피연산자의 값을 1 감소시킴 |
+| 피연산자++| 다른 연산을 수행한 후에 피연산자의 값을 1 증가시킴|
+|피연산자--|다른 연산을 수행한 후에 피연산자의 값을 1 감소시킴|
+
+```java
+int a = 1;
+int b = 1;
+int resultA = ++a + 10;  // (1+1)+10 = 12
+int resultB = b++ + 10;  // 1+10 = 11 -> 이후에 b의 값이 2가됨
+```
+
+<br>
+
+## 3.2 산술 연산자
+
+- 피연산자가 정수 타입(byte, short, char, int)이면 연산의 결과는 int 타입
+- 피연산자가 정수 타입이고 그 중 하나가 long 타입이면 연산의 결과는 long 타입
+- 피연산자 중 하나가 실수 타입이면 연산의 결과는 실수 타입
+
+
+`+`
+
+`-`: 음의 값을 표현할 때 사용
+
+`/`: 몫을 구할 때 사용
+
+`%`: 나머지 값을 구할 때 사용
+
+<br>
+
+## 3.3 오버플로우 & 언더플로우
+
+### 오버플로우
+
+- 타입이 허용하는 최대값을 벗어나는 것
+
+
+### 언더플로우
+
+- 타입이 허용하는 최소값을 벗어나는 것
+
+<br>
+
+## 3.6 비교 연산자
+
+- 피연산자의 타입이 다를 경우에는 비교 연산을 수행하기 전에 타입을 일치시킴
+
+```java
+0.1f == 0.1 // false -> float타입과 double 타입의 정밀도가 다름
+0.1f == (float)0.1 // true (float형으로 강제 타입 변환 후에 비교 연산을 수행할 것)
+```
+
+- 문자열 비교시 동등(==, !=) 연산자 대신 equals(), !equals()를 사용할 것
+
+```java
+boolean isSame = str1.equals(str2); // 문자열이 같은지 검사 (대/소문자를 구분하여 검사함)
+```
+
+### 비교연산자는 이항연산자이기도 함
+
+- `>`
+- `<`
+- `≥`
+- `≤`
+- `==`
+- `≠`
+- `instanceof`
+
+
+
+### 타입 크기 비교
+
+- 여기서 `크기`는 `저장할 수 있는 값의 범위`를 뜻함
+
+
+- double > float > long > int > short > byte
+- double > float > long > int > char
+
+
+- short, char, byte와의 관계성은 비교할 수 없음
+- float형을 double형에 대입하는 것은 가능
+
+#### dobule
+
+- 자바에서 가장 큰 값을 저장할 수 있는 타입
+
+#### float vs long
+  - 실수는 지수 형태로 값을 저장
+  - 따라서 정수형태보다 더 많은 값을 저장할 수 있음
+
+
+<br>
+
+## 3.8 비트 연산자 (주어진 데이터를 이진수로 변환해서 비트단위 연산하는 것)
+  <br>(자바가 비트 연산자를 지원하지만 우리가 직접 비트 연산자를 사용해서 웹 크롤링을 할 일은 거의 없다)
+  <br>(그럼에도 비트 연산자가 포함된 이유는 자바가 C언어의 영향을 많이 받았고, 암호화 프로그래밍등에서는 사용할 수 있기 때문이다.)
+  <br>(C언어에서는 시스템 레벨의 프로그래밍을 할 일이 많고 비트단위로 뭔가를 처리해야할 일이 많다. 시스템단위의 제어는 비트단위 연산을 할 일이 많다.)
+
+<br>
+
+
+## 3.9 비트 이동 연산자
+
+- 비트를 좌/우측으로 밀어서 이동시키는 연산을 수행
+
+| 구분         |  연산식  | 설명                                                                           |
+|:-----------|:-----:|:-----------------------------------------------------------------------------|
+| 이동 (shift) | a<<b  | 정수a의 각 비트를 b만큼 왼쪽으로 이동<br>오른쪽 빈 자리는 0으로 채움<br>a*2^b와 동일한 결과가 나옴              |
+| 이동 (shift) | a>>b  | 정수a의 각 비트를 b만큼 오른쪽으로 이동<br>왼쪽 빈 자리는 최상위 부호 비트와 같은 값으로 채움<br>a/(2^b) 와 동일한 결과 |
+| 이동 (shift) | a>>>b | 정수a의 각 비트를 b만큼 오른쪽으로 이동<br>왼쪽 빈 자리는 0으로 채움                                   |                                                                            |
+
+
+<br>
+
+## 3.10 대입 연산자 (복합 대입 연산자)
+
+복합 대입 연산자는 대입 연산자를 확장한 것
+
+
+<br>
+
+## 형 변환 연산자
+
+형 변환은 우리가 지정하지 않아도, 값이 손실되지 않는 범위 내에서는 자동으로 형 변환을 함
+
+
+### 1. 단항연산자
+
+
+`!`: 논리 부정 연산자
+
+`++`: 주어진 항의 값을 1증가시킴
+
+`—`: 주어진 항의 값을 1감소 시킴
+
+
+### 2. 이항 연산자
+
+
+### 대입연산자
+
+`=`
+
+### 복합 대입 연산자
+
+`+=`
+
+`-=`
+
+`*=`
+
+`/=`
+
+`%=`
+
+### 3. 삼항 연산자
+
+`항1 ? 항2 : 항3`
+
+- 조건식이 참이면 항2, 거짓이면 항3
+
+- 항의 개수가 적을수록 우선순위가 높다.
+
+```java
+package day1;
+
+public class OperTest1 {
+
+	public static void main(String[] args) {
+		// 숫자 연산
+		int result1 = 10 + 2 + 8;  // 20
+		System.out.println("result1: " + result1);
+
+		// 결합 연산
+		String result2 = 10 + 2 + "8";  // 128
+		System.out.println("result2: " + result2);
+ 
+		String result3 = 10 + "2" + 8;   // 1028
+		System.out.println("result3: " + result3);
+
+		String result4 = "10" + 2 + 8;   // 1028
+		System.out.println("result4: " + result4);
+
+		String result5 = "10" + (2 + 8);  // 1010
+		System.out.println("result5: " + result5);		
+	
+	}
+}
+```
