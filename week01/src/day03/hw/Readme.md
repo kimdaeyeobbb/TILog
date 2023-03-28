@@ -20,11 +20,11 @@
 
 ```sql
 select
-		CONCAT(first_name, last_name) 성명,
-    CONCAT(email, '@kosa.com') 이메일,
-    CONCAT(FORMAT(TRUNCATE(salary*12*1240, -4),0), '원') 연봉,
-    date_format(DATE_ADD(hire_date, INTERVAL 30 YEAR),'%d-%m-%Y') 입사후30주년일자,
-    date_format(sysdate(),'%Y')-date_format(hire_date,'%Y') 근속년수
+	CONCAT(first_name, last_name) 성명,
+	CONCAT(email, '@kosa.com') 이메일,
+	CONCAT(FORMAT(TRUNCATE(salary*12*1240, -4),0), '원') 연봉,
+	date_format(DATE_ADD(hire_date, INTERVAL 30 YEAR),'%d-%m-%Y') 입사후30주년일자,
+	date_format(sysdate(),'%Y')-date_format(hire_date,'%Y') 근속년수
 from 
 	employees
 where 
