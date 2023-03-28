@@ -100,6 +100,7 @@
 
 - (DB상) 특정 어트리뷰트가 가질 수 있는 값의 집합
 
+<BR>
 
 # DB설계
 
@@ -230,42 +231,35 @@ where (department_id = 70 or department_id = 80) and last_name like 'K%'
 order by 1 desc
 ```
 
-# sql 함수 개요
+# MySQL 내장 함수
 
----
-
-# mysql 내장 함수
-
----
-
-IFNULL
-
-- null 체크
-
-sysdate
-
-
-# 숫자 함수
+|함수|특징|
+|:---:|:---|
+|IFNULL|컬럼이나 표현식이 NULL이면 다른 값으로 대체함|
+|ISNULL|컬럼이나 표현식이 NULL인지를 검사함|
+|now()<br>sysdate()|현재시각 조회|
+|DATE_FORMAT<BR>STR_TO_DATE|날짜 및 시각 포맷|
+|DATE_ADD<BR>DATE_SUB|날짜 연산|
+|CONCAT|문자열 결합|
+|CASE|값의 타입을 변환함|
+|JSON_OBJECT|JSON 형태로 리턴함|
 
 
-
-```sql
-# 12345.678
-select 12345.678, round(12345.678, 2), round(12345.678, -2);
-```
+<BR>
 
 # 날짜 데이터 타입
 
+- 날짜를 저장하는 Date 타입은 4 Bytes 크기
+- 현재 날짜는 `sysdate(), now()`로 참조함
+- `Date()`: 년월일 저장
+- `Time()`: 시분초 저장
+- `Timestamp`: 년월일과 시분초를 저장함
 
-- 현재 날짜
-    - sysdate
-    - now
 
-- 날짜 데이터 타입에 `INTERVAL` 사용가능
 
 # sql 변환 함수
 
----
+- 예시
 
 ```sql
 # 오늘부터 100일 후,
@@ -279,7 +273,6 @@ from employees;
 
 # NULL
 
----
 
 null은 정해지지 않은 값
 
@@ -289,30 +282,9 @@ select salary, commission_pct, salary*(1+ ifnull(commission_pct,0))*12 커미션
 from employees;
 ```
 
-# 과제
-
----
-
-# 다음 쿼리를 작성하고 비공개댓글로 제출
-
-```sql
-select
-		CONCAT(first_name, last_name) 성명,
-    CONCAT(email, '@kosa.com') 이메일,
-    CONCAT(FORMAT(TRUNCATE(salary*12*1240, -4),0), '원') 연봉,
-    date_format(DATE_ADD(hire_date, INTERVAL 30 YEAR),'%d-%m-%Y') 입사후30주년일자,
-    date_format(sysdate(),'%Y')-date_format(hire_date,'%Y') 근속년수
-from 
-	employees
-where 
-	department_id = 80
-order by
-	근속년수 desc
-```
+<br>
 
 # 집계 함수
-
----
 
 - 오류있는 코드
 
@@ -332,9 +304,9 @@ from employees
 group by department_id;
 ```
 
-# 집계 함수 having 절
+<br>
 
----
+# 집계 함수 having 절
 
 - 올바르지 않음
 
@@ -367,39 +339,28 @@ having count(*) > 1;
 ```
 
 - count(*)
-    - 해당 row의 총 개수
+    - 해당 row의 총 개수를 나타냄
 
-- sum(col)
-    - a
+
+<br>
 
 # case 사용하기
 
----
-
-적절한 조건들이 쓰이도록 case를 적절하게 사용할 것
-
-case 되게 좋음
-
-case를 사용할 때 급여의 등급을 출력하고 싶은경우, 급여의 등급별로 몇명이 나오는지 처리하고 싶음. 적절한 급여에 따라서 등급을 출력할 수 있게 됨. 급여의 구간에 따라 case문에 ~
-
-컬럼은 없는데 조건이 있는 경우, case를 이용하면 해당 조건에 맞는 칼럼을 생성할 수 있음.
+- 컬럼은 없는데 조건이 있는 경우, case를 이용하면 해당 조건에 맞는 칼럼을 생성할 수 있음.
 
 ## group by절에서의 case 활용
 
----
 
-존재하지않는 salary_grade별로 몇명이 되는지를 카운팅 할 때 group by 사용
-
-case 활용하면 없는 컬럼들도 조건이~
+- 존재하지않는 salary_grade별로 몇명이 되는지를 카운팅 할 때 group by 사용
 
 ```sql
 select last_name, salary,
-	case when salary < 5000 then 'D'
-				when salary < 7000 then 'C'
+    case when salary < 5000 then 'D'
+        when salary < 7000 then 'C'
         when salary < 10000 then 'B'
         when salary < 15000 then 'A'
-				else 'S'
-  end sal_grade
+        else 'S'
+    end sal_grade
 from employees
 ```
 
@@ -408,59 +369,61 @@ from employees
 ```sql
 select 
 	case when salary < 5000 then 'D'
-		when salary < 7000 then 'C'
-        when salary < 10000 then 'B'
-        when salary < 15000 then 'A'
-		else 'S'
+	    when salary < 7000 then 'C'
+	    when salary < 10000 then 'B'
+	    when salary < 15000 then 'A'
+	    else 'S'
     end sal_grade,
     count(*) cnt
 from employees
-group by (case when salary < 5000 then 'D'
-		when salary < 7000 then 'C'
+group by (
+    case when salary < 5000 then 'D'
+        when salary < 7000 then 'C'
         when salary < 10000 then 'B'
         when salary < 15000 then 'A'
-		else 'S'
+    else 'S'
     end)
 ```
 
 ## order by 절에서의 case 활용
 
----
 
 ```sql
 select 
 	case when salary < 5000 then 'D'
-		when salary < 7000 then 'C'
-        when salary < 10000 then 'B'
-        when salary < 15000 then 'A'
-		else 'S'
+	    when salary < 7000 then 'C'
+	    when salary < 10000 then 'B'
+	    when salary < 15000 then 'A'
+	    else 'S'
     end sal_grade,
     count(*) cnt
 from employees
-group by (case when salary < 5000 then 'D'
-		when salary < 7000 then 'C'
+group by (
+    case when salary < 5000 then 'D'
+        when salary < 7000 then 'C'
         when salary < 10000 then 'B'
         when salary < 15000 then 'A'
 		else 'S'
-    end), (case when salary < 5000 then 5
-		when salary < 7000 then 4
-        when salary < 10000 then 3
-        when salary < 15000 then 2
+    end), (
+        case when salary < 5000 then 5
+            when salary < 7000 then 4
+            when salary < 10000 then 3
+            when salary < 15000 then 2
 		else 1
     end)
-order by (case when salary < 5000 then 5
-		when salary < 7000 then 4
+order by (
+    case when salary < 5000 then 5
+        when salary < 7000 then 4
         when salary < 10000 then 3
         when salary < 15000 then 2
-		else 1
+        else 1
     end)
 ```
 
-- 정렬할 것들도 (ORDER BY에 있는것들) GROUP BY내부에 포함시켜줘야함 → 그래서 옆에 나란히 묶어서 써준 것
+- 정렬할 것들도 (ORDER BY에 있는것들) GROUP BY내부에 포함시켜줘야함 
+<br> => 그래서 옆에 나란히 묶어서 써준 것
 
 # Top n Query
-
----
 
 - limit & offet을 사용함
 
@@ -469,13 +432,15 @@ order by (case when salary < 5000 then 5
 select * from employees order by hire_date asc limit 3;
 ```
 
+<br>
+
 # 인덱스
 
----
+- 인덱스의 칼럼에 대응되는 별도의 객체로 독립적인 저장 공간을 보유함
+- Optimizer가 최적의 실행경로를 설정하는데 중요한 Factor가 된다
 
 # JOIN
 
----
 
 join조건은 fk가 필요하다.
 
@@ -802,7 +767,7 @@ show indexes from employees;
 
 → 인덱스를 만들어주자
 
-## 인덱스 생성하기ㅏ
+## 인덱스 생성하기
 
 ---
 
