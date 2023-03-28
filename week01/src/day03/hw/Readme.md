@@ -32,3 +32,86 @@ where
 order by
 	근속년수 desc
 ```
+
+
+
+<br>
+
+
+
+
+# 과제2
+
+
+## 1. 부서번호, 부서명, 부서장사번, 부서장성명, 부서장입사일자를 출력하시오. (단, 부서장이 없으면 부서장없음으로 출력)
+
+
+
+## 2. 자신의 관리자보다 먼저 입사한 직원의 이름 사번, 성명, 입사일자, 관리자입사일자를 출력하시오
+
+
+## 3. Seattle에 근무하는 직원의 사번, 성명, 입사일자, 부서번호, 부서명을 출력 (단.서브쿼리로 합니다.)
+
+
+## 유의사항
+
+부서장
+
+→ 부서장이 없으면 부서장 사번도 없으므로 ‘없음’이라고 기재할 것
+(부서장 성명도 부서장이 없으면 ‘없음’으로 기재할 것)
+
+# 제출본
+
+## 1번
+
+```sql
+select 
+    d.department_id, 
+    d.department_name, 
+    ifnull(e.employee_id, '부서장없음'), 
+    e.last_name, 
+    e.first_name, e.hire_date
+from employees e right join departments d on e.employee_id = d.manager_id;
+```
+
+## 2번
+
+```sql
+select 
+    e.employee_id, 
+    e.last_name, 
+    e.first_name, 
+    e.hire_date, 
+    m.last_name,
+    m.hire_date
+from employees e join employees m on e.manager_id = m.employee_id
+where e.hire_date < m.hire_date;
+```
+
+## 3번
+
+```sql
+select 
+    e.employee_id, 
+    e.last_name, 
+    e.hire_date, 
+    e.department_id,
+    (select department_name 
+     from departments 
+     where department_id = e.department_id) dept_name
+from employees e
+where department_id in (select department_id
+						from departments
+                        where location_id = (select location_id
+										      from locations
+                                              where city='Seattle'));
+```
+
+
+<br>
+
+- 참고자료
+
+[MySQL 날짜 문제 풀기](https://i-am-lsw.tistory.com/5)
+
+[Mysql 특정 요일의 날짜 값 구하는 쿼리 작성법 (예: 저번주 토요일, 이번주 월요일)](https://bscnote.tistory.com/122)
