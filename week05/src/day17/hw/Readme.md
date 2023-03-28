@@ -79,3 +79,136 @@ public class TaskRunner implements Runnable{
 
 - Runnable이 아닌 Thread클래스를 상속하더라도 Thread 클래스 하나만으로 여러번 객체를 만들어서 과제를 수행할 수 있다
 
+
+<br>
+
+# 실습2
+
+```
+제출 소스명 : 소스28.zip
+메일 제목 : 자바API실습7-XXX
+
+
+구현 클래스명 : 제시된 패키지의 소스들을 수정하고 패키지를 압축하여 제출한다.
+                   (소스는 3개)
+
+소스를 보고 람다식으로 변경 가능하다고 판단되는 부분은 변경하여 제출한다. 소스 3개 모두~~~
+
+```
+
+## 기존코드
+
+### AnnonyInnerLab.java
+
+```java
+package day17.hw.lamdalab;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import day6.Book;
+public class AnnonyInnerLab {
+	public static void main(String[] args) {
+		ArrayList<Book> al = new ArrayList<>();
+		al.add(new Book("자바의 정석", "남궁성", 27000));
+		al.add(new Book("챗GPT", "반병현", 11700));
+		al.add(new Book("스타트 스프링 부트", "남가람", 27000));
+		al.add(new Book("Doit! 자바프로그래밍", "박은중", 22500));
+		al.add(new Book("이것이 자바다", "신용권,임경균", 36000));
+
+		for (Book el : al) {
+			System.out.println(el.getBookInfo());
+		}
+
+		Collections.sort(al, new Comparator<Book>() {
+				@Override
+				public int compare(Book o1, Book o2) {
+						return o1.getPrice() - o2.getPrice();					
+				}
+			}
+		);
+		System.out.println("[소팅 후 ]");
+		for (Book el : al) {
+			System.out.println(el.getBookInfo());
+		}
+	}
+}
+
+```
+
+
+### DrawableTest.java
+
+```java
+package day17.hw.lamdalab;
+
+import java.util.Random;
+
+interface Drawable {
+	void draw();
+}
+
+public class DrawableTest {
+	public static void main(String[] args) {
+		Random rand = new Random();
+		int num = rand.nextInt(3);
+		Drawable d = null;
+		if (num == 0)
+			d = () -> System.out.println("사각형을 그립니다.");
+		else if (num == 1)
+			d = () -> System.out.println("원을 그립니다.");
+		else if (num == 2)
+			d = () -> System.out.println("마름모를 그립니다.");
+		output(d);
+	}
+
+	public static void output(Drawable d) {
+		System.out.println("전달된 객체의 클래스명 : " + d.getClass().getName());
+		d.draw();
+	}
+}
+
+```
+
+
+### ThreadEx01.java
+
+```java
+package day17.hw.lamdalab;
+
+class ThreadEx01 {
+	public static void main(String args[]) {
+		ThreadEx1_1 t1 = new ThreadEx1_1();
+
+		Runnable r = new ThreadEx1_2();
+		Thread t2 = new Thread(r); // 생성자 Thread(Runnable target)
+
+		t1.start();
+		t2.start();
+	}
+}
+
+class ThreadEx1_1 extends Thread {
+	public void run() {
+		for (int i = 0; i < 5; i++) {
+			System.out.println(getName()); // 조상인 Thread의 getName()을 호출
+		}
+	}
+}
+
+class ThreadEx1_2 implements Runnable {
+	public void run() {
+		for (int i = 0; i < 5; i++) {
+			// Thread.currentThread() - 현재 실행중인 Thread를 반환한다.
+			System.out.println(Thread.currentThread().getName());
+		}
+	}
+}
+
+```
+
+
+<br>
+
+## 정답 코드
+
