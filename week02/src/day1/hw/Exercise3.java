@@ -1,4 +1,4 @@
-package day0306.hw01;
+package day1.hw;
 
 public class Exercise3 {
     public static void main(String[] args){
