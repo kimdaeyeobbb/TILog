@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 class ThreadEx07 {
 	public static void main(String[] args) throws Exception {
+		/* 추가 자식 스레드 기동시킴 */
 		ThreadEx7_1 th1 = new ThreadEx7_1();
 		th1.start();
 
@@ -12,6 +13,7 @@ class ThreadEx07 {
 	}
 }
 
+// 자식스레드에서 10부터 1까지 출력
 class ThreadEx7_1 extends Thread {
 	public void run() {
 		for (int i = 10; i > 0; i--) {
