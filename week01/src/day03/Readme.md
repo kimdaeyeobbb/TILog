@@ -1,248 +1,161 @@
-# SQL (MySQL) & NoSQL (MongoDB)
-
-- 문제에 대한 해결방식을 중점적으로 학습
-
-# 데이터베이스란?
-
-- 데이터들의 집합
-- 정보들의 집합
-
-
-# 성, 입사일자, 급여, 부서명 출력
-
-select e.last_name, e.hire_date, e.salary, d.department_name, d.department_id
-from employees e, departments d
-where e.department_id = d.department_id;
-
-# SQL (MySQL) & NoSQL (MongoDB)
-
----
-
 # 데이터베이스란
 
----
+- 통합 관리되는 데이터들의 구조적인 모임(집합)
+<BR> (일반적으로 컴퓨터 시스템을 이용하여 구축한 데이터의 집합을 뜻함)
 
-여러 운영 데이터의 집합
+- 데이터베이스는 데이터를 저장하고 관리하는 역할을 함
+- 파일철에 들어있는 것들은 모두 DB라고 볼 수 있음
+- 어떤 쿼리를 만들 때에는 ERD(데이터베이스의 구조를 한눈에 알아볼 수 있는 개체-관계 모델)를 주로 참조해야만 함 
+
+- 데이터베이스는 관계형 / 비관계형 데이터베이스로 나뉨
+
+<br>
+
+## 관계형 데이터베이스
+
+- 여러 테이블을 구성하여 서로 관계를 맺은 상태에서 데이터를 관리함
+- ex) PostgreSQL(오픈소스 DBMS), ORACLE, MySQL
+
+## 비관계형 데이터베이스
+
+- 테이블이 아닌 다른 유형으로 데이터를 관리함
+- ex) MongoDB, Redis, Couchbase
 
 
-어떤 쿼리를 만들 때에는 ERD를 주로 참조해야만 함
-
-파일철에 들어있는 것들은 모두 DB라고 볼 수 있음
-
-yurn
-
-레드헷 계열의 패키지를 관리하는 계열
-
-우분투
-
-
-# SQL- DB관리 시스템(83)
-
----
-
-- 트랜잭션
-
-학사관리시스템에서 수강신청했던 경험이 존재. PC방에 가서 광클. 내가 원하는 시간대의 과목을 수강하기 위해서. 이미 수강신청이 끝났다는 메시지 등장 → 얘가 트랜잭션
-
-먼저 트랜잭션을 일으키고 수강신청을 하려고 함
-
-예약도 마찬가지임
-
-콘서트든, 장비이든, 영화이든 모두 트랜잭션 쪽임
-
-# DBMS 제품들
-
----
-
-SQL서버
-
-- MS에서만듦 (사이베이스에서 구매한 것임)
-
-IBM DB2
-
-SYBASE
-
-개인적으로는 PostgreSQL은 정말 좋다고 하심. 오픈소스 DBMS임
-
-모든 제품들이 SQL언어를 쓸 수 있다는 공통점이 있으나 각각의 DBMS가 갖는 차이점은 존재. 완벽하게 호환되고 사용되지는 않음. 나름대로 DBMS에 종속적임
 
 # MySQL
 
----
+- 오라클이 MySQL을 관리하고 있으나, 상업용 버전을 만든것이 엔터프라이즈임.
 
-ㅁ
+- MySQL은 LAMP라 함.
+<BR>(L: Linux, A: Apache, M: MySQL, P: Perl/PHP/Python)
 
-오라클도 DBMS를 가지고 있음
+- (개인적인 생각이심) 가볍다. 하지만 있을것은 다 있다.
+- 오픈소스인 postgreSQL은 조금 더 묵직한 느낌임. postgreSQL은 오픈소스임. 
+- 스타트업은 MySQL을 선호함. 조금 더 묵직하게 잘 서비스하고 이러한 회사에서는 postgresql을 쓰는 경향이 있다. 
+ 
+- 웹 애플리케이션은 웹브라우저로 접속하면 되니까 배포할 필요가 없다.
 
-오라클이 MySQL을 관리하고 있으나, 상업용 버전을 만든것이 엔터프라이즈임.
-
-MySQL은 LAMP라 함.
-
-(L: Linux, A: Apache, M: MySQL, P: Perl/PHP/Python)
-
-- (개인적인 생각이심) 가볍다. 오픈소스인 postgresql은 조금 더 묵직한 느낌임. POSTGREsql은 오픈소스임. 스타트업은 mysql을 선호함. 조금 더 묵직하게 잘 서비스하고 이러한 회사에서는 postgresql을 쓰는 경향이 있다. mysql은 가벼운 느낌이 있다. 하지만 있을것은 다 있다.
-
-웹 애플리케이션은 웹브라우저로 접속하면 되니까 배포할 필요가 없다.
-
-- cs 환경
 
 
 - 워크벤치
+  - dbms를 사용하기 위한 클라이언트 도구
 
-dbms를 사용하기 위한 클라이언트 도구
 
 - 클라이언트 도구
+  - DBMS 클라이언트 도구 중 mysql은 워크벤치라는 클라이언트 도구로 사용함 
+  - 클라이언트 도구에는 TOAD, Orange, SQL Gate for oracle, SQL Developer가 있음
 
-DBMS 클라이언트 도구 중 mysql은 워크벤치라는 클라이언트 도구로 ㅅ ㅏ용함.
 
-클라이언트 도구에는 TOAD, Orange, SQL Gate for oracle, SQL Developer
+<BR>
 
-한글과 컴퓨터의 한쇼,한셀 → 파워포인트/엑셀을 잘 쓰면 얘네도 잘 사용할 수 있음
+# 트랜잭션
 
-대부분으 ㅣ클라이언트 도구들은 connection이라는 ~을 가지고 있음
+- 데이터베이스의 상태를 변환시키는 하나의 논리적 기능 수행단위
+<br>(한 번에 수행되어야 할 일련의 연산)
 
-mysql은 워크벤치 자체가 ~
 
-- db를 설계하고 나서 ~ 테이블을 생성하고 컬럼을 만들고 ~하는 과정 진행.
-- 지금은 거꾸로 이미 생성된 테이블을 가지고 설계 과정을 ㅗ거슬러 올라감 -
+- 학사관리시스템에서 수강신청했던 경험이 존재.  내가 원하는 시간대의 과목을 수강하기 위해서 PC방에 가서 광클한 경험이 있을 것이다 
+<br> =>  이미 수강신청이 끝났다는 메시지 등장 
+<br> =>  얘가 트랜잭션
+<br> (먼저 트랜잭션을 일으키고 수강신청을 하려고 한 것!)
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d70c8fd2-fbb6-43db-8775-5d54782725e5/Untitled.png)
 
-여기 나타나는 메모 하나가 엔터티이자 테이블임.
+- 예약도 마찬가지임. 콘서트든, 장비이든, 영화이든 모두 트랜잭션 쪽임
 
-그들 사이의 관계를
 
-# sql 관계형 모델
+<br>
 
----
+# 데이터베이스 관리 시스템 (DBMS. DataBase Management System)
 
-- 튜플
+- 데이터베이스를 관리하는 미들웨어 
+- DBMS를 통해 데이터베이스의 데이터를 저장/추출/수정할 수 있음
 
-엑셀시트로 나타내면 좋음.
 
-엑셀시트상 한줄 한줄이 튜플임 (가로줄)
+<br>
 
-한줄이 하나의 학생에 대한 정보임.
 
-코딩에서는 객체로 ~함수로 매핑이 되어서 다가옴
+# SQL 관계형 모델
 
-- 도메인
+- 학생관련 테이블이 있다고 가정해보자.
 
-여러곳에서 사용함
+## 튜플
 
-db에서는 특정 어트리뷰트가 가질 수 있는 값의 집합
+- 테이블의 ROW
+- 엑셀시트상 한줄 한줄이 튜플임 (가로줄)
+- 엑셀시트로 나타내면 좋음
+- 한줄이 하나의 학생에 대한 정보에 해당됨
 
-- db설계
+## 릴레이션 (Relation)
 
-db 설계에서의 도메인을 구글링하면 뜻이 잘 다가오지 않을 것임
+- 튜플의 집합
 
-도메인이라는 단어는 db에서 다른 의미로 쓰이는 것임을 알아둘 것
 
-시스템을 분석 설계할 떄에 `도메인 분석 설계`는 domain driven development 도메인 주도 개발
+## 어트리뷰트
 
-# 테이블과 릴레이션
+- 릴레이션의 특징을 나타내는 단일 데이터 (컬럼)
 
----
+
+## 도메인
+
+- (DB상) 특정 어트리뷰트가 가질 수 있는 값의 집합
+
+
+# DB설계
+
+- 시스템을 분석 설계할 떄에 `도메인 분석 설계`는 domain driven development 도메인 주도 개발을 뜻함
+
+
+<br>
 
 # primary key
 
----
+- 릴레이션에서 튜플을 구분하기 위해 사용하는 기본 키
+- 하나의 어트리뷰트 혹은 어트리뷰트의 집합(복합키)으로 구성될 수 있음
+- 중복되지않는 값이므로 동일한 PK를 지닌 레코드가 존재할 수 없음
 
-중복되지않는 값
 
-pk를 예를 들면,
-
-pk는 컬럼을 의미함. 컬럼 2개가 합쳐져서 pk를 이루는 경우도 있음
+<br>
 
 # foriegn key
 
----
+- 다른 릴레이션의 기본키를 참조하는 키
+- 다른 릴레이션의 튜플을 저장 및 관리함
+- 릴레이션 간의 관계를 나타내기 위해서 사용됨
 
-fk
 
-erd 다이어그램에서 연결된 선은 무엇을 의미하는가?
+# MySQL data types
 
-관계가 까마귀발, 까치발처럼 생김. 얘는 다. 상대쪽은 1로 보고 다:1의 관계라고 보면 됨
 
-1쪽의 primary가 다쪽의 ~로 들어온다.고 보면 됨
+| 타입  | 형태                                       | 특징                                         |
+|:----|:-----------------------------------------|:-------------------------------------------|
+| 정수  | TINYINT<br>SAMLLINT<BR>INT<BR>BIGINT<BR> | 1 Byte<br> 2 Bytes<br> 4 Bytes<br> 8 Bytes |
+|소수|DECIMAL(P,S)<BR>FLOAT<BR>DOUBLE|고정 소수점<BR>부동 소수점<BR> 부동 소수점|
+|연속형|AUTO_INCREMENT||
+|문자|CHAR<BR>VARCHAR<BR>TEXT<BR>BLOB|고정길이<BR>가변길이<BR>대량의 데이터<BR>이진 데이터|
+|날짜|YEAR<BR>DATE<BR>TIME<BR>DATETIME<BR>TIMESTAMP|1 Byte<br>3 Bytes<br> 3 Bytes<br> 8 Bytes<br> 4 Bytes|
 
-어떤직원이 어느 부서에 근무하는지는 다쪽에 들어있음
-
-# mysql data types
-
----
 
 db상 데이터타입을 알아야 함
 
 float, double은 부동소수점임
 
-varchar와 달리, char는 고정된 길이를 사용함.
+varchar와 달리, char는 고정된 길이를 사용함
 
-blob(블랍)은 ~
 
-# mysql 연산자
 
----
+# SQL 작성순서
 
-리터럴 표기법은 ~
-
-# 자바으 ㅣ타입
-
----
-
-1
-
-- int
-
-1.0
-
-- double, float등과 같은 실수형
-
-‘1’
-
-- char 등과같은 ~
-
-“1”
-
-- string 등과 같은 ~
-
-```java
-float f = 1.0; // syntax error
+```sql
+SELECT ~  -- 열_리스트
+FROM ~  -- 테이블 리스트
+WHERE ~ -- 조건
+GROUP BY ~  -- 열 리스트 (HAVING 조건)
+ORDER BY ~  -- 열 리스트 (ASC/DESC)
 ```
 
-float은 double로 바꿔야함
+# SQL 실행순서
 
-혹은 끝에 f를 붙여야 함 (1.0은 double이므로 )
-
-자바에서는 실수의 타입은 double임.
-
-```java
-System.out.println(5/2);  // 2
-```
-
-int간의 연산결과는 int임.
-
-파이썬이었다면 다른 결과가 나옴.
-
-자바스크립트였다면 다른 결과가 나옴.
-
-```java
-System.out.println(5/2.0);  // 2.5
-```
-
-2.0은 double형임
-
-# sql 작성순서
-
----
-
-sql은 영어의 문장처럼 다가오는 경우가 많다.
-
-# sql - 실행순서
-
----
-
-sql 언어 각 절으 ㅣ실행 순서는 다음과 같다.
 
 ```sql
 select *
@@ -262,17 +175,8 @@ from employees
 where commission_pct is not null;  -- 
 ```
 
-# select 명령어 where절
-
----
-
-is null, is not null
-
-null인지아닌지를 검색함
 
 # 연산자 우선순위
-
----
 
 기억해야하는 것은 and와 or연산자에도 우선순위가 존재한다는 것이다.
 
@@ -300,23 +204,23 @@ where (department_id = 70 or department_id = 80) and last_name like 'K%'
 
 결과가 달라진 것을 확인할 수 있다.
 
+
+<BR>
+
 # order by
 
----
 
 sql상 실행하는 순서에서 가장 마지막에 있음
 
 ```sql
-# 연산자 우선순위
 select *
 from employees
 where (department_id = 70 or department_id = 80) and last_name like 'K%'
 order by 1 desc
 ```
 
-숫자 1이 의미하는 바
-
-- select 상 등장하는 컬럼 중 첫번째를 의미함
+- 숫자 1이 의미하는 바 
+  - select 상 등장하는 컬럼 중 첫번째를 의미함
 
 ```sql
 # 연산자 우선순위
@@ -340,13 +244,10 @@ IFNULL
 
 sysdate
 
-- ㅁ
 
 # 숫자 함수
 
----
 
-ㅁ
 
 ```sql
 # 12345.678
@@ -355,7 +256,6 @@ select 12345.678, round(12345.678, 2), round(12345.678, -2);
 
 # 날짜 데이터 타입
 
----
 
 - 현재 날짜
     - sysdate
@@ -618,7 +518,6 @@ LEFT JOIN departments d ON e.department_id = d.department_id;
 
 입사하면 fk를 사용하지 않는 경우가 많다. (fk는 선택의 영역임)
 
-ㅈ
 
 자신의 관리자의 이름에 대한 정보를 출력하기
 
@@ -683,7 +582,6 @@ where department_id in (select department_id
 
 ## 서브쿼리- 다중컬럼 리턴
 
-- ㅁ
 
 ```sql
 # 부서별로 최고 급여를 받는 직원정보 조회
@@ -985,126 +883,85 @@ show index from mysample;
 
 # mysql 인덱스컬럼 변형 비교
 
----
+- 인덱스는 정렬되어있다.
 
-인덱스는 정렬되어있다.
+- 인덱스는 Btree 인덱스 구조이다.
 
-인덱스는 Btree 인덱스 구조이다.
+- 인덱스의 내부적인 알고리즘은 Btree이다.(balanced tree. 정렬되어 있다는 뜻)
 
-인덱스의 내부적인 알고리즘은 Btree이다.(balanced tree. 정렬되어 있다는 뜻)
+
+
+<br>
 
 # SQL-인덱스-개요
 
----
+- 인덱스는 테이블의 데이터가 변경되면 인덱스도 바꾸어야 한다.
 
-인덱스는 테이블의 데이터가 변경되면 인덱스도 바꾸어야 한다.
+- 테이블의 데이터가 너무 자주 변경되면 인덱스가 오버헤드를 일으킨다.
 
-테이블의 데이터가 너무 자주 변경되면 인덱스가 오버헤드를 일으킨다.
+- 인덱스에는 별도의 저장공간이 필요하다.
 
-인덱스에는 별도의 저장공간이 필요하다.
-너무 자주변경되면 인덱스를 바꾸어야하므로 ~.
+<br>
 
-### 데이터가 변경될 떄마다 외부에서 내부로 인덱스를 다시 정렬하나요?
+# 데이터가 변경될 떄마다 외부에서 내부로 인덱스를 다시 정렬하나요?
 
-네
+- 네
+  - 굉장히 많은 양의 데이터를 데이터 덤프받는다고함. 백업받는것. 데이터를 다시 부워넣을 떄 인덱스를 지우고 다시 인덱스를 넣고… 인덱스를 지우는 과정이 생긴다. 인덱스라는 것 자체가 지울 떄가있다. 많은 양의 데이터를 집어넣을 때에는 하나하나 집어넣을 떄마다 인덱스를 다 바꾸어야 한다. 어떤경우에는 데이터를 집어넣는데 하루종일 걸리는 경우가 있다. 이러한 경우 관련된 인덱스를 지워버리고, 드랍하고. 인덱스를 새로 생성한다.
 
-굉장히 많은 양의 데이터를 데이터 덤프받는다고함. 백업받는것. 데이터를 다시 부워넣을 떄 인덱스를 지우고 다시 인덱스를 넣고… 인덱스를 지우는 과정이 생긴다. 인덱스라는 것 자체가 지울 떄가있다. 많은 양의 데이터를 집어넣을 때에는 하나하나 집어넣을 떄마다 인덱스를 다 바꾸어야 한다. 어떤경우에는 데이터를 집어넣는데 하루종일 걸리는 경우가 있다. 이러한 경우 관련된 인덱스를 지워버리고, 드랍하고. 인덱스를 새로 생성한다.
 
-# NoSQL
+<BR>
 
----
+# NoSQL 
 
-compass는 안해도 됨.
+- No SQL
+- Not Only SQL
+- Non-Relational Operational Database)
 
-finish로 정렬하고 compass는 닫아도 됨
 
-## 빅데이터 정의(IBM)
+- 기존 DB 관리 도구의 데이터 수집/저장/관리/분석의 역량을 넘어서는 대량의 정형/비정형 데이터 세트이며 이러한 데이터로부터 가치를 추출하고 결과를 분석하는 기술
 
----
 
-빅데이터를 설명하는 4개의 V(Volume, Velocity, Variety, Veracity- 진실성) + 다섯번째 V(Value)
+- (초고용량 데이터 처리 등 성능에 특화된 목적을 위해) 비관계형 데이터 저장소에 비구조적인 데이터를 저장하기 위한
+분산 저장 시스템
 
-veracity
 
-데이터가 가짜가 아니고, 진실된 정도를 나타냄
+## NoSQL 특징
 
-처리과정 중 저장하는 과정에서 nosql이 등장함.
+- 기존의 DB보다 더 융통성 있는 데이터 모델을 사용하고, 데이터의 저장 및 검색을 위한 특화된 매커니즘을 제공함
+<BR> => 이를 통해 NoSQL 데이터베이스는 단순 검색 및 추가 작업에 있어서 매우 최적화된 키 값 저장 기법을 사용함
+<BR> => 응답속도/처리효율에 있어 매우 뛰어난 성능을 나타냄
 
-# NoSQL- 개요
+- 관계형 모델을 사용하지 않으며 테이블간의 조인 기능이 없음
 
----
 
-key-value, 그래프, 문서 등이 존재
+- 직접 프로그래밍을 하는 등 비SQL 인터페이스를 통한 데이터 엑세스
 
-# NoSQL - 등장 배경
 
----
+- 대부분 여러 대의 데이터베이스 서버를 묶어서(클러스터링) 하나의 데이터베이스를 구성
 
-NoSQL은 비관계형 데이터베이스를 지칭하는 데 사용된다.
 
-# NoSQL 명칭 출현
+- 관계형 데이터베이스에서 지원하는 Data 처리 완결성(Transaction ACID 지원) 미보장
 
----
 
-## NoSQL - 특징
+- 데이터의 스키마와 속성들을 다양하게 수용 및 동작 정의 (Schema-less)
 
----
 
-# MongoDB 개요
+- 데이터베이스의 중단 없는 서비스와 자동 복구 기능 지원
 
----
 
-ㅁㅁ
+- 확장성/가용성/높은 성능
 
-# MongoDB 히스토리
+<BR>
 
----
+# node.js에서 MongoDB 사용하는 방법
 
-ㅇ
 
-# 몽고디비 특ㄹ징
+- [node mongodb driver find example - Google Search](https://www.google.com/search?q=node+mongodb+driver+find+example&ei=zFYAZKaNAZeM-AaNiaTYBg&ved=0ahUKEwimo6rj4rz9AhUXBt4KHY0ECWsQ4dUDCA8&uact=5&oq=node+mongodb+driver+find+example&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIFCAAQogQyBQgAEKIEMgUIABCiBDoKCAAQRxDWBBCwAzoKCCEQoAEQwwQQCjoECCEQCkoECEEYAFDOnwNYnagDYP6pA2gDcAF4AIABiQGIAYMFkgEDMi40mAEAoAEByAEKwAEB&sclient=gws-wiz-serp)
 
----
+<BR>
 
-# 몽고디비 문서 구성
+# MongoDB 구동 코드
 
----
-
-콜렉션
-
-태그
-
-메타데이터 등이 존재
-
-# 몽고디비
-
----
-
-직접만들어가면서 느껴보자.
-
-몽고디비 내부의 다큐먼트하나가 RDB데이터의 ROW임
-
-Document의 ㅣㅂ합을 collection이라 함 (테이블에 해당됨)
-
-json
-
-블레이스 열고닫는 키 콜런형태로 되어있는 데이터 집합.
-
-## ㅇMongoDB find() Advanced
-
----
-
-# node.js에서 몽고디비사용하기
-
----
-
-[](https://www.google.com/search?q=node+mongodb+driver+example&oq=node+mongodb+driver+example&aqs=chrome..69i57.8799j0j1&sourceid=chrome&ie=UTF-8)
-
-[node mongodb driver find example - Google Search](https://www.google.com/search?q=node+mongodb+driver+find+example&ei=zFYAZKaNAZeM-AaNiaTYBg&ved=0ahUKEwimo6rj4rz9AhUXBt4KHY0ECWsQ4dUDCA8&uact=5&oq=node+mongodb+driver+find+example&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIFCAAQogQyBQgAEKIEMgUIABCiBDoKCAAQRxDWBBCwAzoKCCEQoAEQwwQQCjoECCEQCkoECEEYAFDOnwNYnagDYP6pA2gDcAF4AIABiQGIAYMFkgEDMi40mAEAoAEByAEKwAEB&sclient=gws-wiz-serp)
-
-## 몽고디비 돌리기
-
----
 
 ```sql
 import { MongoClient } from "mongodb";
@@ -1145,19 +1002,9 @@ async function run() {
 run().catch(console.dir);
 ```
 
-# 노드
-
----
-
-노드는 짝수가 공식버전
-
-홀수는 테스트버전
+<BR>
 
 # 정리
-
----
-
-RDB는
 
 ```sql
 use hr;
