@@ -1,4 +1,4 @@
-package day0307.hw.hw03;
+package day2.hw;
 
 public class ConditionOperLab {
     public static void main(String[] args) {

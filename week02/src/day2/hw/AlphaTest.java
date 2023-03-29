@@ -1,4 +1,4 @@
-package day0307.hw.hw04;
+package day2.hw;
 
 public class AlphaTest {
     public static void main(String[] args) {
@@ -10,3 +10,4 @@ public class AlphaTest {
         // 'A' - 아스키코드 번호: 65, 'Z' - 아스키코드 번호: 90
     }
 }
+

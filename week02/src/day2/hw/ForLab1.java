@@ -1,4 +1,4 @@
-package day0307.hw2;
+package day2.hw;
 
 public class ForLab1 {
     public static void main(String[] args) {
