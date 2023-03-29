@@ -1,4 +1,4 @@
-package day0308.day3;
+package day3.course;
 public class PrintfTest {
 	public static void main(String[] args) {
 		System.out.printf("테스트입니당%n");	

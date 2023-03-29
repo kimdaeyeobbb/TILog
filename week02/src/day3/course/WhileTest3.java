@@ -1,4 +1,4 @@
-package day0308.day3;
+package day3.course;
 
 public class WhileTest3 {
 

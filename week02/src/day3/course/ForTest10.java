@@ -1,4 +1,4 @@
-package day0308.day3;
+package day3.course;
 
 public class ForTest10 {
 	public static void main(String[] args) {

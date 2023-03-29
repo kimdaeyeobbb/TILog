@@ -1,4 +1,4 @@
-package day0308.day3;
+package day3.course;
 import java.util.Scanner;
 public class BreakContinueTest1 {
 	public static void main(String[] args) {
