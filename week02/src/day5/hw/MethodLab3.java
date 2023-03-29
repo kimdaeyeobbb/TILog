@@ -1,4 +1,4 @@
-package day0310.hw01;
+package day5.hw;
 
 public class MethodLab3 {
     public static void main(String[] args) {
