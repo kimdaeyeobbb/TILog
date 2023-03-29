@@ -14,7 +14,7 @@
 //10,1,3,21,6,8,11,26,22,19
 //j,a,c,u,f,h,k,z,v,s
 
-package day0309.hw01;
+package day4.hw;
 
 public class ArrayLab4 {
     public static void main(String[] args) {

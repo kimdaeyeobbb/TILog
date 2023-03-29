@@ -1,4 +1,4 @@
-package day0309.hw01;
+package day4.hw;
 
 public class ArrayLab1 {
     public static void main(String[] args) {

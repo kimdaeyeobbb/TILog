@@ -1,4 +1,4 @@
-package day0309.hw02;
+package day4.hw;
 
 public class TwoArrayLab4 {
     public static void main(String[] args) {
