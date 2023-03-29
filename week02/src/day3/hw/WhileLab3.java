@@ -1,4 +1,4 @@
-package day0308.hw02;
+package day3.hw;
 
 public class WhileLab3 {
     public static void main(String[] args) {
