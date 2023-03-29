@@ -1,4 +1,4 @@
-package day0310.course;
+package day5.course;
 public class MethodTest2 {
 	public static void main(String[] args) {
 		System.out.println("main() 수행시작");

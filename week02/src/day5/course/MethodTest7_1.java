@@ -1,4 +1,4 @@
-package day0310.course;
+package day5.course;
 public class MethodTest7_1 {
 	public static void main(String[] args) {
 		String result="";
