@@ -188,12 +188,24 @@ stream.forEach( item -> /* item 처리*/ );
 
 
 - 한 번 만들어진 스트림은 재사용될 수 없음 (일회성)
+<BR> (스트림은 1회만 탐색이 가능하고, 탐색된 스트림은 소비됨)
+<BR> (그러므로 재탐색을 위해서는 새로운 스트림을 생성해야 함)
+
+```java
+List<String> list = Arrays.list("A","B","C","D");
+Stream<String> stream = list.stream();
+stream.forEach(name -> System.out.println(name));
+stream.forEach(name -> System.out.println(name)); // java.lang.illegalStateException 발생
+```
 
 
 - 스트림 연산은 기존의 자료를 변경하지 않고, 새로운 메모리 위에서 동작함
 
 
 - 중간연산을 담당하는 메서드와 과 최종 연산을 담당하는 메서드가 구분되어, 최종 연산이 수행된 이후 모든 연산이 적용되는 `지연연산`을 지원함
+
+
+<br>
 
 ## 지연연산
 
@@ -381,12 +393,20 @@ BaseStream에는 모든 스트림에서 사용할 수 있는 공통 메소드들
 
 ## 중간연산 처리 담당 메서드
 
+
 ![img_11.png](img_11.png)
+
+
+![img_30.png](img_30.png)
+
+![img_32.png](img_32.png)
 
 - 메서드 리턴값의 유형이 Stream객체
   - 메서드를 연속적으로 이어서 호출할 수 있음 (체이닝 호출 방식)
   - 리턴결과를 변수에 담지 않아도 되니까 이어서 호출할 수 있음
   - 점(.) 연산자에 의해 최종 연산까지 구현해놓으면 전체적으로 해석을 함
+
+
 
 
 - 중간 처리(매핑, 필터링, 정렬 등)는 여러 번 사용할 수 있다.
@@ -469,6 +489,31 @@ IntStream
 
 #### Comparable 구현 객체의 정렬
 
+- 요소 객체가 Comparable을 구현하고 있지 않다면, 비교자를 제공하면 요소를 정렬시킬 수 있음
+
+```java
+sorted((o1, o2) -> { ... })
+
+// o1 > o2 : 음수 리턴
+// o1 == o2 : 0 리턴
+// o1 < o2 : 양수 리턴
+```
+
+- o1과 o2가 정수일 경우
+  - Integer.compare(o1, o2)를 호출해서 리턴값을 리턴 가능
+
+- o1과 o2가 실수일 경우
+  - Double.compare(o1, o2)를 호출해서 리턴값을 리턴 가능
+
+
+<br> 
+
+## 루핑
+
+- 스트림에서 요소를 하나씩 반복해서 가져와 처리하는 것
+
+![img_25.png](img_25.png)
+
 
 
 
@@ -481,6 +526,10 @@ IntStream
 
 ![img_14.png](img_14.png)
 
+![img_33.png](img_33.png)
+
+![img_31.png](img_31.png)
+
 - 최종 처리(반복, 집계처리 등)는 결과 처리이므로 한 번만 사용할 수 있다.
 - 최종 결과값은 하나 
 
@@ -492,9 +541,71 @@ stream.map(...).filter(...).distinct(...).collect(...) // 불가능
 stream.map(...).filter(...).distinct(...).count() // 불가능 -> count는 최종연산을 담당
 ```
 
+<br>
+
+### 매칭
+
+- 요소들이 특정 조건에 만족하는지 여부를 조사하는 최종 처리 기능
+- allMatch(), anyMatch(), noneMatch() 메소드는 매개값으로 주어진 Predicate가 리턴하는 값에 따라 true 또는 false를 리턴
+
+![img_26.png](img_26.png)
+
+
+
+<br>
+
 ### 집계
 
+- 최종 처리 기능으로 요소들을 처리해서 카운팅, 합계, 평균값, 최대값, 최소값 등 
+하나의 값으로 산출하는 것으로 스트림이 제공하는 기본 집계 메서드를 사용
+
+
+  
 - 리턴 결과가 NULL이라서 NullPointerException인 경우를 대비해 optional 객체로 포장해서 리턴
+
+
+- 스트림은 카운팅, 최대, 최소, 평균, 합계 등을 처리하는 다음과 같은 최종 처리 메소드를 제공
+
+![img_27.png](img_27.png)
+
+#### Optional<T> 클래스
+
+- Integer나 Double 클래스처럼 'T'타입의 객체를 포장해 주는 래퍼 클래스(Wrapper class)
+- 모든 타입의 참조 변수를 저장할 수 있음
+- 예상치 못한 NullPointerException 예외를 제공되는 메소드로 간단히 제어할 수 있음
+<br> (복잡한 조건문 없이도 Null값으로 인해 발생하는 예외를 처리할 수 있게 됨)
+
+<br>
+
+### 필터링한 요소 수집
+
+![img_28.png](img_28.png)
+
+
+#### Stream의 collect(Collector<T,A,R> collector) 메소드
+
+- 필터링 또는 매핑된 요소들을 새로운 컬렉션에 수집
+
+###### 타입 파라미터 T
+
+- 요소
+
+###### 타입 파라미터 A
+
+- 누적기
+
+###### 타입 파라미터 R
+
+- 요소가 저장될 컬렉션
+
+###### 매개값 Collector
+
+- 어떤 요소를 어떤 컬렉션에 수집할 것인지를 결정
+
+
+![img_29.png](img_29.png)
+
+
 
 <br>
 
@@ -556,3 +667,23 @@ stream.forEach(System.out :: println);
 <br>
 
 # 예제 - [StreamExample12.java](./StreamExample12.java)
+
+
+<br>
+
+# 19. 네트워크
+
+# 서버
+
+- 연결 요청을 먼저 기다리는 프로그램
+<br>(java.net.ServerSocket)
+
+
+- 서버 소켓이 객체 생성시 준비하는 것
+  - 서버주소 (이 컴퓨터의 고유 주소)
+  - 포트번호
+
+
+# 클라이언트
+
+
