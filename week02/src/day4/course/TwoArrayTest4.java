@@ -1,4 +1,4 @@
-package day0309.course;
+package day4.course;
 public class TwoArrayTest4 {
 	public static void main(String[] args) {
 		int nums[][] = {

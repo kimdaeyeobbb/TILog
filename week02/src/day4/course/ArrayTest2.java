@@ -1,4 +1,4 @@
-package day0309.course;
+package day4.course;
 
 public class ArrayTest2 {
 
