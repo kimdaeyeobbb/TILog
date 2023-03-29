@@ -727,3 +727,15 @@ public interface Calculable{
 
 - 객체를 변수에 담아서 여러번 사용하는 것은 anonymous inner local class, 람다식 또한 가능하다
 
+- [내부 클래스 참고자료](http://www.tcpschool.com/java/java_usingClass_innerClass)
+
+## [LambdaTest4.java](./LambdaTest4.java)
+
+- 추상메서드가 2개이므로 람다식 이용불가
+
+- anonymous inner local class를 이용하여 객체 생성
+
+
+<br>
+
+## [LambdaTest5.java](./LambdaTest5.java)
