@@ -206,40 +206,6 @@ stream.forEach( item -> /* item 처리*/ );
 
 
 
-<br>
-
-
-# 중간연산 및 최종연산 처리 담당 메서드
-
-## 중간연산 처리 담당 메서드
-
-- 메서드 리턴값의 유형이 Stream객체 
-    - 메서드를 연속적으로 이어서 호출할 수 있음 (체이닝 호출 방식)
-    - 리턴결과를 변수에 담지 않아도 되니까 이어서 호출할 수 있음
-    - 점(.) 연산자에 의해 최종 연산까지 구현해놓으면 전체적으로 해석을 함
-
-
-```java
-stream.map(...).filter(...).distinct(...)
-
-// map -> 람다식 전달해서 매핑규칙 준수해야함
-```
-
-
-
-
-
-<br>
-
-## 최종연산 처리 담당 메서드
-
-- 리턴값이 Stream 객체가 아님
-
-
-```java
-stream.map(...).filter(...).distinct(...).collect(...) // 불가능
-stream.map(...).filter(...).distinct(...).count() // 불가능 -> count는 최종연산을 담당
-```
 
 
 <br>
@@ -306,4 +272,287 @@ list.stream().forEach(name -> System.out.println(name));
 
 - 컬렉션의 오리지널 스트림 뒤에 필터링 중간 스트림이 연결될 수 있고, 그 뒤에 매핑 중간 스트림이 연결될 수 있음
 
+- 최종처리 메서드는 필수로 호출해야 함
+<br> (forEach, count, ...)
+
 ![img_7.png](img_7.png)
+
+- 중간 스트림
+  - 메서드 호출에 의해 중간중간 불러와지는 것들
+  - 필터링, 매핑 등은 중간 연산
+  - 최종연산에 해당되는 것을 호출하고 나면 스트림 구조를 유지하지 않음
+  - 최종 연산처리하는 메서드를 중간에서 호출하면 더 이상 스트림 구조가 유지되지 않으므로 주의할것
+  <br>(최종 연산에 해당되는 메서드는 마지막에 호출할 것!)
+
+
+
+## 스트림 파이프라인 예제
+
+```bash
+명렁1 | 명령2 | 명령3   ...
+# 명령1의 실행결과를 명령2에게, 명령2의 실행결과를 명령3에...
+# 계속해서 다음 명령에게 이전 명령의 결과를 넘겨줌
+
+
+pr -ef | more
+# ps -ef : 모든 프로세스 정보 출력 -> 그냥 실행시 한페이지에 정보가 나오는게 아니라 화면이 넘어감
+# | : 파이프 기호. Windows에서는 지원하지 않음 (앞 명령의 수행 결과를 다음 명령어 넘김)
+# ps -ef | more : 화면에 출력 되는 것(ps -ef의 결과)을 다음 명령인 more에 넘겨줌
+
+ls | ws -l
+# ls의 결과를 받아와서 행의 개수를 세어줌. 현재 디렉토리 내 파일 개수 셈
+```
+
+
+- filter 메서드에 전달하는 함수(람다식)의 리턴값의 유형
+  - boolean
+  - true일 경우 해당 요소를 그 다음 스트림에게 넘겨줌
+  - false일 경우 해당 요소는 제외됨
+
+
+
+<br>
+
+
+## 스트림 파이프라인 예제2
+
+- 오리지널 스트림과 집계 처리 사이의 중간 스트림들은 최종 처리를 위해 요소를 걸러내거나(필터링), 요소를 변환시키거나(매핑), 정렬하는 작업을 수행
+  최종 처리는 중간 처리에서 정제된 요소들을 반복하거나, 집계(카운팅, 총합, 평균) 작업을 수행
+
+![img_8.png](img_8.png)
+
+- 점수만 가지고 작업하고 싶을 경우 점수만 뽑아내면 되니까 map을 사용
+
+
+<br>
+
+
+# 스트림 인터페이스
+
+- java.util.stream 패키지에는 BaseStream 인터페이스를 부모로 한 자식 인터페이스들이 제공되며
+BaseStream에는 모든 스트림에서 사용할 수 있는 공통 메소드들이 정의되어 있다.
+
+## 스트림 API
+
+![img_10.png](img_10.png)
+
+
+## 스트림 객체 만드는 방법
+
+![img_9.png](img_9.png)
+
+- 컬렉션 객체에는 스트림메서드가 상속되어 있음
+- ArrayList로 스트림을 만드려면 ArrayList.Stream()처럼 사용하면 됨 
+
+
+- Closed
+  - 붙어있으면 end값 포함
+  - 붙어 있지 않으면 end값 제외
+
+
+- Files.lines(Path, Charset)
+  - 파일의 내용을 읽어서 스트림 객체를 만들어줌
+  - 두번째 인자로 UTF-8이 주어지면 메모장등을 UTF-8로 읽는다는 것
+
+
+<br>
+
+
+# 파일로부터 스트림 얻기
+
+- java.nio.file.Files의 lines() 메소드로 텍스트 파일의 행 단위 스트림을 얻을 수 있음 
+
+
+# 스트림의 중간 처리 메서드와 최종 처리 메서드 
+
+- Stream은 요소에 대해 중간 처리와 최종 처리를 수행할 수 있다.
+
+![img_16.png](img_16.png)
+
+- 실수 데이터로만 구성된 스트림을 만들면 double 스트림이 생성됨
+
+- Optional의 경우
+  - 숫자형식의 스트림 객체에서만 호출할 수 있고, 그냥 호출하면 타입 떄문에 에러 발생
+  - 따라서 타입에 맞는 스트림 객체를 사용하도록 하자
+
+
+<br>
+
+
+## 중간연산 처리 담당 메서드
+
+![img_11.png](img_11.png)
+
+- 메서드 리턴값의 유형이 Stream객체
+  - 메서드를 연속적으로 이어서 호출할 수 있음 (체이닝 호출 방식)
+  - 리턴결과를 변수에 담지 않아도 되니까 이어서 호출할 수 있음
+  - 점(.) 연산자에 의해 최종 연산까지 구현해놓으면 전체적으로 해석을 함
+
+
+- 중간 처리(매핑, 필터링, 정렬 등)는 여러 번 사용할 수 있다.
+
+```java
+stream.map(...).filter(...).distinct(...)
+
+// map -> 람다식 전달해서 매핑규칙 준수해야함
+```
+
+
+### 필터링
+
+- 요소를 걸러내는 중간 처리 기능
+
+![img_17.png](img_17.png)
+
+
+### distinct() 메서드
+
+- 요소의 중복을 제거
+
+![img_18.png](img_18.png)
+
+### filter() 메서드
+
+- 매개값으로 주어진 Predicate가 true를 리턴하는 요소만 필터링
+
+![img_19.png](img_19.png)
+
+
+### 매핑
+
+- 스트림의 요소를 다른 요소로 변환하는 중간 처리 기능
+
+#### 매핑 메서드
+
+- mapXxx(), asDoubleStream(), asLongStream(), boxed(), flatMapXxx()
+
+
+
+#### mapXxx() 메소드
+
+- 요소를 다른 요소로 변환한 새로운 스트림을 리턴
+
+![img_20.png](img_20.png)
+
+![img_21.png](img_21.png)
+
+
+```java
+map(Function<T,R>)
+// 전달받은 애를 내용만 바꿀 때 사용
+```
+- Function : 함수형 인터페이스
+- T : 첫번쨰 타입 파라미터. 람다식이 전달받는 요소의 타입.
+- R : 두번째 타입 파라미터. 리턴되는 타입.
+
+<br>
+
+```java
+IntStream
+```
+- 전달받은 애를 Int형으로 바꿀 떄 사용
+
+#### flatMapXxx() 메소드
+
+- 하나의 요소를 복수 개의 요소들로 변환한 새로운 스트림을 리턴
+
+![img_22.png](img_22.png)
+
+![img_23.png](img_23.png)
+
+
+### 정렬
+
+- 요소를 오름차순 또는 내림차순으로 정렬하는 중간 처리 기능
+
+![img_24.png](img_24.png)
+
+#### Comparable 구현 객체의 정렬
+
+
+
+
+
+<br>
+
+## 최종연산 처리 담당 메서드
+
+![img_11.png](img_11.png)
+
+![img_14.png](img_14.png)
+
+- 최종 처리(반복, 집계처리 등)는 결과 처리이므로 한 번만 사용할 수 있다.
+- 최종 결과값은 하나 
+
+- 리턴값이 Stream 객체가 아님
+
+
+```java
+stream.map(...).filter(...).distinct(...).collect(...) // 불가능
+stream.map(...).filter(...).distinct(...).count() // 불가능 -> count는 최종연산을 담당
+```
+
+### 집계
+
+- 리턴 결과가 NULL이라서 NullPointerException인 경우를 대비해 optional 객체로 포장해서 리턴
+
+<br>
+
+# 예제 - [StreamExample0.java](./StreamExample0.java)
+
+- STREAM 사용 & 미사용
+
+# 예제 - [StreamExample1.java](./StreamExample1.java)
+
+- map
+  - 그냥 스트림 객체를 만들 수 없음
+  - map의 EntrySet을 이용해야함
+
+# 예제 - [StreamExample2.java](./StreamExample2.java)
+
+- 람다식을 주면 원하는 것만 출력할 수 있음
+
+- 받은 것만 출력하기 위해서 람다식을 이용할 수 있다
+
+```java
+stream = list.stream();
+stream.forEach(System.out :: println);          
+```
+
+# 예제 - [StreamExample3.java](./StreamExample3.java)
+
+# 예제 - [StreamExample4.java](./StreamExample4.java)
+
+# 예제 - [StreamExample5.java](./StreamExample5.java)
+
+- 결과값이 json/dictionary 형식 
+  - `key(name) : value` 꼴
+
+- 행 단위로 읽어서 스트림 생성
+
+## JSON (JavaScript Object Notation)
+
+- JS의 객체 만드는 형식과 JSON 형식은 유사함<BR>
+- [참고자료](https://www.json.org/json-en.html)
+
+
+# 예제 - [StreamExample6.java](./StreamExample6.java)
+
+- filter 메서드
+  - 리턴값 유형이 boolean인 람다식만 지정 가능
+
+
+# 예제 - [StreamExample7.java](./StreamExample7.java)
+
+- collect : 인자를 어떤 타입으로 모을것인지를 지정해줌
+
+# 예제 - [StreamExample8.java](./StreamExample8.java)
+
+- distinct : 중복되는 애들을 걸러낸 결과를 내보냄
+
+
+# 예제 - [StreamExample9.java](./StreamExample9.java)
+
+<br>
+
+# 예제 - [StreamExample12.java](./StreamExample12.java)
