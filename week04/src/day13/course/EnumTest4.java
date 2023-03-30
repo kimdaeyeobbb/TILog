@@ -1,4 +1,4 @@
-package day0322.course;
+package day13.course;
 enum SeasonInit{
    SPRING("봄"), SUMMER("여름"), FALL("가을"), WINTER("겨울");
    private final String name;

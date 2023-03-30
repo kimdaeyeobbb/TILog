@@ -1,4 +1,4 @@
-package day0322.course;
+package day13.course;
 enum Season2{
      봄, 여름, 가을 ,겨울
 }

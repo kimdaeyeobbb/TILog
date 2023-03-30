@@ -1,4 +1,4 @@
-package day0322.course;
+package day13.course;
 public class EnumTest5 {
    public static void main(String args[]) {      
       SeasonInit input = SeasonInit.FALL;

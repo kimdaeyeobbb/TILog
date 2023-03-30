@@ -1,4 +1,4 @@
-package day0322.course;
+package day13.course;
 
 enum Season {
 	// enum 타입 내에 4개의 상수가 정의되어 있음. 이 4개의 값만 가질 수 있고 다른 값은 가질 수 없게됨

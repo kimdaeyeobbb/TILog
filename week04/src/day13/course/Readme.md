@@ -47,30 +47,32 @@ Externalizable 인터페이스나 Serializable 인터페이스를 상속하는 �
 # Date 객체 2개 저장
 
 ```java
-package day0322.course;
+package day13.course;
+
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.Date;
+
 public class SerialTest1 {
-   public static void main(String[] args) throws Exception{ 
-      FileOutputStream fos = 
-    		  new FileOutputStream("c:/iotest/test1.ser");
-      // 출력모드로 오픈. 바이트스트림 사용. 파일의 확장자가 딱 정해져 있지는 않지만 serializable의 약어로 ser을 많이 사용 (txt는 사용불가)
+  public static void main(String[] args) throws Exception {
+    FileOutputStream fos =
+            new FileOutputStream("c:/iotest/test1.ser");
+    // 출력모드로 오픈. 바이트스트림 사용. 파일의 확장자가 딱 정해져 있지는 않지만 serializable의 약어로 ser을 많이 사용 (txt는 사용불가)
 
-      ObjectOutputStream oos = 
-    		  new ObjectOutputStream(fos);
+    ObjectOutputStream oos =
+            new ObjectOutputStream(fos);
 
-      oos.writeObject(new Date());
-      // Date의 객체에 객체직렬화해서 write -> 시리얼라이자블을 추가상속하고 있음을 알 수 있음
+    oos.writeObject(new Date());
+    // Date의 객체에 객체직렬화해서 write -> 시리얼라이자블을 추가상속하고 있음을 알 수 있음
 
-      Thread.sleep(3000);
-      oos.writeObject(new Date());
-      // Date 객체를 2개 내보냄.
+    Thread.sleep(3000);
+    oos.writeObject(new Date());
+    // Date 객체를 2개 내보냄.
 
-      oos.close();
-      fos.close();
-      System.out.println("직렬화 출력 완료");      
-   }
+    oos.close();
+    fos.close();
+    System.out.println("직렬화 출력 완료");
+  }
 }
 ```
 
@@ -78,8 +80,9 @@ public class SerialTest1 {
 # SerialTest3
 
 ```java
-package day0322.course;
-import day0313.course.Student2;
+package day13.course;
+
+import day6.course.Student2;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
@@ -87,22 +90,22 @@ import java.util.Date;
 
 
 public class SerialTest3 {
-   public static void main(String[] args) throws Exception{ 
-      FileOutputStream fos = 
-    		  new FileOutputStream("c:/iotest/test2.ser"); 
-      ObjectOutputStream oos = 
-    		  new ObjectOutputStream(fos);
-      oos.writeObject(new Date());
-      Thread.sleep(3000);
-      oos.writeObject(new Date());
-      // Date 객체는 이미 Serializable을 추가상속하고 있음
+  public static void main(String[] args) throws Exception {
+    FileOutputStream fos =
+            new FileOutputStream("c:/iotest/test2.ser");
+    ObjectOutputStream oos =
+            new ObjectOutputStream(fos);
+    oos.writeObject(new Date());
+    Thread.sleep(3000);
+    oos.writeObject(new Date());
+    // Date 객체는 이미 Serializable을 추가상속하고 있음
 
-      Student2 st = new Student2("duke", 27, "Java프로그래밍");
-      oos.writeObject(st);
-      oos.close();
-      fos.close();
-      System.out.println("직렬화 출력 완료");      
-   }
+    Student2 st = new Student2("duke", 27, "Java프로그래밍");
+    oos.writeObject(st);
+    oos.close();
+    fos.close();
+    System.out.println("직렬화 출력 완료");
+  }
 }
 ```
 
@@ -112,7 +115,7 @@ public class SerialTest3 {
 - Student2가 Serializable을 상속받게 고쳐주면 에러가 안남
 
 ```java
-package day0313.course;
+package day6.course;
 
 import java.io.Serializable;
 
@@ -120,24 +123,24 @@ public class Student2 implements Serializable {
     private static final long serialVersionUID = 1L;
     // 시리얼 버전 uid가 일치하면 멤버변수 사양이 맞기 않더라도 일치하는 애들은 넣어주기 위한 것.
     // 작렬화해서 저장할 떄의 클래스 멤버와 저장된걸 꺼내서 가져올 떄의 클래스 멤버가 같기만 하면 됨.
-    
+
     /* 멤버 변수 */
     String name;
     int age;
     String subject;
 
-    public Student2(String name, int age, String subject){
+    public Student2(String name, int age, String subject) {
         this.name = name;
         this.age = age;
         this.subject = subject;
     }
 
-    public void printStudentInfo(){
+    public void printStudentInfo() {
         System.out.printf("%s학생의 나이는 %d입니다.\n", name, age);
     }
 
-    public void study(){
-        System.out.printf("%s학생은 %s과목을 학습합니다.\n" , name, subject);
+    public void study() {
+        System.out.printf("%s학생은 %s과목을 학습합니다.\n", name, subject);
     }
 }
 ```
@@ -164,7 +167,7 @@ public class Student2 implements Serializable {
 - transient 설정 예시
 
 ```java
-package day0322.course;
+package day13.course;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
@@ -240,7 +243,7 @@ public class SerialTest5 {
 ```
 
 ```java
-package day0322.course;
+package day13.course;
 
 import day0324.day15.StepDTO;
 
@@ -354,7 +357,7 @@ System.out.printf("8 : 오늘의 날짜는 %1$tY 년 %1$tm 월 %1$td 일 입니�
 - https://www.json.org/json-en.html
 
 ```java
-package day0322.course;
+package day13.course;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -366,45 +369,45 @@ import org.json.JSONObject;
 
 public class URLTest8 {
 
-	public static void main(String[] args) {
-		try {
-			URL req = new URL(
-					"http://openapi.seoul.go.kr:8088/796143536a756e69313134667752417a/json/LampScpgmtb/1/100/");
+  public static void main(String[] args) {
+    try {
+      URL req = new URL(
+              "http://openapi.seoul.go.kr:8088/796143536a756e69313134667752417a/json/LampScpgmtb/1/100/");
 
-			InputStream is = req.openStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			StringBuffer bf = new StringBuffer();
-			String line;
-			while (true) {
-				line = br.readLine();
-				if (line == null)
-					break;
-				bf.append(line);
-			}
+      InputStream is = req.openStream();
+      BufferedReader br = new BufferedReader(new InputStreamReader(is));
+      StringBuffer bf = new StringBuffer();
+      String line;
+      while (true) {
+        line = br.readLine();
+        if (line == null)
+          break;
+        bf.append(line);
+      }
 
-			JSONObject obj = null;
+      JSONObject obj = null;
 
 //			try {
-				obj = new JSONObject(bf.toString());
-				// JSON Object로 만들어서 처리
-			
+      obj = new JSONObject(bf.toString());
+      // JSON Object로 만들어서 처리
+
 //			} catch (Exception e) {
 //				System.out.println("파싱 오류");
 //				e.printStackTrace();
 //			}
 
-			System.out.println(obj.toString());
-			System.out.println(obj.keySet());
-			JSONObject lamp = obj.getJSONObject("LampScpgmtb");
-			JSONArray row = lamp.getJSONArray("row");
+      System.out.println(obj.toString());
+      System.out.println(obj.keySet());
+      JSONObject lamp = obj.getJSONObject("LampScpgmtb");
+      JSONArray row = lamp.getJSONArray("row");
 
-			for(Object e : row) {
-				System.out.println(((JSONObject)e).getString("CLS_NM"));
-			}
-		} catch (Exception e) {
-			System.out.println("오류 : " + e.getMessage());
-		}
-	}
+      for (Object e : row) {
+        System.out.println(((JSONObject) e).getString("CLS_NM"));
+      }
+    } catch (Exception e) {
+      System.out.println("오류 : " + e.getMessage());
+    }
+  }
 }
 ```
 
@@ -428,9 +431,8 @@ public class URLTest8 {
 
 ## [EnumTest1](./EnumTest1.java)
 
-
 ```java
-package day0322.course;
+package day13.course;
 
 enum Season {
   // enum 타입 내에 4개의 상수가 정의되어 있음. 이 4개의 값만 가질 수 있고 다른 값은 가질 수 없게됨
@@ -498,18 +500,21 @@ public class EnumTest1 {
 
 - 상수를 한글로도 기재할 수 있다
   - 자바는 유니코드이므로 변수명등을 한글로도 쓸 수 있다
+
 ```java
-package day0322.course;
-enum Season2{
-     봄, 여름, 가을 ,겨울
+package day13.course;
+
+enum Season2 {
+  봄, 여름, 가을, 겨울
 }
+
 public class EnumTest2 {
-   public static void main(String args[]) {
-      System.out.println(Season2.봄);
-      System.out.println(Season2.여름);
-      System.out.println(Season2.가을);
-      System.out.println(Season2.겨울);     
-   }
+  public static void main(String args[]) {
+    System.out.println(Season2.봄);
+    System.out.println(Season2.여름);
+    System.out.println(Season2.가을);
+    System.out.println(Season2.겨울);
+  }
 }
 ```
 
@@ -519,87 +524,92 @@ public class EnumTest2 {
   - 클래스 내에 포함된 내부 클래스의 경우 외부 클래스명을 적고 내부 클래스를 써주어야 사용할 수 있다
 
 ```java
-package day0322.course;
-class Tour  {
-   enum Season{
-      SPRING, SUMMER, FALL, WINTER;
-      
-      String getMyName() {
-    	  return "enum 입니당";
-      }
-   }
+package day13.course;
+
+class Tour {
+  enum Season {
+    SPRING, SUMMER, FALL, WINTER;
+
+    String getMyName() {
+      return "enum 입니당";
+    }
+  }
 }
+
 public class EnumTest3 {
-   public static void main(String args[]) {
-      Tour.Season day[] = Tour.Season.values();  
-      // 외부 클래스명.내부 클래스명 꼴로 써야 사용 가능
-      
-     for(Tour.Season value  : day)
-         System.out.println(value); 
-      Tour.Season season = Tour.Season.valueOf("SUMMER");
-      System.out.println("Tour.Season.valueOf(\"SUMMER\") : " + season); 
-      System.out.println(season.getMyName());      
-   }
+  public static void main(String args[]) {
+    Tour.Season day[] = Tour.Season.values();
+    // 외부 클래스명.내부 클래스명 꼴로 써야 사용 가능
+
+    for (Tour.Season value : day)
+      System.out.println(value);
+    Tour.Season season = Tour.Season.valueOf("SUMMER");
+    System.out.println("Tour.Season.valueOf(\"SUMMER\") : " + season);
+    System.out.println(season.getMyName());
+  }
 }
 ```
 
-
 ```java
-package day0322.course;
-enum SeasonInit{
-   SPRING("봄"), SUMMER("여름"), FALL("가을"), WINTER("겨울");
-   private final String name;
-   // 1. 상수의 값을 보관하기 위한 용도 (반드시 private final형 이어야 함)
+package day13.course;
 
-   // 2. 상수값을 전달받는 생성자 메서드
-   SeasonInit(String name){
-      this.name = name;
-   }
-   
-   // 1.과 2.가 있으면 Enum에 정의된 상수의 값을 바꿀 수 있음
-   // 다른 값으로 초기화되는 상수를 사용할 수 있게 만들어준다!
-   
-   String returnName(){
-      return name;
-   }
+enum SeasonInit {
+  SPRING("봄"), SUMMER("여름"), FALL("가을"), WINTER("겨울");
+  private final String name;
+  // 1. 상수의 값을 보관하기 위한 용도 (반드시 private final형 이어야 함)
+
+  // 2. 상수값을 전달받는 생성자 메서드
+  SeasonInit(String name) {
+    this.name = name;
+  }
+
+  // 1.과 2.가 있으면 Enum에 정의된 상수의 값을 바꿀 수 있음
+  // 다른 값으로 초기화되는 상수를 사용할 수 있게 만들어준다!
+
+  String returnName() {
+    return name;
+  }
 }
+
 public class EnumTest4 {
-   public static void main(String args[]) {
-      SeasonInit day[] = SeasonInit.values();
-      for(SeasonInit value  : day)
-         System.out.println(value);
-      for(SeasonInit value  : day)
-    	 System.out.println(value.returnName()); 
-      SeasonInit season = SeasonInit.valueOf("SUMMER");
-      System.out.println("SeasonInit.valueOf(\"SUMMER\") : " + season); // SUMMER 출력
-      System.out.println(	"SeasonInit.valueOf(\"SUMMER\").returnName() : " + season.returnName());  // 여름 출력 
-   }
+  public static void main(String args[]) {
+    SeasonInit day[] = SeasonInit.values();
+    for (SeasonInit value : day)
+      System.out.println(value);
+    for (SeasonInit value : day)
+      System.out.println(value.returnName());
+    SeasonInit season = SeasonInit.valueOf("SUMMER");
+    System.out.println("SeasonInit.valueOf(\"SUMMER\") : " + season); // SUMMER 출력
+    System.out.println("SeasonInit.valueOf(\"SUMMER\").returnName() : " + season.returnName());  // 여름 출력 
+  }
 }
 
 ```
 
 
 - 원하는 값으로 초기화되게 하는 Enum을 만들 수 있다
+
 ```java
-package day0322.course;
+package day13.course;
+
 public class EnumTest5 {
-   public static void main(String args[]) {      
-      SeasonInit input = SeasonInit.FALL;
-      switch(input) {
-	     case SPRING : // case 절에 상수로 사용할 때는 열거타입 명은 제거
-            System.out.println(input.returnName());
-            break;
-         case SUMMER :
-            System.out.println(input.returnName());
-            break;
-         case FALL :
-            System.out.println(input.returnName());
-            break;
-         case WINTER :
-            System.out.println(input.returnName());
-            break;
-      }    
-   }
+  public static void main(String args[]) {
+    SeasonInit input = SeasonInit.FALL;
+    switch (input) {
+      case SPRING: // case 절에 상수로 사용할 때는 열거타입 명은 제거
+        System.out.println(input.returnName());
+        break;
+      case SUMMER:
+        System.out.println(input.returnName());
+        break;
+      case FALL:
+        System.out.println(input.returnName());
+        break;
+      case WINTER:
+        System.out.println(input.returnName());
+        break;
+    }
+  }
 }
 
 ```

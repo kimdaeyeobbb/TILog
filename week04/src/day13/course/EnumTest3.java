@@ -1,4 +1,4 @@
-package day0322.course;
+package day13.course;
 class Tour  {
    enum Season{
       SPRING, SUMMER, FALL, WINTER;
