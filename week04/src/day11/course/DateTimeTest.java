@@ -1,4 +1,4 @@
-package day0320.course;
+package day11.course;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Period;
 import java.time.format.TextStyle;
 import java.util.Date;
 import java.util.GregorianCalendar;

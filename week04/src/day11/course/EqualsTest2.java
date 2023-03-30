@@ -1,4 +1,4 @@
-package day0320.course;
+package day11.course;
 public class EqualsTest2 {
 	public static void main(String[] args) {
 		if(args.length == 1) {
