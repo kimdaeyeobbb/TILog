@@ -1,4 +1,4 @@
-package day0315.course;
+package day8.course;
 
 public class PolyTest {
     public static void main(String[] args) {

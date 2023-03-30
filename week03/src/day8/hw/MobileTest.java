@@ -1,4 +1,4 @@
-package day0315.hw01;
+package day8.hw;
 
 
 abstract class Mobile{

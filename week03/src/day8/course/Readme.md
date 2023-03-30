@@ -1,65 +1,4 @@
-# 0314 실습 풀이
 
-```java
-package exercise;  // 제출시 packge exercise로 변경
-
-class Human{
-    private String name;
-    private int age;
-    private int height;
-    private int weight;
-
-    /* 멤버변수를 기본값으로 초기화 */
-    // 얘로 객체 생성가능 
-    public Human(){}
-
-    /* 멤버변수 초기화 */
-    // 얘로 객체생성 가능
-    public Human(String name, int age, int height, int weight){
-        this.name = name;
-        this.age = age;
-        this.height = height;
-        this.weight = weight;
-    }
-
-    public String printInformation(){
-        return name + "\t" + age + "\t" + height + "\t" + weight;
-    }
-}
-
-class Student extends Human{
-    private String number;
-    private String major;
-
-    public Student(){}
-
-    // number, major는 직접 세팅. 나머지는 조상 생성자를 통해 세팅 
-    public Student(String name, int age, int height, int weight, String number, String major){
-        super(name, age, height, weight);
-        this.number = number;
-        this.major = major;
-    }
-
-    /* 조상을 호출하지 않으면 자기 자신을 재귀적으로 호출 => 스택오버플로우 발생 */
-    @Override
-    public String printInformation() {
-        return super.printInformation() + "\t" + number + "\t" + major;
-    }
-}
-
-public class StudentTest {
-    public static void main(String[] args) {
-        Student arrays[] = new Student[3];
-        arrays[0] = new Student("홍길동", 20, 171,81,"2001101","영문");
-        arrays[1] = new Student("고길동", 21, 183,72,"2001102","건축");
-        arrays[2] = new Student("박길동", 22, 175,65,"2001103","컴공");
-
-        for(Student st: arrays){
-            System.out.println(st.printInformation());
-        }
-    }
-}
-```
 ## 멤버변수
 
 - 클래스 내에 선언된 변수
@@ -378,69 +317,69 @@ class Child extends Parent{
 - 실제로 프로그래밍을 하다보면 덧셈/뺄셈 연산자보다 많이 사용함
 
 ```java
-package day0315.course;
+package day8.course;
 
 public class PolyTest {
-    public static void main(String[] args) {
-        printObjectInfo(new Object());
-        // Object 클래스는 java.lang 패키지에 있으므로 따로 import 안해도됨
-        // java.lang 패키지는 자동으로 import 됨
+  public static void main(String[] args) {
+    printObjectInfo(new Object());
+    // Object 클래스는 java.lang 패키지에 있으므로 따로 import 안해도됨
+    // java.lang 패키지는 자동으로 import 됨
 
-    }
+  }
 
-    // 같은 static이어야 메인메서드에서 호출하기 편함
-    // non static 메서드일 경우 객체 생성해야 호출 가능함 (같은 클래스 내에 있어도 객체를 통해서만 호출가능)
-    static  void printObjectInfo(Object o){
-        // 매개변수 - Object이라는 클래스형의 변수
-        // Object 객체를 전닲하겠다는 뜻 (Object 또한 자바의 클래스임. 최상위 클래스.)
+  // 같은 static이어야 메인메서드에서 호출하기 편함
+  // non static 메서드일 경우 객체 생성해야 호출 가능함 (같은 클래스 내에 있어도 객체를 통해서만 호출가능)
+  static void printObjectInfo(Object o) {
+    // 매개변수 - Object이라는 클래스형의 변수
+    // Object 객체를 전닲하겠다는 뜻 (Object 또한 자바의 클래스임. 최상위 클래스.)
 
-        System.out.println("전달된 객체의 클래스명: " + o.getClass().getName());
-        // getClass().getname() -> 실제 전달된 객체가 누구인지 확인 (자주 사용)
+    System.out.println("전달된 객체의 클래스명: " + o.getClass().getName());
+    // getClass().getname() -> 실제 전달된 객체가 누구인지 확인 (자주 사용)
 
 
-    }
+  }
 }
 ```
 
 - 어떤 클래스든 패키지명을 붙인것이 정식 클래스명임
 
 ```java
-package day0315.course;
+package day8.course;
 
 public class PolyTest {
-    public static void main(String[] args) {
-        printObjectInfo(new Object());
-        // Object 클래스는 java.lang 패키지에 있으므로 따로 import 안해도됨
-        // java.lang 패키지는 자동으로 import 됨
+  public static void main(String[] args) {
+    printObjectInfo(new Object());
+    // Object 클래스는 java.lang 패키지에 있으므로 따로 import 안해도됨
+    // java.lang 패키지는 자동으로 import 됨
 
-        printObjectInfo("가나다");
-        printObjectInfo("ABC");
-        printObjectInfo(new java.util.Date());
-        // 다른 패키지에 있는 클래스를 가져다 쓸 경우 클래스명 앞에 패키지명을 붙여서 사용해도 됨
+    printObjectInfo("가나다");
+    printObjectInfo("ABC");
+    printObjectInfo(new java.util.Date());
+    // 다른 패키지에 있는 클래스를 가져다 쓸 경우 클래스명 앞에 패키지명을 붙여서 사용해도 됨
 
-        printObjectInfo(new java.io.File("c:/Temp"));
-        // io 패키지에 있는 클래스. 인자가 없는 생성자는 가지고 있지 않음. 따라서 반드시 인자로 무엇인가를 줘야함
-        // OS에 따라 디렉토리 구분자가 다름. 윈도우는 슬래시 나머지는 모두 백슬래시
-        // JAVA에서는 OS에 관게없이 슬래쉬를 사용해도 됨. 백슬래쉬를 쓸거면 2번을 써야함 (한번은 이스케이프 문자로 인식하므로)
+    printObjectInfo(new java.io.File("c:/Temp"));
+    // io 패키지에 있는 클래스. 인자가 없는 생성자는 가지고 있지 않음. 따라서 반드시 인자로 무엇인가를 줘야함
+    // OS에 따라 디렉토리 구분자가 다름. 윈도우는 슬래시 나머지는 모두 백슬래시
+    // JAVA에서는 OS에 관게없이 슬래쉬를 사용해도 됨. 백슬래쉬를 쓸거면 2번을 써야함 (한번은 이스케이프 문자로 인식하므로)
 
-        printObjectInfo(new int[10]);
-        printObjectInfo(new double[5]);
-        printObjectInfo(100);
-        // 기본형 데이터(int 형)
+    printObjectInfo(new int[10]);
+    printObjectInfo(new double[5]);
+    printObjectInfo(100);
+    // 기본형 데이터(int 형)
 
-        printObjectInfo(3.14);  // java.lang.Double
-    }
+    printObjectInfo(3.14);  // java.lang.Double
+  }
 
-    // 같은 static이어야 메인메서드에서 호출하기 편함
-    // non static 메서드일 경우 객체 생성해야 호출 가능함 (같은 클래스 내에 있어도 객체를 통해서만 호출가능)
-    static  void printObjectInfo(Object o){
-        // 매개변수 - Object이라는 클래스형의 변수
-        // Object 객체를 전닲하겠다는 뜻 (Object 또한 자바의 클래스임. 최상위 클래스.)
+  // 같은 static이어야 메인메서드에서 호출하기 편함
+  // non static 메서드일 경우 객체 생성해야 호출 가능함 (같은 클래스 내에 있어도 객체를 통해서만 호출가능)
+  static void printObjectInfo(Object o) {
+    // 매개변수 - Object이라는 클래스형의 변수
+    // Object 객체를 전닲하겠다는 뜻 (Object 또한 자바의 클래스임. 최상위 클래스.)
 
-        System.out.println("전달된 객체의 클래스명: " + o.getClass().getName());
-        // getClass().getname() -> 실제 전달된 객체가 누구인지 확인 (자주 사용)
+    System.out.println("전달된 객체의 클래스명: " + o.getClass().getName());
+    // getClass().getname() -> 실제 전달된 객체가 누구인지 확인 (자주 사용)
 
-    }
+  }
 }
 ```
 
@@ -462,41 +401,42 @@ public class PolyTest {
 
 - 매개변수 타입을 String으로 바꾸면 에러 발생
 <br> (매개변수는 String 혹은 String의 자손만 올 수 있게 만듦)
+
 ```java
-package day0315.course;
+package day8.course;
 
 public class PolyTest {
-    public static void main(String[] args) {
-        printObjectInfo(new Object());
-        // Object 클래스는 java.lang 패키지에 있으므로 따로 import 안해도됨
-        // java.lang 패키지는 자동으로 import 됨
+  public static void main(String[] args) {
+    printObjectInfo(new Object());
+    // Object 클래스는 java.lang 패키지에 있으므로 따로 import 안해도됨
+    // java.lang 패키지는 자동으로 import 됨
 
-        printObjectInfo("가나다");
-        printObjectInfo("ABC");
-        printObjectInfo(new java.util.Date());
-        // 다른 패키지에 있는 클래스를 가져다 쓸 경우 클래스명 앞에 패키지명을 붙여서 사용해도 됨
+    printObjectInfo("가나다");
+    printObjectInfo("ABC");
+    printObjectInfo(new java.util.Date());
+    // 다른 패키지에 있는 클래스를 가져다 쓸 경우 클래스명 앞에 패키지명을 붙여서 사용해도 됨
 
-        printObjectInfo(new java.io.File("c:/Temp"));
-        // io 패키지에 있는 클래스. 인자가 없는 생성자는 가지고 있지 않음. 따라서 반드시 인자로 무엇인가를 줘야함
-        // OS에 따라 디렉토리 구분자가 다름. 윈도우는 슬래시 나머지는 모두 백슬래시
-        // JAVA에서는 OS에 관게없이 슬래쉬를 사용해도 됨. 백슬래쉬를 쓸거면 2번을 써야함 (한번은 이스케이프 문자로 인식하므로)
+    printObjectInfo(new java.io.File("c:/Temp"));
+    // io 패키지에 있는 클래스. 인자가 없는 생성자는 가지고 있지 않음. 따라서 반드시 인자로 무엇인가를 줘야함
+    // OS에 따라 디렉토리 구분자가 다름. 윈도우는 슬래시 나머지는 모두 백슬래시
+    // JAVA에서는 OS에 관게없이 슬래쉬를 사용해도 됨. 백슬래쉬를 쓸거면 2번을 써야함 (한번은 이스케이프 문자로 인식하므로)
 
-        printObjectInfo(new int[10]);
-        printObjectInfo(new double[5]);
-        printObjectInfo(100);
-        // 기본형 데이터(int 형)
+    printObjectInfo(new int[10]);
+    printObjectInfo(new double[5]);
+    printObjectInfo(100);
+    // 기본형 데이터(int 형)
 
-        printObjectInfo(3.14);  // java.lang.Double
-    }
+    printObjectInfo(3.14);  // java.lang.Double
+  }
 
-    // 같은 static이어야 메인메서드에서 호출하기 편함
-    // non static 메서드일 경우 객체 생성해야 호출 가능함 (같은 클래스 내에 있어도 객체를 통해서만 호출가능)
-    static  void printObjectInfo(String o){
+  // 같은 static이어야 메인메서드에서 호출하기 편함
+  // non static 메서드일 경우 객체 생성해야 호출 가능함 (같은 클래스 내에 있어도 객체를 통해서만 호출가능)
+  static void printObjectInfo(String o) {
 
-        System.out.println("전달된 객체의 클래스명: " + o.getClass().getName());
-        // getClass().getname() -> 실제 전달된 객체가 누구인지 확인 (자주 사용)
+    System.out.println("전달된 객체의 클래스명: " + o.getClass().getName());
+    // getClass().getname() -> 실제 전달된 객체가 누구인지 확인 (자주 사용)
 
-    }
+  }
 }
 ```
 
@@ -532,43 +472,43 @@ String d3 = new Date();
   - 어떤 클래스의 유형이냐에 따라서 접근할 수 있는 멤버들은 이 변수가 어떤 클래스의 유형이냐에 따라 결정됨. 자손에서 추가된 것에는 접근할 수 없음.
 
 ```java
-package day0315.course;
+package day8.course;
 
 public class PolyTest {
-    public static void main(String[] args) {
-        printObjectInfo(new Object());
-        // Object 클래스는 java.lang 패키지에 있으므로 따로 import 안해도됨
-        // java.lang 패키지는 자동으로 import 됨
+  public static void main(String[] args) {
+    printObjectInfo(new Object());
+    // Object 클래스는 java.lang 패키지에 있으므로 따로 import 안해도됨
+    // java.lang 패키지는 자동으로 import 됨
 
-        printObjectInfo("가나다");
-        printObjectInfo("ABC");
-        printObjectInfo(new java.util.Date());
-        // 다른 패키지에 있는 클래스를 가져다 쓸 경우 클래스명 앞에 패키지명을 붙여서 사용해도 됨
+    printObjectInfo("가나다");
+    printObjectInfo("ABC");
+    printObjectInfo(new java.util.Date());
+    // 다른 패키지에 있는 클래스를 가져다 쓸 경우 클래스명 앞에 패키지명을 붙여서 사용해도 됨
 
-        printObjectInfo(new java.io.File("c:/Temp"));
-        // io 패키지에 있는 클래스. 인자가 없는 생성자는 가지고 있지 않음. 따라서 반드시 인자로 무엇인가를 줘야함
-        // OS에 따라 디렉토리 구분자가 다름. 윈도우는 슬래시 나머지는 모두 백슬래시
-        // JAVA에서는 OS에 관게없이 슬래쉬를 사용해도 됨. 백슬래쉬를 쓸거면 2번을 써야함 (한번은 이스케이프 문자로 인식하므로)
+    printObjectInfo(new java.io.File("c:/Temp"));
+    // io 패키지에 있는 클래스. 인자가 없는 생성자는 가지고 있지 않음. 따라서 반드시 인자로 무엇인가를 줘야함
+    // OS에 따라 디렉토리 구분자가 다름. 윈도우는 슬래시 나머지는 모두 백슬래시
+    // JAVA에서는 OS에 관게없이 슬래쉬를 사용해도 됨. 백슬래쉬를 쓸거면 2번을 써야함 (한번은 이스케이프 문자로 인식하므로)
 
-        printObjectInfo(new int[10]);
-        printObjectInfo(new double[5]);
-        printObjectInfo(100);
-        // 기본형 데이터(int 형)
+    printObjectInfo(new int[10]);
+    printObjectInfo(new double[5]);
+    printObjectInfo(100);
+    // 기본형 데이터(int 형)
 
-        printObjectInfo(3.14);  // java.lang.Double
-    }
+    printObjectInfo(3.14);  // java.lang.Double
+  }
 
-    // 같은 static이어야 메인메서드에서 호출하기 편함
-    // non static 메서드일 경우 객체 생성해야 호출 가능함 (같은 클래스 내에 있어도 객체를 통해서만 호출가능)
-    static  void printObjectInfo(Object o){
-        // 매개변수 - Object이라는 클래스형의 변수
-        // Object 객체를 전닲하겠다는 뜻 (Object 또한 자바의 클래스임. 최상위 클래스.)
-        // - Object이 가지고 있는 사양까지만 접근 가능 (자손에게 추가된 멤버에 접근이 불가능)
+  // 같은 static이어야 메인메서드에서 호출하기 편함
+  // non static 메서드일 경우 객체 생성해야 호출 가능함 (같은 클래스 내에 있어도 객체를 통해서만 호출가능)
+  static void printObjectInfo(Object o) {
+    // 매개변수 - Object이라는 클래스형의 변수
+    // Object 객체를 전닲하겠다는 뜻 (Object 또한 자바의 클래스임. 최상위 클래스.)
+    // - Object이 가지고 있는 사양까지만 접근 가능 (자손에게 추가된 멤버에 접근이 불가능)
 
-        System.out.println("전달된 객체의 클래스명: " + o.getClass().getName());
-        // getClass().getname() -> 실제 전달된 객체가 누구인지 확인 (자주 사용)
+    System.out.println("전달된 객체의 클래스명: " + o.getClass().getName());
+    // getClass().getname() -> 실제 전달된 객체가 누구인지 확인 (자주 사용)
 
-    }
+  }
 }
 ```
 
@@ -577,48 +517,48 @@ public class PolyTest {
 - 어떤 참조형 변수에 할당된 객체가 어떤 형태인지 확인하고 싶을떄 `instanceof` 사용
 
 ```java
-package day0315.course;
+package day8.course;
 
 public class PolyTest {
-    public static void main(String[] args) {
-        printObjectInfo(new Object());
-        // Object 클래스는 java.lang 패키지에 있으므로 따로 import 안해도됨
-        // java.lang 패키지는 자동으로 import 됨
+  public static void main(String[] args) {
+    printObjectInfo(new Object());
+    // Object 클래스는 java.lang 패키지에 있으므로 따로 import 안해도됨
+    // java.lang 패키지는 자동으로 import 됨
 
-        printObjectInfo("가나다");
-        printObjectInfo("ABC");
-        printObjectInfo(new java.util.Date());
-        // 다른 패키지에 있는 클래스를 가져다 쓸 경우 클래스명 앞에 패키지명을 붙여서 사용해도 됨
+    printObjectInfo("가나다");
+    printObjectInfo("ABC");
+    printObjectInfo(new java.util.Date());
+    // 다른 패키지에 있는 클래스를 가져다 쓸 경우 클래스명 앞에 패키지명을 붙여서 사용해도 됨
 
-        printObjectInfo(new java.io.File("c:/Temp"));
-        // io 패키지에 있는 클래스. 인자가 없는 생성자는 가지고 있지 않음. 따라서 반드시 인자로 무엇인가를 줘야함
-        // OS에 따라 디렉토리 구분자가 다름. 윈도우는 슬래시 나머지는 모두 백슬래시
-        // JAVA에서는 OS에 관게없이 슬래쉬를 사용해도 됨. 백슬래쉬를 쓸거면 2번을 써야함 (한번은 이스케이프 문자로 인식하므로)
+    printObjectInfo(new java.io.File("c:/Temp"));
+    // io 패키지에 있는 클래스. 인자가 없는 생성자는 가지고 있지 않음. 따라서 반드시 인자로 무엇인가를 줘야함
+    // OS에 따라 디렉토리 구분자가 다름. 윈도우는 슬래시 나머지는 모두 백슬래시
+    // JAVA에서는 OS에 관게없이 슬래쉬를 사용해도 됨. 백슬래쉬를 쓸거면 2번을 써야함 (한번은 이스케이프 문자로 인식하므로)
 
-        printObjectInfo(new int[10]);
-        printObjectInfo(new double[5]);
-        printObjectInfo(100);
-        // 기본형 데이터(int 형)
+    printObjectInfo(new int[10]);
+    printObjectInfo(new double[5]);
+    printObjectInfo(100);
+    // 기본형 데이터(int 형)
 
-        printObjectInfo(3.14);  // java.lang.Double
+    printObjectInfo(3.14);  // java.lang.Double
+  }
+
+  // 같은 static이어야 메인메서드에서 호출하기 편함
+  // non static 메서드일 경우 객체 생성해야 호출 가능함 (같은 클래스 내에 있어도 객체를 통해서만 호출가능)
+  static void printObjectInfo(Object o) {
+    // 매개변수 - Object이라는 클래스형의 변수
+    // Object 객체를 전닲하겠다는 뜻 (Object 또한 자바의 클래스임. 최상위 클래스.)
+    // Object이 가지고 있는 사양까지만 접근 가능 (자손에게 추가된 멤버에 접근이 불가능)
+
+    if (o instanceof String) {
+      // o에게 전달된 객체가 문자열인지 확인 
+      // instanceof -> 비교연산자 (true or false)
+      System.out.println("문자열 객체가 전달됨 : " + o.toString() + "-" + (o.length());
+    } else {
+      System.out.println("전달된 객체의 클래스명: " + o.getClass().getName());
+      // getClass().getname() -> 실제 전달된 객체가 누구인지 확인 (자주 사용)
     }
-
-    // 같은 static이어야 메인메서드에서 호출하기 편함
-    // non static 메서드일 경우 객체 생성해야 호출 가능함 (같은 클래스 내에 있어도 객체를 통해서만 호출가능)
-    static  void printObjectInfo(Object o){
-        // 매개변수 - Object이라는 클래스형의 변수
-        // Object 객체를 전닲하겠다는 뜻 (Object 또한 자바의 클래스임. 최상위 클래스.)
-        // Object이 가지고 있는 사양까지만 접근 가능 (자손에게 추가된 멤버에 접근이 불가능)
-
-        if (o instanceof String){ 
-            // o에게 전달된 객체가 문자열인지 확인 
-            // instanceof -> 비교연산자 (true or false)
-            System.out.println("문자열 객체가 전달됨 : " + o.toString() + "-" + (o.length());
-        } else {
-            System.out.println("전달된 객체의 클래스명: " + o.getClass().getName());
-            // getClass().getname() -> 실제 전달된 객체가 누구인지 확인 (자주 사용)
-        }
-    }
+  }
 }
 ```
 
@@ -997,52 +937,52 @@ abstract class Unit
 - 추상클래스도 부모로부터 물려받은 멤버는 내것처럼 사용 가능
 
 ```java
-package day0315.course;
+package day8.course;
 
 abstract class Shape {
-	String color;
+  String color;
 
-	abstract void draw();
+  abstract void draw();
 
-	void setColor(String color) {
-		this.color = color;
-	}
+  void setColor(String color) {
+    this.color = color;
+  }
 }
 
 class Circle2 extends Shape {
-	void draw() {
-		System.out.println(color + " 원을 그리는 기능");
-	}
+  void draw() {
+    System.out.println(color + " 원을 그리는 기능");
+  }
 }
 
 class Rectangle2 extends Shape {
-	void draw() {
-		System.out.println(color + " 사각형을 그리는 기능");
-	}
+  void draw() {
+    System.out.println(color + " 사각형을 그리는 기능");
+  }
 }
 
 class Triangle2 extends Shape {
-	void draw() {
-		System.out.println(color + " 삼각형을 그리는 기능");
-	}
+  void draw() {
+    System.out.println(color + " 삼각형을 그리는 기능");
+  }
 }
 
 public class AbstractTest2 {
-	public static void main(String args[]) {
-		Shape s = new Circle2();
-		s.setColor("파란색");
-		printInfo(s);
-		s = new Rectangle2();
-		s.setColor("분홍색");
-		printInfo(s);
-		s = new Triangle2();
-		s.setColor("연두색");
-		printInfo(s);
-	}
+  public static void main(String args[]) {
+    Shape s = new Circle2();
+    s.setColor("파란색");
+    printInfo(s);
+    s = new Rectangle2();
+    s.setColor("분홍색");
+    printInfo(s);
+    s = new Triangle2();
+    s.setColor("연두색");
+    printInfo(s);
+  }
 
-	static void printInfo(Shape obj) {
-		obj.draw();
-	}  // Shape을 상속하면 draw 메서드를 반드시 오버라이딩 해야 함
+  static void printInfo(Shape obj) {
+    obj.draw();
+  }  // Shape을 상속하면 draw 메서드를 반드시 오버라이딩 해야 함
 }
 
 ```
@@ -1051,278 +991,46 @@ public class AbstractTest2 {
 - draw 메서드는 접근제어자가 default이므로 자식 클래스의 draw에 private을 붙이면 에러발생
   (상속받은 메서드를 오버라이딩 하는건데 접근권한을 축소시키면 안됨)
 
-
 ```java
-package day0315.course;
+package day8.course;
 
 
 abstract class Pet {
-	public abstract void petSound();  // 추상메서드는 반드시 오버라이딩 해야 함 (접근 제어자가 public. 상속받은 얘들도 접근 제어자가 public이어야함. 접근 권한을 축소시키면 안됨)
+  public abstract void petSound();  // 추상메서드는 반드시 오버라이딩 해야 함 (접근 제어자가 public. 상속받은 얘들도 접근 제어자가 public이어야함. 접근 권한을 축소시키면 안됨)
 
-	public void sleep() {
-		System.out.println("Zzz");
-	}  // 일반 메서드는 오버라이딩이 선택사항임
+  public void sleep() {
+    System.out.println("Zzz");
+  }  // 일반 메서드는 오버라이딩이 선택사항임
 }
-class Dog extends Pet{
-	public void petSound() {
-		System.out.println("멍멍!!");
-	}   // petSound 오버라이딩
+
+class Dog extends Pet {
+  public void petSound() {
+    System.out.println("멍멍!!");
+  }   // petSound 오버라이딩
 }
-class Cat extends Pet{
-	public void petSound() {
-		System.out.println("야옹~~");
-	}  // petSound 오버라이딩
+
+class Cat extends Pet {
+  public void petSound() {
+    System.out.println("야옹~~");
+  }  // petSound 오버라이딩
 }
+
 public class PetTest {
-	public static void main(String[] args) {
-		actionPet(new Dog());
-		actionPet(new Cat());		
-	}	
-	static void actionPet(Pet obj) {  // 매개변수 Pet형. Pet을 상속하고 있는 애라면 누구든 전달될 수 있다는 것. Pet은 멤버가 2개
-		obj.petSound();   // Pet의 petSound는 미완성. 하지만 전달되는 애들은 오버라이딩 되어야 함 (그래야 객체 생성이 가능). 이자리에는 Pet이 전달하는 petSound를 제대로 구현하는 애들만 올 수 있음 (제대로 오버라이딩 했음을 약속)
-	    // 자손이 객체 생성이 가능함 = 자손이 petSound와 같은 메서드를 제대로 오버라이딩한 것
-		obj.sleep();	
-	}
-}
-
-```
-
-
-# [과제](../../mobile/MobileTest.java)
-
-```java
-package mobile;
-
-abstract class Mobile{
-    private String mobileName;
-    private int batterySize;
-    private String osType;
-
-    public Mobile(){}
-    public Mobile(String mobileName, int batterySize, String osType){
-        this.mobileName = mobileName;
-        this.batterySize = batterySize;
-        this.osType = osType;
-    }
-
-    /* abstract method */
-    public abstract void operate(int time);
-    public abstract void charge(int time);
-
-    /* getter & setter */
-    public String getMobileName() {
-        return mobileName;
-    }
-
-    public void setMobileName(String mobileName) {
-        this.mobileName = mobileName;
-    }
-
-    public int getBatterySize() {
-        return batterySize;
-    }
-
-    public void setBatterySize(int batterySize) {
-        this.batterySize = batterySize;
-    }
-
-    public String getOsType() {
-        return osType;
-    }
-
-    public void setOsType(String osType) {
-        this.osType = osType;
-    }
-}
-
-class Ltab extends Mobile{
-    public Ltab(){};
-    public Ltab(String mobileName, int batterySize, String osType){
-        super(mobileName,batterySize,osType);
-    };
-    public void operate(int time){
-        setBatterySize(getBatterySize()-10*time);
-    };
-    public void charge(int time){
-        setBatterySize(getBatterySize()+10*time);
-    };
-}
-
-class Otab extends Mobile{
-    public Otab(){};
-    public Otab(String mobileName, int batterySize, String osType){
-        super(mobileName,batterySize,osType); // super 메서드를 통해 조상 생성자 처리
-    };
-    public void operate(int time){
-        setBatterySize(getBatterySize()-12*time);
-    };
-    public void charge(int time){
-        setBatterySize(getBatterySize()+8*time);
-    };
-}
-
-
-public class MobileTest {
-    public static void main(String[] args) {
-        /* 객체 생성 */
-        Mobile mobL = new Ltab("Ltab", 500, "ABC-01");
-        Mobile mobO = new Otab("Otab", 1000, "XYZ-20");
-
-        printTable();
-        printMobile(mobL);
-        printMobile(mobO);
-
-        System.out.println("\n[ 10분 충전 ]");
-        printTable();
-        mobL.charge(10);
-        printMobile(mobL);
-        mobO.charge(10);
-        printMobile(mobO);
-
-        System.out.println("\n[ 5분 통화 ]");
-        printTable();
-        mobL.operate(5);
-        printMobile(mobL);
-        mobO.operate(5);
-        printMobile(mobO);
-    }
-
-    /* 모바일 정보 출력 */
-    public static void printMobile(Mobile mobile) { // 매개변수가 모바일형 (모바일의 자손을 전달하겠구나! 하고 예측 가능)
-        System.out.printf(mobile.getMobileName() +"     " +mobile.getBatterySize() +"        " +mobile.getOsType()+"\n");
-    }
-
-    /**/
-    public static void printTable(){
-        System.out.printf("Mobile\t Battery \t OS\n");
-        System.out.printf("----------------------------\n");
-    }
-}
-
-```
-
-- 이름이 이탤릭체
-  - 추상클래스 혹은 추상 메서드임을 뜻함
-- getter, setter의 getXXX, setXXX
-  - 각 멤버변수들을 뜻함
-- abstract
-  - 활용 제어자 (혹은 일반 제어자)
-- 일반적으로 접근 제어자를 먼저 작성하고 활용제어자를 이후에 작성함
-
-- 메서드를 만들 떄에는 단일 책임 원칙
-  - 메서드 하나당 하나의 기능을 수행하게끔 설계하는것이 좋다
-
-- 객체 중 조상객체도 포함되어 있을 수 있는데, 오버라이딩한 것이 우선적으로 처리됨. 
-항상 자손객체 영역부터 찾아가서 메서드를 불러오고 없으면 조상으로 올라감.
-
-# 과제2
-
-```java
-package work;
-
-abstract class Plane{
-  private String planeName;
-  private int fuelSize;
-
-  /* 기본 생성자 */
-  public Plane(){}   // create 표시 -> 생성자 메서드
-  public Plane(String planeName, int fuelSize){
-    this.planeName = planeName;
-    this.fuelSize = fuelSize;
-  }
-
-  /* GETTER & SETTER */
-  public void setPlaneName(String planeName) {
-    this.planeName = planeName;
-  }
-
-  public int getFuelSize() {
-    return fuelSize;
-  }
-
-  public void setFuelSize(int fuelSize) {
-    this.fuelSize = fuelSize;
-  }
-
-  public String getPlaneName() {
-    return planeName;
-  }
-
-  /* refuel -> 일반 메서드 */
-  public void refuel(int fuel){
-    fuelSize += fuel;
-  }
-
-  public abstract void flight(int distance);
-}
-
-class Airplane extends Plane{
-  public Airplane(){};
-  public Airplane(String planeName, int fuelSize){
-    super(planeName,fuelSize);
-  };
-
-  @Override
-  public void flight(int distance) {
-    setFuelSize(getFuelSize()-3*distance);
-  }
-}
-
-class Cargoplane extends Plane{
-  public Cargoplane(){};
-  public Cargoplane(String planeName, int fuelSize){
-    super(planeName, fuelSize);
-  };
-
-  @Override
-  public void flight(int distance) {
-    setFuelSize(getFuelSize()-5*distance);
-  }
-}
-
-public class PlaneTest {
   public static void main(String[] args) {
-    /* 객체 생성 */
-    Plane pl[] = new Plane[2];
-    pl[0] = new Airplane("L747",1000);
-    pl[1] = new Cargoplane("C40", 1000);
-
-    printInfo(pl);
-
-    System.out.println("\n\t[100 운항]");
-    for (int i=0; i< pl.length; i++){
-      pl[i].flight(100);
-    }
-//        pl[0].flight(100);
-//        pl[1].flight(100);
-    printInfo(pl);
-
-    System.out.println("\n\t[200 주유]");
-    for (int i=0; i< pl.length; i++){
-      pl[i].refuel(200);
-    }
-//        pl[0].refuel(200);
-//        pl[1].refuel(200);
-    printInfo(pl);
+    actionPet(new Dog());
+    actionPet(new Cat());
   }
 
-  public static void printInfo(Plane[] list){
-    System.out.printf("\t%s \t\t %s\n", "Plane", "fuelSize");
-    System.out.printf("----------------------------\n");
-    for (Plane el: list){
-      System.out.printf("\t%s \t\t %d\n", el.getPlaneName(), el.getFuelSize());
-    }
-//        System.out.printf("\t%s \t\t %d\n", list[0].getPlaneName(), list[0].getFuelSize());
-//        System.out.printf("\t%s \t\t %d\n", list[1].getPlaneName(), list[1].getFuelSize());
+  static void actionPet(Pet obj) {  // 매개변수 Pet형. Pet을 상속하고 있는 애라면 누구든 전달될 수 있다는 것. Pet은 멤버가 2개
+    obj.petSound();   // Pet의 petSound는 미완성. 하지만 전달되는 애들은 오버라이딩 되어야 함 (그래야 객체 생성이 가능). 이자리에는 Pet이 전달하는 petSound를 제대로 구현하는 애들만 올 수 있음 (제대로 오버라이딩 했음을 약속)
+    // 자손이 객체 생성이 가능함 = 자손이 petSound와 같은 메서드를 제대로 오버라이딩한 것
+    obj.sleep();
   }
 }
 
 ```
 
-- 지역변수와 멤버변수가 이름이 같은데 구분해야 할 때 `this`사용
-- private을 다룰 때 getter & setter를 이용할 것
-- Plane은 추상 클래스 
-  - 직접 객체 생성할 수 없음
+
 
 # 런타임 클래스
 
@@ -1340,7 +1048,7 @@ public class PlaneTest {
 - 생성자로 객체생성할 수 없고, 다른 방법으로 객체를 생성해야하는 API가 자바상에는 약 15%정도 존재
 
 ```java
-package day0315.course;
+package day8.course;
 
 import java.io.IOException;
 

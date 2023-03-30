@@ -1,4 +1,4 @@
-package day0315.course;
+package day8.course;
 
 class Circle1 {
 	String color;
