@@ -1,4 +1,4 @@
-package day0313.hw01;
+package day6.hw;
 
 class Book{
     String title;

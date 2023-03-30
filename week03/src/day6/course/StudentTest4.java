@@ -1,4 +1,4 @@
-package day0313.course;
+package day6.course;
 
 class Student4 {
     /* 멤버 변수 */

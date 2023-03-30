@@ -1,4 +1,4 @@
-package day0313.hw01;
+package day6.hw;
 
 class Member{
     /* 멤버변수 */

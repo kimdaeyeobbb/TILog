@@ -1,4 +1,4 @@
-package day0313.course;
+package day6.course;
 
 public class CardTest2{
 	public static void main(String args[]) throws Exception{	

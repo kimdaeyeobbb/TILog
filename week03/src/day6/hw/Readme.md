@@ -3,7 +3,7 @@
 ## 1번
 
 ```java
-package day0313.hw02;
+package day6.hw02;
 
 import java.util.Scanner;
 // 클래스가 public일 경우 생성자도 public인 것이 일반적 (default 일 경우 default)
@@ -61,7 +61,7 @@ public class GradeTest {
       arr[i] = scanner.nextInt();
     }
 
-    GradeExpr ge = new GradeExpr(arr);
+    day6.hw.GradeExpr ge = new day6.hw.GradeExpr(arr);
     System.out.print("점수들 : ");
     for (int i = 1; i < arr.length; i++) {
       System.out.printf(", %d", arr[i]);
@@ -83,7 +83,7 @@ public class GradeTest {
 ## 2번
 
 ```JAVA
-package day0313.hw02;
+package day6.hw02;
 
 import java.util.Scanner;
 
@@ -137,7 +137,7 @@ public class CalculatorTest {
       if (beingPlay == 0) {
         break;
       } else {
-        CalculatorExpr ce = new CalculatorExpr(number1, number2);
+        day6.hw.CalculatorExpr ce = new day6.hw.CalculatorExpr(number1, number2);
         System.out.println("덧셈 : " + ce.getAddition());
         System.out.println("뺄셈 : " + ce.getSubtraction());
         System.out.println("곱셈 : " + ce.getMultiplication());
@@ -154,7 +154,7 @@ public class CalculatorTest {
 - 자바 문자열 비교시 equals 메서드를 이용
 
 ```java
-package day0313.hw02;
+package day6.hw02;
 
 import java.util.Scanner;
 
@@ -208,7 +208,7 @@ public class CalculatorTest {
       if (beingPlay == 0) {
         break;
       } else {
-        CalculatorExpr ce = new CalculatorExpr(number1, number2);  // 계속 추가적으로 생성자 사용하므로 잘못됨
+        day6.hw.CalculatorExpr ce = new day6.hw.CalculatorExpr(number1, number2);  // 계속 추가적으로 생성자 사용하므로 잘못됨
         System.out.println("덧셈 : " + ce.getAddition());
         System.out.println("뺄셈 : " + ce.getSubtraction());
         System.out.println("곱셈 : " + ce.getMultiplication());
@@ -222,7 +222,7 @@ public class CalculatorTest {
 ```
 
 ```java
-package day0313.hw02;
+package day6.hw02;
 
 import java.util.Scanner;
 
@@ -267,7 +267,7 @@ class CalculatorExpr {
 public class CalculatorTest {
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
-    CalculatorExpr ce = new CalculatorExpr(number1, number2);
+    day6.hw.CalculatorExpr ce = new day6.hw.CalculatorExpr(number1, number2);
 
     int beingPlay = 1;
     while (beingPlay != 0) {
@@ -294,7 +294,7 @@ public class CalculatorTest {
 - 생성자는 한번만 생성하고 값만 바꿔치기해야 효율적임. 잘 고민해서 고쳐볼것
 
 ```java
-package day0313.hw02;
+package day6.hw02;
 
 import java.util.Scanner;
 
@@ -343,7 +343,7 @@ public class CalculatorTest {
     System.out.println("숫자 두개를 입력하세요.");
     num1 = sc.nextInt();
     num2 = sc.nextInt();
-    CalculatorExpr ce = new CalculatorExpr(num1, num2);
+    day6.hw.CalculatorExpr ce = new day6.hw.CalculatorExpr(num1, num2);
     System.out.print("입력된 숫자 : %d, %d\n", num1, num2);
     System.out.printf("덧셈 : %d\n" + ce.getAddition());
     System.out.printf("뺄셈 : %d\n" + ce.getSubtraction());

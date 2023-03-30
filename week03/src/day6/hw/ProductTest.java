@@ -1,4 +1,4 @@
-package day0313.hw01;
+package day6.hw;
 // 상품정보를 배열에 담을 것
 
 class Product{

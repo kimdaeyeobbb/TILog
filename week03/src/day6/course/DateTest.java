@@ -1,5 +1,5 @@
 // 패키지선언 -> import 선언 -> 클래스 정의 순서대로 진행해야 함
-package day0313.course;
+package day6.course;
 import java.util.Date;  // 얘를 쓰겠다는것을 미리 명시
 
 

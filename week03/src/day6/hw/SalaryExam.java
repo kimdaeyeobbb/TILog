@@ -1,6 +1,6 @@
-package day0313.hw01;
+package day6.hw;
 
-import day0310.hw01.MethodLab5;
+import day5.hw.MethodLab5;
 
 class SalaryExpr {
     int bonus;
