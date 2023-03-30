@@ -172,8 +172,7 @@
 
 - 웹 서버와 웹 클라이언트가 통신할 때 사용하는 통신 규약
 
-### 4. HTML
-
+### 4. HTML 등
 
 <br>
 
@@ -184,3 +183,158 @@
 - 웹을 발전시키는 기관
 - 각 나라마다 참여하는 조직이 있음
 - 팀 버너스리가 W3C를 만듦
+
+<br>
+
+## HTML
+
+- HTML이전: 태그
+- HTML5: 태그 + API(JavaScript로 만들어짐)
+
+### API는 왜 등장했는가?
+
+- 웹 표준에 기반한 웹페이지 개발을 지원하기 위해 등장함
+
+
+<br>
+
+
+## WAS (Web Application Server)
+
+- 웹 개발을위해 우리가 사용하는 edu 폴더를
+
+  - WAS(Tomcat)에서는  `컨텍스트`라 함
+  - 웹 개발자는 `웹 애플리케이션`이라 함
+
+
+
+## HTTP URL 문자열
+
+```html
+http://localhost:8088/edu/htmlexam/exam().html 
+// http url 이라함
+```
+
+## URI (Uniform Resource Identity)
+
+- 실제로 서버에게 전송되는 것
+
+
+```html
+http://localhost:8088/edu/htmlexam/exam().html 
+// http url 이라함
+```
+
+
+- 서버주소, 포트번호를 제외한 나머지 `/edu/htmlexam/exam().html `를 `URI`라 함
+  - edu는 `context path`
+  - 어떤 context에 있는 파일을 요청하는지를 결정함. 여기서는 edu라는 context를 요청한다는 것
+  - 보통 context와 context path는 동일하게 간다
+ 
+
+<br> 
+
+# HTTP
+
+## HTTP 상태코드
+
+- HTTP 프로토콜에서 정의해놓은 응답코드
+
+| 코드  |메시지|설명|
+|:----|:---|:---|
+| 200 |   |  |
+
+
+
+<br>
+
+##  clover.png 요청하기
+
+```shell
+http://localhost:8088/edu/images/clover.png
+```
+
+
+<br>
+
+
+## [참고예시- 톰캣 서버 구동해야 보임](http://localhost:8088/edu/htmlexam/exam0.html)
+
+
+- HTML 태그의 content(시작태그와 종료태그 사이부분) 또는 속성의 값에 의한 내용이 브라우저의 document 영역에 출력될 때(렌더링 될 때)
+`block style tag`와 `inline style tag`로 나뉨
+
+### block style tag
+
+- 태그의 내용이 렌더링되는 영역이 그 행 끝까지 잡힘
+
+- `div`, `header`, `footer`, `section`, `nav`, `form`, `table`, `ul`, `li`, `ol`, ...
+
+### inline style tag
+
+- 태그의 내용이 렌더링되는 영역이 content(시작태그와 종료태그의 사이부분)의 내용만큼 잡힘
+
+- `a`, `img`, `input`, `span`, ...
+
+
+### HTML상 개행문자, 공백 여러개
+
+- 공백 1개로 처리
+- HTML상 개행처리를 하고 싶다면 `<br>`이용
+
+<br>
+
+## http://localhost:8088/edu/htmlexam/exam1.html
+
+- HTML상 Enter를 아무리 쳐도 공백은 하나로 인식함
+
+## http://localhost:8088/edu/htmlexam/exam2.html
+
+## http://localhost:8088/edu/htmlexam/exam3.html
+
+- 경로를 상대경로로 작성
+
+```html
+<img src="../images/totoro.png" width="200">
+<img src="../images/totoro.png" width="100" height="80">
+<img src="../images/olaf.jpg">
+<hr>
+<img src="../images/duke.png" width="200"><br>
+<img src="../images/duke.png" width="200" height="80"><br>
+<img src="../images/olaf.jpg"><br>
+```
+
+- 경로를 절대경로로 작성
+
+```html
+<img src="http://m.ddaily.co.kr/data/photos/cdn/20180832/art_1534057720.jpg" width="200"><br>
+<!-- 다른 웹 사이트의 이미지를 가져올 때에는 프로토콜부터 작성해야하므로 절대경로로 작성 -->
+```
+
+
+- Network 탭
+
+![img.png](img.png)
+
+이미 렌더링되어있는 것은 다시 끌어오는것이 아니라 `캐쉬`기능을 이용함
+<br>(브라우저는 캐쉬기능을 이용해서 서버에서 변경된 것이 없다면 이미 브라우저에 렌더링된 것을 그대로 보여줌)
+
+## http://localhost:8088/edu/htmlexam/exam4.html
+
+- 이미지로 링크를 만들고 싶으면 `<a></a>` 사이에 `<img>`태그를 삽입
+
+## http://localhost:8088/edu/htmlexam/exam5.html
+
+### HTML5의 특징
+
+- 동영상을 `<video>`만으로도 대부분 플레이할 수 있음
+<br>(이전에는 ActiveX등을 이용)
+
+
+### 유튜브 영상 끌어오기
+
+- video 태그로 가져오는 것을 막아놓음
+- 따라서 iframe 태그를 이용해야 함
+
+<br>
+
