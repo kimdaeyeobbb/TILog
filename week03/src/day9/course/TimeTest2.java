@@ -1,4 +1,4 @@
-package day0316.course;
+package day9.course;
 
 public class TimeTest2 {
 	public static void main(String[] args) {

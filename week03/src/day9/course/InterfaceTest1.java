@@ -1,4 +1,4 @@
-package day0316.course;
+package day9.course;
 
 interface Printable {
 	// 인터페이스상의 상수 -> 자동으로 public static final이 붙음

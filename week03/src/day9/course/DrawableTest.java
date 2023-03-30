@@ -1,4 +1,4 @@
-package day0316.course;
+package day9.course;
 import java.util.Random;
 interface Drawable {
 	// 인터페이스는 추상클래스를 상속으로만 사용할 수 있음

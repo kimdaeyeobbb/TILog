@@ -1,4 +1,4 @@
-package day0316.hw;
+package day9.hw;
 
 // 사용하는애보다 사용되는 애를 먼저 기재하자.
 // Bonus를 Sales와 Secretary보다 늦게 입력시 계속 에러표시가 뜸.

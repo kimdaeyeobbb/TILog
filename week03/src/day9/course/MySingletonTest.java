@@ -1,4 +1,4 @@
-package day0316.course;
+package day9.course;
 
 class MySingleton {
 	 // 클래스가 메모리에 올라갈 때 (클래스가 로딩될 때)

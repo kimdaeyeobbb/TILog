@@ -1,4 +1,4 @@
-package day0316.course;
+package day9.course;
 
 class MySingleton2 {
     private static MySingleton2 obj = null; // 클래스 로딩할때 미리 객체생성하지 않음

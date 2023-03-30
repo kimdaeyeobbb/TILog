@@ -1,4 +1,4 @@
-package day0316.hw;
+package day9.hw;
 
 interface Rentable{
     void rent();  // 추상 메서드 (제어자는 생략해도 public abstract가 자동으로 붙음)

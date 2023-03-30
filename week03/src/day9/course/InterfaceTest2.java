@@ -1,4 +1,4 @@
-package day0316.course;
+package day9.course;
 
 interface Inter1 {
 	void expr1();

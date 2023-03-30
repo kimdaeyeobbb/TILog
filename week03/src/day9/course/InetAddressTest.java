@@ -1,4 +1,4 @@
-package day0316.course;
+package day9.course;
 import java.net.*;
 public class InetAddressTest {
 	public static void main(String[] args) throws Exception {
