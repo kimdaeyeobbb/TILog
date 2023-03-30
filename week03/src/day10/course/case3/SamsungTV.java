@@ -1,4 +1,4 @@
-package day0317.course.case3;
+package day10.course.case3;
 
 public class SamsungTV implements TV{
 	public void powerOn(){

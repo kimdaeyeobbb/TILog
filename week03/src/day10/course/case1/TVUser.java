@@ -1,4 +1,4 @@
-package day0317.course.case1;
+package day10.course.case1;
 public class TVUser {
 	public static void main(String[] args) {
 		SamsungTV tv = new SamsungTV();

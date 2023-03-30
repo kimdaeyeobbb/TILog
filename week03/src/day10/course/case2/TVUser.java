@@ -1,4 +1,4 @@
-package day0317.course.case2;
+package day10.course.case2;
 
 public class TVUser {
 	public static void main(String[] args) {

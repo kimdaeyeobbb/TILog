@@ -1,7 +1,7 @@
-package day0317.hw;
+package day10.hw;
 import java.util.Random;
 
-import day0310.hw02.MethodLab7;
+import day5.hw.MethodLab7;
 
 class LottoMachine {
     /* 멤버변수 */

@@ -1,4 +1,4 @@
-package day0317.hw;
+package day10.hw;
 
 public class DuplicateException extends Exception {
     public DuplicateException(){

@@ -1,4 +1,4 @@
-package day0317.course;
+package day10.course;
 class Account {
 	// 계좌와 관련된 객체에 대한 클래스
 

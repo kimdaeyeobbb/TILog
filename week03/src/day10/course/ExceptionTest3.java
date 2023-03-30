@@ -1,4 +1,4 @@
-package day0317.course;
+package day10.course;
 import java.util.Random;
 
 class TestException extends Exception {

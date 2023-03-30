@@ -1,16 +1,17 @@
-package day0317.course.case3;
+package day10.course.case1;
 
-public class LgTV implements TV {
-	public void powerOn(){
+public class LgTV {
+	public void turnOn(){
 		System.out.println("LgTV --- 전원을 켠다.");
 	}
-	public void powerOff(){
+	public void turnOff(){
 		System.out.println("LgTV --- 전원을 끈다.");
 	}
-	public void volumnUp(){
+	public void soundUp(){
 		System.out.println("LgTV --- 소리를 높인다.");
 	}
-	public void volumnDown(){
+	public void soundDown(){
 		System.out.println("LgTV --- 소리를 낮춘다.");
 	}
+
 }
