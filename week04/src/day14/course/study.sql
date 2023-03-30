@@ -99,14 +99,14 @@ phone varchar(20),
 age int
 ) DEFAULT CHARSET=utf8;
 
-insert into course1 values('µÑ¸®', '010-111-1111', 10);
-insert into course1 values('¶ÇÄ¡', '010-222-2222', 11);
-insert into course1 values('µµ¿ì³Ê', '010-333-3333', 12);
-insert into course1 values('Èñµ¿ÀÌ', '010-444-4444', 6);
+insert into course1 values('ë‘˜ë¦¬', '010-111-1111', 10);
+insert into course1 values('ë˜ì¹˜', '010-222-2222', 11);
+insert into course1 values('ë„ìš°ë„ˆ', '010-333-3333', 12);
+insert into course1 values('í¬ë™ì´', '010-444-4444', 6);
 
-insert into course2 values('µÑ¸®', '010-111-1111', 10);
-insert into course2 values('¶ÇÄ¡', '010-222-2222', 11);
-insert into course2 values('ÅäÅä·Î', '010-555-5555', 13);
-insert into course2 values('Â¯±¸', '010-666-6666', 7);
-insert into course2 values('µàÅ©', '010-777-7777', 11);
+insert into course2 values('ë‘˜ë¦¬', '010-111-1111', 10);
+insert into course2 values('ë˜ì¹˜', '010-222-2222', 11);
+insert into course2 values('í† í† ë¡œ', '010-555-5555', 13);
+insert into course2 values('ì§±êµ¬', '010-666-6666', 7);
+insert into course2 values('ë“€í¬', '010-777-7777', 11);
 

@@ -1,4 +1,4 @@
-package day0323.day14;
+package day14.hw.course;
 
 class Outer {
 
