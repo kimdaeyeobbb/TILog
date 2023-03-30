@@ -1,4 +1,4 @@
-package day0314.course;
+package day7.course;
 
 public class PointTest {
 	public static void main(String args[]) {

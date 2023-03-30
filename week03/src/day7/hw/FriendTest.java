@@ -1,4 +1,4 @@
-package day0314.hw01;
+package day7.hw;
 
 class Person{
     private String name;

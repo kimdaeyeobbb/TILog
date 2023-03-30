@@ -1,4 +1,4 @@
-package day0314.course;
+package day7.course;
 import java.util.Scanner;
 public class ScannerContinueTest {
 	public static void main(String[] args) {

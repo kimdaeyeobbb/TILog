@@ -1,3 +1,6 @@
+# 0314 실습 풀이
+
+```java
 package exercise;  // 제출시 packge exercise로 변경
 
 class Human{
@@ -6,8 +9,12 @@ class Human{
     private int height;
     private int weight;
 
+    /* 멤버변수를 기본값으로 초기화 */
+    // 얘로 객체 생성가능 
     public Human(){}
 
+    /* 멤버변수 초기화 */
+    // 얘로 객체생성 가능
     public Human(String name, int age, int height, int weight){
         this.name = name;
         this.age = age;
@@ -24,16 +31,16 @@ class Student extends Human{
     private String number;
     private String major;
 
-    public Student(){
+    public Student(){}
 
-    }
-
+    // number, major는 직접 세팅. 나머지는 조상 생성자를 통해 세팅 
     public Student(String name, int age, int height, int weight, String number, String major){
         super(name, age, height, weight);
         this.number = number;
         this.major = major;
     }
 
+    /* 조상을 호출하지 않으면 자기 자신을 재귀적으로 호출 => 스택오버플로우 발생 */
     @Override
     public String printInformation() {
         return super.printInformation() + "\t" + number + "\t" + major;
@@ -52,3 +59,4 @@ public class StudentTest {
         }
     }
 }
+```

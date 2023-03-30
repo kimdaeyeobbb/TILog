@@ -1,5 +1,5 @@
-package day0314.hw01;
-import day0310.hw01.MethodLab5;
+package day7.hw;
+import day5.hw.MethodLab5;
 //import java.util.Random;
 
 class Multiplication {

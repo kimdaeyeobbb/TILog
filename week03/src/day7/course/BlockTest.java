@@ -1,4 +1,4 @@
-package day0314.course;
+package day7.course;
 public class BlockTest {
 	/* static 블럭 */
 	// 클래스가 로딩되는 시점에 수행됨. 메인 메서드보다 먼저 수행 (메인 메서드는 클래스가 끝나고 나서 메인이 호출되어야 실행)

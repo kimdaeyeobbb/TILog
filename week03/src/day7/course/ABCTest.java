@@ -1,4 +1,4 @@
-package day0314.course;
+package day7.course;
 
 class A{
 	A() {

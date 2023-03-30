@@ -1,4 +1,4 @@
-package day0314.hw02;  // 제출시 packge exercise로 변경
+package day7.hw;  // 제출시 packge exercise로 변경
 
 class Human{
     private String name;
