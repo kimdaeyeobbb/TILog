@@ -1,5 +1,5 @@
 package day15.course;
-import day0313.course.Student2;
+import day6.course.Student2;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;

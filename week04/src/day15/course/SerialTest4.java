@@ -2,7 +2,7 @@ package day15.course;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.Date;
-import day0313.course.Student2;
+import day6.course.Student2;
 
 public class SerialTest4 {
    public static void main(String[] args) throws Exception{ 
