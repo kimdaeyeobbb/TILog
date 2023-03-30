@@ -1,21 +1,20 @@
-package day0321.course;
+package day12.course;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class FileReaderTest3 {
+public class FileReaderTest4 {
 	public static void main(String args[]) {
-		try (FileReader reader = new FileReader("c:/iotest/output.txt");) {
-			int data;
-			System.out.println(reader.getEncoding());
-			// UTF8 (charset 정보)
-			// 이 IDE로 작성하는 모든 것들은 UTF8로 만들겠다고 설정함
+		try (FileReader reader = new FileReader("c:/iotest/output.txt");
+				BufferedReader br = new BufferedReader(reader);) {
+			String data;
 			while (true) {
-				data = reader.read();
-				if (data == -1)
+				data = br.readLine();  // 행단위로 읽어서 처리
+				if (data == null)
 					break;
-				System.out.print((char) data);
+				System.out.println(data);
 			}
 		} catch (FileNotFoundException fnfe) {
 			System.out.println("파일이 존재하지 않습니다.");

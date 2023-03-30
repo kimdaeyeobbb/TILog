@@ -1,4 +1,4 @@
-package day0321.hw;
+package day12.hw;
 
 import java.io.File;
 import java.io.FileWriter;

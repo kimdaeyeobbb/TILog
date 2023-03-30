@@ -1,4 +1,4 @@
-package day0321.course;
+package day12.course;
 
 public class StandardInput {
     public static void main(String[] args) throws Exception{
