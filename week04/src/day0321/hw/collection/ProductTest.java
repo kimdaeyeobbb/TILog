@@ -1,4 +1,4 @@
-package collection;
+package day0321.hw.collection;
 
 import java.util.HashSet;
 import java.util.Objects;
