@@ -192,12 +192,6 @@ String[] arr = board.split(",");
 - 유니코드는 4bit씩 쪼개어서 숫자 4개로 표현 
 
 
-#### 데이터 타입 
-
-```java
-|데이터 타입| |초기값|
-|:--
-```
 
 
 ### 배열 길이
@@ -316,7 +310,7 @@ for (타입변수 : 배열){
 # DateTimeTest
 
 ```java
-package day0320.course;
+package day11.course;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -324,7 +318,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Period;
 import java.time.format.TextStyle;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -333,92 +326,92 @@ import java.util.Locale;
 
 public class DateTimeTest {
 
-	public static void main(String[] args) throws Exception {
-		Date d = new Date();
-		System.out.println(d.toString());
-		System.out.println(d.getTime());  // 1970년 1월 1일을 기준으로 해서 흐른시간 리턴
+  public static void main(String[] args) throws Exception {
+    Date d = new Date();
+    System.out.println(d.toString());
+    System.out.println(d.getTime());  // 1970년 1월 1일을 기준으로 해서 흐른시간 리턴
 
-		GregorianCalendar gc = new GregorianCalendar();
-		System.out.println(gc.get(GregorianCalendar.DAY_OF_WEEK));   // 23.03.20 월 기준 - 2 (자바는 일요일이 1)
-		gc = new GregorianCalendar(2023, 2, 31);// 0이 1월 11은 12월
-		System.out.println(gc.get(GregorianCalendar.DAY_OF_WEEK));
+    GregorianCalendar gc = new GregorianCalendar();
+    System.out.println(gc.get(GregorianCalendar.DAY_OF_WEEK));   // 23.03.20 월 기준 - 2 (자바는 일요일이 1)
+    gc = new GregorianCalendar(2023, 2, 31);// 0이 1월 11은 12월
+    System.out.println(gc.get(GregorianCalendar.DAY_OF_WEEK));
 
-		System.out.println(timeToStrDate(new Date().getTime()));
-		System.out.println(parseStrDate("2019년 01월 01일"));
+    System.out.println(timeToStrDate(new Date().getTime()));
+    System.out.println(parseStrDate("2019년 01월 01일"));
 
-		LocalDate currentDate = LocalDate.now();
-		LocalDate targetDate = LocalDate.of(2023, 7, 26);  // 교육 종료일
-		System.out.println(currentDate.getDayOfWeek());
+    LocalDate currentDate = LocalDate.now();
+    LocalDate targetDate = LocalDate.of(2023, 7, 26);  // 교육 종료일
+    System.out.println(currentDate.getDayOfWeek());
 
-		// 한국어를 기준으로 요일 정보를 추출
-		System.out.println(currentDate.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN));
-		System.out.println(currentDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.KOREAN));		
-		System.out.println(targetDate.getDayOfWeek());
-		System.out.println(targetDate.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN));
-		System.out.println(targetDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.KOREAN));
-		
-		LocalTime currentTime = LocalTime.now();
-		LocalTime targetTime = LocalTime.of(9, 10, 20);
-		System.out.println(currentTime);
-		System.out.println(targetTime);
+    // 한국어를 기준으로 요일 정보를 추출
+    System.out.println(currentDate.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN));
+    System.out.println(currentDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.KOREAN));
+    System.out.println(targetDate.getDayOfWeek());
+    System.out.println(targetDate.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN));
+    System.out.println(targetDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.KOREAN));
 
-		LocalDateTime currentDateTime = LocalDateTime.now();   // 웹 프로그래밍 할 때 많이 사용
-		LocalDateTime targetDateTime = LocalDateTime.of(2023, 12, 25, 12, 30);
-		// 오버로딩 되어있으므로 초까지 기재해도 됨
+    LocalTime currentTime = LocalTime.now();
+    LocalTime targetTime = LocalTime.of(9, 10, 20);
+    System.out.println(currentTime);
+    System.out.println(targetTime);
 
-		System.out.println(currentDateTime);
-		System.out.println(targetDateTime);
-	}
+    LocalDateTime currentDateTime = LocalDateTime.now();   // 웹 프로그래밍 할 때 많이 사용
+    LocalDateTime targetDateTime = LocalDateTime.of(2023, 12, 25, 12, 30);
+    // 오버로딩 되어있으므로 초까지 기재해도 됨
 
-	public static String timeToStrDate(long time) {
-		DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");  // munite과의 구분하기 위해서 월은 MM을 사용
-		return formatter.format(time);
-	}
+    System.out.println(currentDateTime);
+    System.out.println(targetDateTime);
+  }
 
-	public static Date parseStrDate(String strDate) throws ParseException {
-		DateFormat formatter = new SimpleDateFormat("yyyy년 MM월 dd일");
-		return formatter.parse(strDate);
-	}
+  public static String timeToStrDate(long time) {
+    DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");  // munite과의 구분하기 위해서 월은 MM을 사용
+    return formatter.format(time);
+  }
+
+  public static Date parseStrDate(String strDate) throws ParseException {
+    DateFormat formatter = new SimpleDateFormat("yyyy년 MM월 dd일");
+    return formatter.parse(strDate);
+  }
 
 }
 
 ```
 
 
-# [EqualsTest2]()
+# [EqualsTest1]()
 
 ```java
-package day0320.course;
+package day11.course;
 
 import java.util.Scanner;
 
 public class EqualsTest1 {
-	public static void main(String[] args) {
-		String s1 = "가나다";
-		String s2 = "가나다";
-		String s3 = new String("가나다");  // 내용과 관련없이 String 객체가 무조건 생김. 각각에 대한 String 객체가 생김
-		String s4 = new String("가나다");  // 내용과 관련없이 String 객체가 무조건 생김. 각각에 대한 String 객체가 생김
+  public static void main(String[] args) {
+    String s1 = "가나다";
+    String s2 = "가나다";
+    String s3 = new String("가나다");  // 내용과 관련없이 String 객체가 무조건 생김. 각각에 대한 String 객체가 생김
+    String s4 = new String("가나다");  // 내용과 관련없이 String 객체가 무조건 생김. 각각에 대한 String 객체가 생김
 
-		System.out.println(s1 == s2);
-		// true. 하나의 String 객체를 공유하는지 묻는 것.
-		// 자바 프로그램상 리터럴이 같으면 객체가 하나만 생성되어 재사용 됨
+    System.out.println(s1 == s2);
+    // true. 하나의 String 객체를 공유하는지 묻는 것.
+    // 자바 프로그램상 리터럴이 같으면 객체가 하나만 생성되어 재사용 됨
 
-		System.out.println(s3 == s4);
-		// 내용과 관련없이 String 객체가 무조건 생김. 각각에 대한 String 객체가 생김
+    System.out.println(s3 == s4);
+    // 내용과 관련없이 String 객체가 무조건 생김. 각각에 대한 String 객체가 생김
 
-		System.out.println(s3.equals(s4));
-		// s3가 참조한 String 객체의 내용과 s4가 참조한 String 객체의 내용이 동일한지 묻는 것
-		// 객체가 참조하는 내용이 같은지 확인하려면 equals를 이용
-		
-		Scanner scan = new Scanner(System.in);
-		System.out.print("문자열 입력 : ");
-		String inputStr = scan.next();
-		if(inputStr.equals(s1)) 
-			System.out.println("\"가나다\"를 입력했군요...");
-		else 
-			System.out.println("\"가나다\"가 아니군요...");
-		scan.close();
-	}
+    System.out.println(s3.equals(s4));
+    // s3가 참조한 String 객체의 내용과 s4가 참조한 String 객체의 내용이 동일한지 묻는 것
+    // 객체가 참조하는 내용이 같은지 확인하려면 equals를 이용
+
+    Scanner scan = new Scanner(System.in);
+    System.out.print("문자열 입력 : ");
+    String inputStr = scan.next();
+    if (inputStr.equals(s1))
+      System.out.println("\"가나다\"를 입력했군요...");
+    else
+      System.out.println("\"가나다\"가 아니군요...");
+    scan.close();
+  }
 }
 
 ```
@@ -432,21 +425,22 @@ public class EqualsTest1 {
 # equalsTest2
 
 ```java
-package day0320.course;
+package day11.course;
+
 public class EqualsTest2 {
-	public static void main(String[] args) {
-		if(args.length == 1) {
-			System.out.println("전달된 프로그램 아규먼트 : " + args[0]);
-			if(args[0].equals("자바"))
-				System.out.println("자바의 마스코트는 듀크입니다.");
-			else if(args[0].equals("리눅스"))
-				System.out.println("리눅스의 마스코트는 턱시입니다.");
-			else
-				System.out.println("몰라용!!");
-		} else {
-			System.out.println("프로그램 아규먼트를 한 개만 전달하세요!!");
-		}
-	}
+  public static void main(String[] args) {
+    if (args.length == 1) {
+      System.out.println("전달된 프로그램 아규먼트 : " + args[0]);
+      if (args[0].equals("자바"))
+        System.out.println("자바의 마스코트는 듀크입니다.");
+      else if (args[0].equals("리눅스"))
+        System.out.println("리눅스의 마스코트는 턱시입니다.");
+      else
+        System.out.println("몰라용!!");
+    } else {
+      System.out.println("프로그램 아규먼트를 한 개만 전달하세요!!");
+    }
+  }
 }
 
 ```
@@ -454,7 +448,7 @@ public class EqualsTest2 {
 # StringBuffer
 
 ```java
-package day0320.course;
+package day11.course;
 
 public class StringBufferTest {
 
@@ -510,34 +504,35 @@ while(true){
 # StringTest
 
 ```java
-package day0320.course;
+package day11.course;
+
 public class StringTest {
-	public static void main(String[] args) {
-		System.out.println("1".length());    				
-		System.out.println("가나다".length()); 					
-		System.out.println("abc".charAt(1)); 			
-		System.out.println("abc".toUpperCase());	 
-		
-		String str1 = "ABCDEFGHIJ";
-		String str2 = "abcdefgfhij";		
-		System.out.println(str1.substring(4));     		        
-		System.out.println(str1.substring(0, 3));  		
-		System.out.println(str2.indexOf("f"));       		  
-		System.out.println(str2.lastIndexOf("f"));      
-		System.out.println(str2.replace('h', 'H')); 	    
-		
-		String str3 = "java jdbc html5 css javascript servlet jsp ajax";
-		String[] ary = str3.split(" ");   
-		
-		for(int i=0; i < ary.length; i++){
-			System.out.println(ary[i]);
-		}		
-		char ch[] = str3.toCharArray();
-		System.out.println(str3.length() + " ---- " + ch.length);
-		for(int i=0; i < ch.length; i++){
-			System.out.print(ch[i] + " ");
-		}
-	}
+  public static void main(String[] args) {
+    System.out.println("1".length());
+    System.out.println("가나다".length());
+    System.out.println("abc".charAt(1));
+    System.out.println("abc".toUpperCase());
+
+    String str1 = "ABCDEFGHIJ";
+    String str2 = "abcdefgfhij";
+    System.out.println(str1.substring(4));
+    System.out.println(str1.substring(0, 3));
+    System.out.println(str2.indexOf("f"));
+    System.out.println(str2.lastIndexOf("f"));
+    System.out.println(str2.replace('h', 'H'));
+
+    String str3 = "java jdbc html5 css javascript servlet jsp ajax";
+    String[] ary = str3.split(" ");
+
+    for (int i = 0; i < ary.length; i++) {
+      System.out.println(ary[i]);
+    }
+    char ch[] = str3.toCharArray();
+    System.out.println(str3.length() + " ---- " + ch.length);
+    for (int i = 0; i < ch.length; i++) {
+      System.out.print(ch[i] + " ");
+    }
+  }
 }
 ```
 
@@ -554,109 +549,113 @@ public class StringTest {
 - Java5 버전에서 제네릭을 적용한 것이 Collection API여서 그렇지, 실제로는 Collection API 이상의 능력을 가진 구문이다!
 
 ```java
-package day0320.course;
+package day11.course;
 
 import java.util.Date;
 
 public class CreateGenericTest {
-    public static void main(String[] args) {
-        Value1 v1 = new Value1();
-        v1.put("가나다");  // v1은 String 객체만 전달 가능
-        String s1 = v1.get();
-        System.out.println(s1);
+  public static void main(String[] args) {
+    Value1 v1 = new Value1();
+    v1.put("가나다");  // v1은 String 객체만 전달 가능
+    String s1 = v1.get();
+    System.out.println(s1);
 
-        //v1.put(new Date());  // error
-        // String은 final class임. 자손도 못가짐.
+    //v1.put(new Date());  // error
+    // String은 final class임. 자손도 못가짐.
 
-        Value2 v2 = new Value2();
-        v2.put("리액트");
-        //String s2 = v2.get();  // error. 가져올 때 형변환 해야함
-        String s2 = (String)v2.get();
-        System.out.println(s2);
+    Value2 v2 = new Value2();
+    v2.put("리액트");
+    //String s2 = v2.get();  // error. 가져올 때 형변환 해야함
+    String s2 = (String) v2.get();
+    System.out.println(s2);
 
-        //Date d2 = v2.get(); // error. 가져올 때 형변환 해야함
-        v2.put(new Date());
-        Date d2 = (Date) v2.get();
-        System.out.println(d2);
+    //Date d2 = v2.get(); // error. 가져올 때 형변환 해야함
+    v2.put(new Date());
+    Date d2 = (Date) v2.get();
+    System.out.println(d2);
 
-        /* 제네릭 */
-        Value3<String> v3 = new Value3<>();
-        // 타입 파라미터:  <> 안에 들어가는 타입 정보. 반드시 객체형만 사용해야 함 (기본형 사용불가)
-        // v3는 String형을 담을 수 있는 객체
-        v3.put("노드");
-        String s3 = v3.get();
-        System.out.println(s3);
-
-
-        Value3<Date> v4 = new Value3<>();
-        // v4가 참조하는 객체는 Date형 객체
-        // 클래스를 다룰 때에는 어떤 타입을 다룰지 고정하지 않게 만들어줌
-        // 객체 생성시 타입 파라미터를 어떻게 설정하느냐에 따라 사용시점에서 타입을 결정함
-        // 타입 매개변수로 전달되는 형태에 따라 클래스 내부의 <T>는 해당 형태로 모두 바뀜
-
-        v4.put(new Date());
-        Date d4 = v4.get();
-        System.out.println(d4);
+    /* 제네릭 */
+    Value3<String> v3 = new Value3<>();
+    // 타입 파라미터:  <> 안에 들어가는 타입 정보. 반드시 객체형만 사용해야 함 (기본형 사용불가)
+    // v3는 String형을 담을 수 있는 객체
+    v3.put("노드");
+    String s3 = v3.get();
+    System.out.println(s3);
 
 
-        Value3<Integer> v5 = new Value3<>();
-        //v3.put(new Date());
-        // error. 집어넣을 떄부터 다른 타입을 허용하지않음.
-        // 제네릭 덕분에 타입 파라미터의 위배되는 데이터를 처리하려고 할 떄 컴파일시 이에대한 에러를 미리 체크해서 알려줌
-        // 제네릭: 객체 생성시점에 클래스가 다루는 데이터의 타입을 결정
-    }
+    Value3<Date> v4 = new Value3<>();
+    // v4가 참조하는 객체는 Date형 객체
+    // 클래스를 다룰 때에는 어떤 타입을 다룰지 고정하지 않게 만들어줌
+    // 객체 생성시 타입 파라미터를 어떻게 설정하느냐에 따라 사용시점에서 타입을 결정함
+    // 타입 매개변수로 전달되는 형태에 따라 클래스 내부의 <T>는 해당 형태로 모두 바뀜
+
+    v4.put(new Date());
+    Date d4 = v4.get();
+    System.out.println(d4);
+
+
+    Value3<Integer> v5 = new Value3<>();
+    //v3.put(new Date());
+    // error. 집어넣을 떄부터 다른 타입을 허용하지않음.
+    // 제네릭 덕분에 타입 파라미터의 위배되는 데이터를 처리하려고 할 떄 컴파일시 이에대한 에러를 미리 체크해서 알려줌
+    // 제네릭: 객체 생성시점에 클래스가 다루는 데이터의 타입을 결정
+  }
 }
 
 class Value1 {
-    // Value1은 String 객체만(혹은 String의 자손만) 처리할 수 있음
+  // Value1은 String 객체만(혹은 String의 자손만) 처리할 수 있음
 
-    String obj;
-    void put(String obj){
-        this.obj = obj;
-    }
-    String get() {
-        return obj;  // get 메서드 호출시 obj 값을 리턴함
-    }
+  String obj;
+
+  void put(String obj) {
+    this.obj = obj;
+  }
+
+  String get() {
+    return obj;  // get 메서드 호출시 obj 값을 리턴함
+  }
 }
 
 class Value2 {
-    // Value2 가지고는 어떤 타입의 객체든 저장하고 꺼내고 싶음.
-    // 따라서 타입을 Object형으로 설정해주자.
-    // Value2는 어떤 타입의 객체든 전달할 수 있음
-    // 대신 꺼내올 떄에는 Object형으로 리턴되므로 원하는형으로 형변환해서 가져와야 함
+  // Value2 가지고는 어떤 타입의 객체든 저장하고 꺼내고 싶음.
+  // 따라서 타입을 Object형으로 설정해주자.
+  // Value2는 어떤 타입의 객체든 전달할 수 있음
+  // 대신 꺼내올 떄에는 Object형으로 리턴되므로 원하는형으로 형변환해서 가져와야 함
 
 
-    Object obj;
-    void put(Object obj){
-        this.obj = obj;
-    }
-    Object get() {
-        return obj;  // get 메서드 호출시 obj 값을 리턴함
-    }
+  Object obj;
+
+  void put(Object obj) {
+    this.obj = obj;
+  }
+
+  Object get() {
+    return obj;  // get 메서드 호출시 obj 값을 리턴함
+  }
 }
 
 /* 제네릭 적용 */
 // 어떤 타입의 객체든 처리할 수 있게 해줌
 // Value2와 달리 받아올 때 형변환을 하지 않아도 됨
 // 제네릭은 C#에서 왔다고 한다.
-class Value3<T>{
-    // T에 뭘 쓰든 무관
-    // 객체 생성시 Type 매개변수 하나 받을 것이라는 뜻
-    // 타입 매개변수로 전달되는 형태에 따라 클래스 내부의 <T>는 해당 형태로 모두 바뀜
-    // 객체를 생성하는 시점에서 입맛에 맞게 어떤 타입의 데이터를 다룰것인지를 결정함
-    // 어떤 타입 파라미터를 전달하느냐에 따라 해당 타입에 특화된 클래스를 만드는 것임
-    // 클래스에 대한 활용력이 좋아짐 (꺼내올 때 형변환을 하지 않아도 됨)
+class Value3<T> {
+  // T에 뭘 쓰든 무관
+  // 객체 생성시 Type 매개변수 하나 받을 것이라는 뜻
+  // 타입 매개변수로 전달되는 형태에 따라 클래스 내부의 <T>는 해당 형태로 모두 바뀜
+  // 객체를 생성하는 시점에서 입맛에 맞게 어떤 타입의 데이터를 다룰것인지를 결정함
+  // 어떤 타입 파라미터를 전달하느냐에 따라 해당 타입에 특화된 클래스를 만드는 것임
+  // 클래스에 대한 활용력이 좋아짐 (꺼내올 때 형변환을 하지 않아도 됨)
 
-    T obj;
-    // 멤버변수의 타입을 T로 지정
+  T obj;
+  // 멤버변수의 타입을 T로 지정
 
-    void put(T obj){
-        this.obj = obj;
-    }
+  void put(T obj) {
+    this.obj = obj;
+  }
 
-    T get(){
-        return obj;
-    }
+  T get() {
+    return obj;
+  }
 }
 ```
 ### 제네릭 프로그램이 적용된 것
@@ -685,48 +684,47 @@ class Value3<T>{
 - 문자열 객체들만 잔뜩 넣거나, Interger 객체들만 잔뜩 넣는것처럼 한가지 타입만 잔뜩 넣고 테스트하는것이 일반적
 
 ```java
-package day0320.course;
+package day11.course;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 
 public class GenericTest {
-	public static void main(String[] args) {
-		LinkedList list = new LinkedList();
-		// 타입 매개변수를 주지않았으므로 타입은 자동으로 Object로 설정됨
+  public static void main(String[] args) {
+    LinkedList list = new LinkedList();
+    // 타입 매개변수를 주지않았으므로 타입은 자동으로 Object로 설정됨
 
-		list.add("java");
-		list.add(100);
-		// String으로 바뀔 수 없는 것을 String으로 바꾸려고 해서 에러 발생
-		// 만약, 위에서 타입 매개변수를 Object 형이 아닌 String형으로 설정시 여기서 바로 에러가 남
-		
-		list.add("servlet");
-		list.add("jdbc");
+    list.add("java");
+    list.add(100);
+    // String으로 바뀔 수 없는 것을 String으로 바꾸려고 해서 에러 발생
+    // 만약, 위에서 타입 매개변수를 Object 형이 아닌 String형으로 설정시 여기서 바로 에러가 남
 
-		for (int i = 0; i < list.size(); i++)
-			System.out.println(list.get(i));
-		System.out.println();
+    list.add("servlet");
+    list.add("jdbc");
 
-		for (Object value : list) {
-			String s = (String) value;
-			System.out.println(s);
-		}
-		System.out.println();
+    for (int i = 0; i < list.size(); i++)
+      System.out.println(list.get(i));
+    System.out.println();
 
-		Iterator iter = list.iterator();
-		while (iter.hasNext()) {
-			Object value = iter.next();
-			String s = (String) value;
-			System.out.println(s);
-		}
-	}
+    for (Object value : list) {
+      String s = (String) value;
+      System.out.println(s);
+    }
+    System.out.println();
+
+    Iterator iter = list.iterator();
+    while (iter.hasNext()) {
+      Object value = iter.next();
+      String s = (String) value;
+      System.out.println(s);
+    }
+  }
 }
 
 ```
 
-
 ```java
-package day0320.course;
+package day11.course;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -915,24 +913,24 @@ hashtable.remove("포터")
 ## HashMap 클래스 예제
 
 ```java
-package day0320.course;
+package day11.course;
 
 import java.util.HashMap;
 
 public class HashMapExample1 {
-	public static void main(String args[]) {
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		map.put("해리", Integer.valueOf(95));
-		map.put("헤르미온느", 100);
-		map.put("론", 85);
-		map.put("드레이코", 93);
-		map.put("네빌", 70);
-		map.put("헤르미온느", 55); // JDK 1.5 Auto Boxing 구문
-		System.out.println(map);
-		Integer num = map.get("헤르미온느");
-		System.out.println("헤르미온느의 성적은? " + num);
-		System.out.println(map);
-	}
+  public static void main(String args[]) {
+    HashMap<String, Integer> map = new HashMap<String, Integer>();
+    map.put("해리", Integer.valueOf(95));
+    map.put("헤르미온느", 100);
+    map.put("론", 85);
+    map.put("드레이코", 93);
+    map.put("네빌", 70);
+    map.put("헤르미온느", 55); // JDK 1.5 Auto Boxing 구문
+    System.out.println(map);
+    Integer num = map.get("헤르미온느");
+    System.out.println("헤르미온느의 성적은? " + num);
+    System.out.println(map);
+  }
 }
 
 ```
@@ -960,30 +958,30 @@ public class HashMapExample1 {
 사용하는 방법, hashset에 있는 애들 모두를 array로 변환하는 방법 등을 추천
 
 ```java
-package day0320.course;
+package day11.course;
 
 import java.util.HashSet;
 import java.util.Iterator;
 
 public class SetExample1 {
-	public static void main(String args[]) {
-		HashSet<String> set = new HashSet<String>();
-		System.out.println(set.add("자바"));
-		System.out.println(set.add("카푸치노"));
-		System.out.println(set.add("에스프레소"));
-		System.out.println(set.add("자바"));  // false. add가 실패
-		System.out.println("저장된 데이터의 수 = " + set.size());  // 3
+  public static void main(String args[]) {
+    HashSet<String> set = new HashSet<String>();
+    System.out.println(set.add("자바"));
+    System.out.println(set.add("카푸치노"));
+    System.out.println(set.add("에스프레소"));
+    System.out.println(set.add("자바"));  // false. add가 실패
+    System.out.println("저장된 데이터의 수 = " + set.size());  // 3
 
-		for (String s : set)
-			System.out.println(s);
+    for (String s : set)
+      System.out.println(s);
 
-		Iterator<String> iterator = set.iterator();
-		while (iterator.hasNext()) {
-			String str = iterator.next();
-			System.out.println(str);
-		}
-		System.out.println(set);
-	}
+    Iterator<String> iterator = set.iterator();
+    while (iterator.hasNext()) {
+      String str = iterator.next();
+      System.out.println(str);
+    }
+    System.out.println(set);
+  }
 }
 
 ```
