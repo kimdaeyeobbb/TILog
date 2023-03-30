@@ -1,4 +1,4 @@
-package day0321.course;
+package day12.course;
 
 class Member1 {
 	private int id;
