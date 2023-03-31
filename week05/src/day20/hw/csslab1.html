@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>웹실습3</title>
+    <style>
+      #title {
+        color: #fff;
+        margin: 3% auto;
+        padding: 2% 0;
+        text-align: center;
+        width: 30%;
+        font-size: 3em;
+        border-radius: 15px;
+        background-image: linear-gradient(
+          to right,
+          red,
+          orange,
+          yellow,
+          green,
+          blue,
+          navy,
+          purple
+        );
+      }
+
+      .title-weather {
+        color: blue;
+      }
+
+      .weather-container {
+        display: flex;
+        justify-content: center;
+      }
+      .weather {
+        border: 2px solid pink;
+        margin: 1%;
+        box-shadow: 10px 10px 5px pink;
+        /* object-fit: cover; */
+      }
+      img {
+        /* width: 150px; */
+        width: 190px;
+        height: 190px;
+        padding: 10px;
+      }
+      img:hover {
+        opacity: 0.3;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div id="title"><span class="title-weather">날씨</span>의 종류</div>
+    </header>
+    <hr />
+    <main>
+      <div class="weather-container">
+        <div class="weather"><img src="./images/sun.png" /></div>
+        <div class="weather"><img src="./images/rain.png" /></div>
+        <div class="weather"><img src="./images/cloud.png" /></div>
+      </div>
+      <div class="weather-container">
+        <div class="weather"><img src="./images/cloud_sun.png" /></div>
+        <div class="weather"><img src="./images/snow.png" /></div>
+        <div class="weather"><img src="./images/etc.png" /></div>
+      </div>
+    </main>
+    <footer></footer>
+  </body>
+</html>
