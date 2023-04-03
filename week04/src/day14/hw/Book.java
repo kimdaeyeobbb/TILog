@@ -5,13 +5,13 @@ public class Book {
     String author;
     int price;
 
-    Book(){
+    public Book(){
         title = "이것이 자바다";
         author = "신용권";
         price = 32400;
     }
 
-    Book(String title, String author, int price){
+    public Book(String title, String author, int price){
         this.title = title;
         this.author = author;
         this.price = price;
