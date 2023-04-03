@@ -637,3 +637,204 @@ window.document.write()  // document.write()와 동일
 |let|불가능|가능|블록레벨 스코프|선언 단계-TDZ-초기화 단계-할당 단계로 분리되어 진행|undefined|
 |const|불가능|불가능|블록레벨 스코프|초기화 이전에 접근시 ReferenceError 발생|undefined|
 
+### var
+
+- 중복 선언 & 재선언 가능 (마지막으로 할당된 값이 변수에 저장됨)
+
+```js
+var num1 = 2;
+console.log(num1);  // 2
+
+var num1 = 50;
+console.log(num1);   // 50
+
+var num1; 
+console.log(num1);  // 50
+```
+
+- 재할당이 가능  (개발자의 의도가 흐려질 수 있으므로 유의)
+```js
+var num1 = 30;
+num1 = 20;
+console.log(num1);  // 20 
+```
+
+- 함수 레벨 스코프(변수에 접근할 수 있는 범위)를 따름
+```js
+function func1(){
+  var num1 = 4;  // 함수 내부에서 선언된 지역변수 
+  console.log(num1);
+} 
+
+func1();  // 4
+console.log(num1);  // Uncaught ReferenceError: num1 is not defined
+```
+
+- 함수를 제외한 영역에서 var로 선언한 변수는 전역변수로 간주됨
+```js
+if(true){ 
+  var num1 = 10;
+  console.log(num1);  // 10
+}
+
+console.log(num1);  // 10
+```
+
+
+
+- var로 선언한 변수는 호이스팅시 undefined로 변수를 초기화함
+```js
+console.log(num1);  // undefined
+var num1 = 15;
+console.log(num1);  // 15 
+
+/* 호이스팅 */
+// js엔진이 소스코드 평가 과정에서 변수 선언을 포함한 모든 선언문을 찾아내어 실행하고
+// 이후에 모든 선언문을 제외한 소스코드를 순차적으로 실행하는데,
+// 이때 선언문이 최상단으로 끌어올려져 동작하는 것을 뜻함
+// 즉, 변수와 함수의 메모리 공간을 선언전에 미리 할당하는 것을 뜻함
+
+
+/* 단계 */
+// 선언단계 - 변수를 실행 컨텍스트에 등록 (스코프가 참조할 수 있게 함)
+// 초기화 단계 - 선언 단계의 변수를 위한 메모리 공간 확보 (undefined를 할당해서 초기화)
+// 할당 단계 - 초기화 단계의 메모리에 값을 할당
+```
+
+- var로 선언한 변수는 전역객체(브라우저 환경상 window)의 프로퍼티(속성)로 할당됨
+```js
+// 전역 객체를 사용할 경우 어디서나 사용할 수 있는 변수나 함수를 만들 수 있음
+var num1 = 5;
+console.log(window.num1);  // 5
+console.log(num1);  // 5 
+```
+
+
+<br>
+
+### let
+
+- let은 같은 변수를 중복 선언할 수 없음
+```js
+let hello = 1111;
+let hello = 2222; // SyntaxError: Identifier 'hello' has already been declared 
+```
+
+- let은 중복 선언이 불가능하나 값의 재할당은 가능함
+```js
+let num1= 123;  // 최초선언
+num1 = 456;  // 값의 재할당
+console.log(num1);  // 456 
+```
+
+
+- let은 블록 레벨 스코프를 따름
+<br> (모든 코드블록 (함수, if문, for문, while문 등)에서 선언된 변수를 지역변수로 인정함)
+```js
+let num1 = 10;
+{
+  let num1 = 20;
+  let num2 = 30;
+} 
+
+console.log(num1);  // 10
+console.log(num2);  // ReferenceError: num2 is not defined
+```
+
+
+- let으로 선언한 변수는 호이스팅이 발생하지 않는 것처럼 동작하지만 실제로는 호이스팅이 발생함
+```js
+console.log(num1);   // ReferenceError: num1 is not defined
+
+let num1;   // 초기화 단계
+console.log(num1);  
+
+num1 = 777;   // 할당 단계
+console.log(num1); 
+```
+
+- let으로 선언한 변수는 `선언 단계`와 `초기화 단계`가 분리되어 진행됨
+  <br>(선언 단계 - 일시적 사각지대 - 초기화 단계 - 할당 단계)
+```js
+/* 일시적 사각지대(TDZ) */
+// 스코프의 시각지점부터 초기화 시각 지점까지 변수를 참조할 수 없는 구간 
+
+let num1 = 100; // 전역 변수
+{
+  console.log(num1);   // ReferenceError: num1 is not defined
+  let num1 = 200;  // 지역 변수
+}
+```
+
+<br>
+
+### const
+
+- const는 변수를 중복해서 선언할 수 없음
+```js
+const num1 = 10;  // 첫 선언
+const num1 = 20;  // 중복 선언. Uncaught SyntaxError: Identifier 'num1' has already been declared
+```
+
+- const는 값을 한번 설정한 다음에는 다른값을 재할당할 수 없음
+```js
+const num1 = 10; // 설정
+num1 = 20;  // 재할당. Uncaught TypeError: Assignment to constant variable 
+
+/* 주의 */
+// const는 선언과 할당을 동시에 수행해야함
+// 값을 할당하지 않고 선언만 하면 SyntaxError 발생
+const num2; // Uncaught SyntaxError: Missing initializer in const declaration
+```
+
+
+- const로 할당된 객체의 프로퍼티를 변경할 수 있음
+<br> (재할당은 안되지만 할당된 객체의 내용물은 변경할 수 있음)
+<br> (단, 할당된 주소값은 변경되지 않음)
+```js
+const company = {name: 'daum'}
+company.name = 'kakao';
+console.log(company);  // {name: 'kakao'} 
+
+const numbers = [10,20,30,40];
+numbers.push(50);
+console.log(numbers);  // [10, 20, 30, 40, 50];
+```
+
+- const는 블록 레벨 스코프를 따름
+<br>(해당 변수는 block 내에서만 유효하며, 외부에서 접근 및 참조를 할 수 없는 상태가 됨)
+<br>(블록 내에서 변수가 선언되었으므로 지역변수의 개념임)
+```js
+/* block level scope */
+{
+  const daum = 10;
+  console.log(daum); // 10
+} 
+console.log(daum);  // ReferenceError: daum is not defined
+```
+
+- const는 TDZ로 인한 제약을 받음
+```js
+console.log(kakao);
+const kakao = 'good';  // ReferenceError
+// 변수가 초기화 되기전에 접근하려고하였으므로 Reference Error 발생
+// 실제 선언되고 할당되는 라인 이전에 사용하려고 하였으므로 에러가 발생한 것
+```
+
+```js
+const daum = 'outer scope const';
+(function(){
+  console.log(daum);
+  const daum = 'inner scope const';
+}());
+// ReferenceError: Cannot access 'daum';
+// 호이스팅이 일어났으므로 에러 발생 (초기화하기전에 접근해서 에러)
+```
+
+- const로 선언한 변수는 전역 객체의 프로퍼티가 아님
+```js
+const kakao = 10;
+
+console.log(window.kakao); // undefined
+console.log(kakao);  // 10; 
+```
