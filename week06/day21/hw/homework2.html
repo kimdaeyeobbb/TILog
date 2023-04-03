@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML & CSS 실습</title>
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="./homework2.css" />
+  </head>
+  <body>
+    <!-- header -->
+    <header id="title-area">
+      <h1 class="title">김대엽의 HTML5 학습</h1>
+      <nav id="title-nav">
+        <a href="https://ko.javascript.info/" class="title-nav-link"
+          >JavaScript 학습</a
+        >
+        <a href="https://ko.reactjs.org/" class="title-nav-link">React 학습</a>
+        <a href="https://spring.io/" class="title-nav-link">Spring 학습</a>
+      </nav>
+    </header>
+
+    <!-- main -->
+    <main id="main-area">
+      <section>
+        <article class="content-wrapper">
+          <h2 class="title-intro">나의 소개</h2>
+          <ul>
+            <li>이름: 김대엽</li>
+            <li>별명: Danny</li>
+            <li>관심기술: JS, TS, React, Vue, Spring</li>
+            <li>취미: 축구</li>
+          </ul>
+        </article>
+
+        <article class="content-wrapper">
+          <h2 class="title-book">올해 재미있게 읽은 책</h2>
+          <table class="book-table">
+            <thead>
+              <tr>
+                <th>제목</th>
+                <th>장르</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>이것이 자바다</td>
+                <td>프로그래밍 언어</td>
+              </tr>
+              <tr>
+                <td>모던 자바스크립트 Deep Dive</td>
+                <td>프로그래밍 언어</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+
+        <article class="content-wrapper">
+          <h2 class="title-hometown">
+            자랑하고 싶은 <span class="hometown">우리 동네</span>의 아름다운 곳
+          </h2>
+          <h3>이것이 힐링이다</h3>
+          <p>
+            자연과 도시가 어우러져 있는 경춘선 숲길 입니다 (aka. 공트럴파크 ||
+            공리단길)
+          </p>
+          <figure class="hometown-img-area">
+            <img
+              src="./gyeonchunline_forestpark.svg"
+              alt="경춘선숲길"
+              class="hometown-img"
+            />
+            <figcaption>서울 북부의 경춘선 숲길</figcaption>
+          </figure>
+        </article>
+      </section>
+
+      <aside class="aside-area">
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/ZixxdlIDRqA?mute=1&autoplay=1"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+      </aside>
+    </main>
+
+    <!-- footer -->
+    <footer id="footer-area">
+      <div>
+        이 문서는 김대엽에 의해 HTML & CSS 기술을 이용하여 제작되었습니다
+      </div>
+    </footer>
+  </body>
+</html>

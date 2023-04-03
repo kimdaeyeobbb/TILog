@@ -1,0 +1,96 @@
+#title-area {
+  background-color: aqua;
+  background: linear-gradient(to bottom right, yellow, red);
+  text-align: center;
+  padding: 3vh 0;
+}
+
+.title {
+  margin-top: 1vh;
+  text-shadow: 1.2px 1.2px #fff;
+  color: #b32a84;
+}
+
+.title-intro {
+  color: #da6db1;
+}
+
+.title-book {
+  color: #46a421;
+}
+
+/* .book-table {
+  border: 1px solid #b7dbb7;
+} */
+
+table {
+  width: 60%;
+}
+
+th,
+td {
+  border: 2px solid green;
+  padding: 3% 5%;
+  /* text-align: center; */
+}
+
+th {
+  background-color: #00fe00;
+}
+
+#title-nav {
+  margin-top: 5vh;
+  display: flex;
+  justify-content: center;
+}
+
+.title-nav-link {
+  padding: 0 3vw;
+  text-decoration: none;
+}
+
+.title-nav-link:hover {
+  font-weight: bold;
+}
+/* 
+#main-area {
+  text-align: center;
+  margin-bottom: 2%;
+} */
+
+.content-wrapper {
+  border: 3px dashed #e8bfd9;
+  border-radius: 10px;
+  margin: 2% 20%;
+  padding: 1%;
+}
+
+.title-hometown {
+  color: #7b7ace;
+}
+
+.hometown {
+  color: #ba24b9;
+}
+
+.hometown-img-area {
+  text-align: center;
+  padding: 1%;
+}
+
+.hometown-img:hover {
+  opacity: 0.5;
+}
+
+.aside-area {
+  text-align: center;
+  margin-bottom: 2%;
+}
+
+#footer-area {
+  background-color: #333333;
+  color: #fff;
+  padding: 2%;
+  text-align: center;
+  font-style: italic;
+}
