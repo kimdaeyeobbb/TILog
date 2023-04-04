@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>자바스크립트 실습(5)</title>
+    <script src="./util.js"></script>
+  </head>
+  <body>
+    <hedaer>
+      <script>
+        writeColor("자바스크립트 실습(5)", "h1", "blue");
+      </script>
+    </hedaer>
+    <main>
+      <script>
+        hr();
+        /* 최대값 구하기 */
+        function getMaxValue(arr) {
+          let maxNum = arr[0];
+          for (const el in arr) {
+            if (arr[el] > maxNum) {
+              maxNum = arr[el];
+            }
+          }
+          return maxNum;
+        }
+
+        /* 최소값 구하기 */
+        function getMinValue(arr) {
+          let minNum = arr[0];
+          for (const el in arr) {
+            if (minNum > arr[el]) {
+              minNum = arr[el];
+            }
+          }
+          return minNum;
+        }
+
+        /* 총합 구하기 */
+        function getSum(arr) {
+          let sum = 0;
+          for (const el in arr) {
+            sum += arr[el];
+          }
+          return sum;
+
+          // reduce 이용
+          //   return arr.reduce((acc, cur) => acc + cur, 0);
+        }
+
+        /* 홀수 구하기 */
+        function getCountOddNum(arr) {
+          let result = 0;
+          for (const el in arr) {
+            if (arr[el] % 2 !== 0) {
+              result++;
+            }
+          }
+          return result;
+        }
+
+        /* 짝수 구하기 */
+        function getCountEvenNum(arr) {
+          let result = 0;
+          for (const el in arr) {
+            if (arr[el] % 2 === 0) {
+              result++;
+            }
+          }
+
+          return result;
+        }
+
+        const numArr = [10, 5, 7, 21, 4, 8, 18];
+        writeColor(`모든 원소의 합: ${getSum(numArr)}`, "h2", "red");
+        writeNewLine("<ul>");
+        write(`최대값 : ${getMaxValue(numArr)}`, "li");
+        write(`최소값 : ${getMinValue(numArr)}`, "li");
+        write(`짝수의 갯수 : ${getCountEvenNum(numArr)}`, "li");
+        write(`홀수의 갯수 : ${getCountOddNum(numArr)}`, "li");
+        writeNewLine("</ul>");
+      </script>
+    </main>
+  </body>
+</html>

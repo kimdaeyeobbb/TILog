@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>exercise4</title>
+    <script src="./util.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>자바스크립트 실습(4)</h1>
+    </header>
+    <main>
+      <script>
+        hr();
+        /* sum 함수 정의 */
+        function sum(n) {
+          let result = 0;
+          if (n == null) {
+            return;
+          } else {
+            for (let i = 1; i <= n; i++) {
+              result += i;
+            }
+            return result;
+          }
+        }
+
+        /* 0~5 난수 추출 후 sum() 함수 호출 */
+        let randNum;
+        for (let i = 0; i < 5; i++) {
+          randNum = Math.floor(Math.random() * 6);
+          console.log(randNum);
+          if (randNum === 0) {
+            sum();
+            write("결과값이 없어요!!", "h3");
+          } else {
+            write(`호출 결과값: ${sum(randNum)}`, "h2");
+          }
+        }
+      </script>
+    </main>
+  </body>
+</html>
