@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script>
+function highOrderFunction(p) {
+	if (typeof p == 'function') {
+	// function은 예약어라 에러
+	// typeof의 결과물은 문자열이므로 문자열로 만들어서 비교할 것
+		p('ㅋㅋㅋ');		
+	} else {
+		alert(p);
+	}
+}
+highOrderFunction(function (msg) {document.write(msg);});
+highOrderFunction(function (msg) {console.log(msg);});
+highOrderFunction();  // p가 undefined -> 거짓이되므로 undefined를 alert창으로 내보냄
+</script>
+</body>
+</html>
