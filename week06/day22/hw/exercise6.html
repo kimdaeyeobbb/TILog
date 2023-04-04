@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>exercise6</title>
+    <script src="./util.js"></script>
+  </head>
+  <body>
+    <script>
+      /* 년,월,일을 프롬프트창을 통해 입력받음 */
+      const year = window.prompt("년을 입력하세요: ");
+      const month = window.prompt("월을 입력하세요: ");
+      const day = window.prompt("일을 입력하세요: ");
+
+      /* 숫자가 들어왔는지 확인 */
+      const checkNum = (num) => {
+        let result = true;
+        if (isNaN(num)) {
+          /* 숫자가 아닌 경우 */
+          result = false;
+        } else {
+          /* null값 및 공백 판단 */
+          const blank_pattern = /^\s+|\s+$/g;
+          if (num == null || num.replace(blank_pattern, "") == "") {
+            result = false;
+          } else {
+            /* 양수/음수 판단 */
+            result = num > 0 ? true : false;
+          }
+        }
+        return result;
+      };
+
+      /* 날짜 유효성 검사 구문 */
+      const checkdate = year + " " + month + " " + day;
+
+      /* 날짜 계산 */
+      const date = new Date(year, month - 1, day);
+      const days = ["일", "월", "화", "수", "목", "금", "토"];
+
+      /* 요일 계산 */
+      const getKorDay = (y, m, d) => {
+        let dayOfWeek;
+        if (checkNum(y) && checkNum(m) && checkNum(d)) {
+          // 숫자가 들어왔는지 확인
+          if (!isNaN(Date.parse(checkdate))) {
+            // 유효한 날짜가 들어왔는지 확인
+            dayOfWeek = days[date.getDay()];
+          }
+        }
+        return dayOfWeek;
+      };
+
+      const whatDay = getKorDay(year, month, day);
+
+      /* 결과값 출력 */
+      whatDay
+        ? writeColor(
+            `${year}년 ${month}월 ${day}일은 ${whatDay}요일입니다`,
+            "h1",
+            "blue"
+          )
+        : writeColor("결과 없음", "h1", "red");
+    </script>
+  </body>
+</html>

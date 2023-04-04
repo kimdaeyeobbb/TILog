@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>exercise7</title>
+    <script src="./util.js"></script>
+  </head>
+  <body>
+    <script>
+      /* calc함수 */
+      function calc() {
+        // console.log(arguments);
+        let result = 0;
+        if (arguments.length !== 0) {
+          // 전달된 인자가 있는 경우
+          for (const el of arguments) {
+            if (typeof el !== "number") {
+              // 인자 중 하나라도 숫자가 아닌 경우
+              return "숫자만 전달하세요";
+            }
+          }
+          /* 모두 숫자인 경우 누적합 계산 */
+          for (const el of arguments) {
+            result += el;
+          }
+        }
+        return result;
+      }
+
+      /* 3. 다양하게 calc() 호출 */
+      write(calc(), "h3");
+      write(calc(10, 20, "30"), "h3");
+      write(calc(10, "가나다", 20), "h3");
+      write(calc(1, 2, 3, 4, 5), "h3");
+    </script>
+  </body>
+</html>
