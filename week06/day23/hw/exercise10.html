@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>exercise10</title>
+    <script src="./util.js"></script>
+  </head>
+  <body>
+    <script>
+      function DayInfo(name, year, month, day) {
+        this.name = name;
+        this.year = year;
+        this.month = month - 1;
+        this.day = day;
+      }
+
+      DayInfo.prototype.getTotalDates = function () {
+        const birthday = new Date(this.year, this.month, this.day);
+        const today = new Date();
+        const day = (
+          (today.getTime() - birthday.getTime()) /
+          (24 * 60 * 60 * 1000)
+        ).toFixed(0);
+        console.log(day);
+
+        return `${this.name}님은 태어난지 ${day}일 되었어요.`;
+      };
+
+      DayInfo.prototype.getKorDay = function () {
+        const date = new Date(this.year, this.month, this.day);
+        const weekday = ["일", "월", "화", "수", "목", "금", "토"];
+        const day = weekday[date.getDay()];
+        return `${this.name}님은 ${day}요일에 태어났어요.`;
+      };
+
+      let dayInfo = new DayInfo("래시포드", 1997, 10, 31);
+      writeColor(dayInfo.getTotalDates(), "h3", "blue");
+      writeColor(dayInfo.getKorDay(), "h3", "red");
+      hr();
+
+      dayInfo = new DayInfo("카세미루", 1992, 2, 23);
+      writeColor(dayInfo.getTotalDates(), "h3", "blue");
+      writeColor(dayInfo.getKorDay(), "h3", "red");
+      hr();
+
+      dayInfo = new DayInfo("리산드로 마르티네스", 1998, 1, 18);
+      writeColor(dayInfo.getTotalDates(), "h3", "blue");
+      writeColor(dayInfo.getKorDay(), "h3", "red");
+    </script>
+  </body>
+</html>

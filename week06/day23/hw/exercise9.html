@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>exercise9</title>
+    <script src="./util.js"></script>
+  </head>
+  <body>
+    <script>
+      function printObject(p) {
+        if (typeof p == "object") {
+          writeColor(p.msg, p.tag, p.color);
+        } else {
+          return;
+        }
+      }
+
+      const obj1 = {
+        tag: "h1",
+        color: "blue",
+        msg: "제목",
+      };
+
+      const obj2 = {
+        tag: "h2",
+        color: "red",
+        msg: "하위제목",
+      };
+
+      const obj3 = {
+        tag: "h3",
+        color: "green",
+        msg: "소제목",
+      };
+
+      const obj4 = {
+        tag: "h4",
+        color: "pink",
+        msg: "최하위 제목",
+      };
+
+      const obj5 = {
+        tag: "p",
+        color: "purple",
+        msg: "전달할 메시지",
+      };
+
+      printObject(obj1);
+      printObject(obj2);
+      printObject(obj3);
+      printObject(obj4);
+      printObject(obj5);
+    </script>
+  </body>
+</html>
