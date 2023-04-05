@@ -285,6 +285,9 @@ console.log(whatToEat3.choice());
 - 모든 인스턴스가 공유하는 공간을 prototype을 통해 생성함
 - 프로토타입을 이용하면 메모리 공간의 낭비가 적어짐
 
+
+- [참고자료](https://poiemaweb.com/js-prototype)
+
 #### 프로토타입은 왜 등장했는가
 
 - 우리가 손쉽게 객체를 생산할 수 있지만, 객체의 메서드를 등록 할때마다 새로운 함수를 생성하고 있다는 문제가 존재합니다.
@@ -776,7 +779,10 @@ console.log(bot.password);  // 5678
 - 문서 이외의 모든 것을 제어하기 위해 브라우저(호스트 환경)가 제공하는 추가 객체
 - 웹 브라우저의 창이나 프레임을 추상화해서 프로그래밍적으로 제어할 수 있도록 제공하는 수단
 - BOM은 전역객체인 Window의 프로퍼티와 메서드들을 통해 제어할 수 있음
-- 
+
+- [참고자료](https://wlrma-study.gitbook.io/js-study/do-it-javascript/10.-bom)
+- [참고자료2](https://www.zerocho.com/category/JavaScript/post/573b321aa54b5e8427432946)
+
 <br>
 
 ### Window 객체
@@ -816,7 +822,15 @@ console.log(bot.password);  // 5678
 </script>
 <!--객체를 만드는 것은 windwo 객체의 프로퍼티를 만드는 것임-->
 ```
+
+#### setInerval
+
+- [참고자료 1](https://developer.mozilla.org/ko/docs/Web/API/setInterval)
+- [참고자료 2](https://ko.javascript.info/settimeout-setinterval)
+- [참고자료 3](https://www.w3schools.com/jsref/met_win_setinterval.asp)
+
 <br>
+
 
 ### location 객체
 
@@ -824,6 +838,7 @@ console.log(bot.password);  // 5678
 - `location.href`에 새로운 문자열을 삽입하여 href의 속성을 바꾸면 새로운 문자열로 페이지 이동이 발생
 - 문서의 주소와 같은 객체로 Window 객체의 프로퍼티임
 - location 객체를 이용해서 윈도우의 문서 URL을 변경할 수 있고, 문서의 위치와 관련해서 다양한 정보를 얻을 수 있음
+- 현재 URL을 읽고 새로운 URL로 변경(redirect)할 수 있게 해줌
 
 #### 현재 윈도우의 URL 알아내기
 
@@ -860,12 +875,36 @@ location = 'http://egoing.net';
 location.reload();
 ```
 
+#### gelocation
+
+- 네트워크를 통해 위치정보를 받아옴
+
+- [참고자료](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API/Using_the_Geolocation_API)
+- [참고자료2](https://guide.ncloud-docs.com/docs/api-api-2-1)
+- [참고자료3](http://www.tcpschool.com/html/html5_api_geolocation)
+- [참고자료4](https://developers.google.com/maps/documentation/javascript/geolocation?hl=ko)
+- [참고자료5](https://apis.map.kakao.com/web/sample/geolocationMarker/)
+- [참고자료6](https://www.w3schools.com/html/html5_geolocation.asp)
+- [참고자료7](https://www.gov-ncloud.com/product/applicationService/geoLocation)
+
+
+- [예제코드1](./exam4.html)
+
 <br>
 
 ### navigator 객체
 
-- 브라우저의 정보를 제공하는 객체
+- 브라우저와 OS에 대한 정보를 제공하는 객체
 - 브라우저의 호환성 문제를 위해서 사용함
+
+#### navigator.userAgent
+
+- 현재 사용중인 브라우저 정보를 알려줌
+
+#### navigator.platform
+
+- 브라우저가 실행 중인 운영체제정보를 알려줌
+
 
 <br>
 
@@ -883,5 +922,88 @@ location.reload();
 
 ## DOM (Document Object Model)
 
+- 문서 객체 모델(DOM)은 객체 지향 모델로서 구조화된 문서를 표현하는 형식임
+- 플랫폼/언어 중립적으로 구조화된 문서를 표현하는 W3C의 공식 표준임
+  <br>(W3C가 표준화한 여러개의 API의 기반이 됨)
+- 브라우저는 서버로부터 응답된 웹 컨텐츠 내용을 파싱한 다음 트리구조로 각 HTML태그마다 DOM 기술을 적용하여
+JS객체를 생성함
+<br> => 바로 이 객체가 `DOM 객체`임
+
+- DOM 객체를 통해서 HTML 문서의 내용을 접근하여 읽는 기능 뿐만 아니라 내용을 수정/삭제/추가 등 변경하는 기능을 처리할 수 있음
+
+### HTML DOM 구조
+
+![img_3.png](img_3.png)
+
+- body의 자식 태그 : div(1개)
+- body의 자손 태그 : div, h1, p (3개)
+- body의 자식 노드 : 
+
+```html
+<body>
+<div>
+  <h1></h1>
+  <p></p>
+</div>
+</body>
+```
 
 
+### document 객체
+
+#### document.getElementsByTagName("찾고자 하는 태그명")
+
+- 리턴값: NodeList (유사배열 객체이므로 없으면 비어있는 리스트가 리턴)
+
+#### document.getElementById("찾고자하는 태그의 id속성값")
+
+- 리턴값: Node
+
+#### document.getElementByClassName("클래스 속성값")
+
+- 태그에 정의되어있는 태그의 속성값으로 찾음
+- 리턴값: NodeList (유사배열 객체이므로 없으면 비어있는 리스트가 리턴)
+
+#### document.querySelector("css 선택자")
+
+- CSS 선택자를 어떻게 주느냐에 따라서 태그 탐색에 있어 활용성이 좋음
+- 조겐에 맞는 녀석들 중 가장 먼저 인식된 애 하나만 리턴
+- 리턴값: Node
+
+#### document.querySelectorAll("CSS 선택자")
+
+- 조건에 맞는 녀석들 모두를 리턴
+- 리턴값: NodeList (유사배열 객체이므로 없으면 비어있는 리스트가 리턴)
+
+#### Node.textContent
+
+- 모든 요소들이 가지고 있는 속성
+- 찾아온 요소 객체에 대한 text 형식에 대한 컨텐츠를 꺼낼 때 사용
+-  textContent는 html 태그를 태그로 인정하지 않고 일반 문자열로 인식
+<br>(태그가 태그로 렌더링 되기를 원한다면 innerHTML을 써야 함)
+<br> (과거의 innerText가 textContent로 바뀜)
+
+
+- [참고자료](https://developer.mozilla.org/ko/docs/Web/API/Node/textContent)
+
+#### Element.innerHTML
+
+- 서브 태그가 있다면 textContent 대신 innerHTML을 사용해야 함
+- [참고자료](https://developer.mozilla.org/ko/docs/Web/API/Element/innerHTML)
+
+<br>
+
+
+### Node
+
+- [참고자료](http://www.tcpschool.com/ajax/ajax_basic_node)
+
+
+<br>
+
+
+### setTimeOut
+
+- [참고자료](https://developer.mozilla.org/ko/docs/Web/API/setTimeout)
+
+### setInterval
