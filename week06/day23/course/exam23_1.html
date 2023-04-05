@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+  </head>
+  <body>
+    <h1>자바스크립트의 객체 생성과 사용(객체리터럴)</h1>
+    <hr />
+    <script src="util.js"></script>
+    <script>
+      const obj = {
+        name: "듀크",
+        eat: function (food) {
+          // eat -> 할당된 값이 함수이므로 '메서드'
+          // 객체의 프로퍼티는 변수나 다름없음
+          write(this.name + "가 " + food + "를 먹어요.", "h3");
+          // js에서는 같은 객체 내의 다른 멤버변수에 접근할 때 this를 꼭 붙여야함
+          // 객체 안의 this는 자기자신을 뜻함
+        },
+      };
+
+      obj.eat("바나나");
+      obj.eat("딸기");
+      hr();
+      write(typeof obj, "h2");
+
+      // 멤버 추가 - project, study
+      // 얘네를 객체 내에서 접근하기 위해서는 this.project, this.study처럼 써주어야 함
+      obj.project = "자바스크립트";
+      obj.study = function () {
+        write(this.name + "는 " + this.project + "를 공부해요.", "h3");
+      };
+      obj.study();
+      for (let key in obj) {
+        write(key + ":" + obj[key], "h3"); // 객체.속성명, 객체['속성명'], 객체.메서드명()
+      }
+      delete obj.study;
+      hr();
+      for (let key in obj) {
+        write(key + ":" + obj[key], "h3");
+      }
+    </script>
+  </body>
+</html>
