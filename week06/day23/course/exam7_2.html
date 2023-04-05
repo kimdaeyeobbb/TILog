@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <style>
+        #output {
+            width : 50%;
+            background-color : yellow;
+        }
+    </style>
+</head>
+<body>
+<script src="../../util.js"></script>
+<script>
+    window.onload = function() {
+    	const outDom = document.getElementById("output");
+    	for(let i=1; i < 6; i++)
+			outDom.innerHTML +=
+				    "<h4>"+document.getElementById("t"+i)+"</h4>";
+    };
+    // exam7_1과 달리 에러가 발생하지 않음
+    // DOM객체를 찾아와서 찾아온 DOM객체의 innerHTML을 사용하려는 코드는 해당 tag보다 위에있음
+    // 하지만 7_1과 달리 window.onload함수를 등록해서 이벤트 처리를 함
+    // script 태그가 tag보다 위에있기는 하지만 js엔진이 미리 읽고 실행함
+    // window.onload - 이떄의 실행은 문서에 대한 로딩이 끝나면 함수를 호출해달라는 실행을 함 (이벤트 처리)
+    // 이 페이지에 대한 load이벤트가 발생했을 때 (페이지에 대한 DOM 객체 생성이 끝나면, 페이지 로드가 끝나면) 함수를 호출해서 수행하라는 이벤트 핸들러를 등록함
+    // 로드가 끝나면 수행하게 됨
+    // 이 부분의 코드를 div 태그 밑에 두어도 되지만 운이 나쁘면 DOM객체를 생성하기도전에 찾으려고할 수도 있음 (이미지가 여러개일 경우 이미지 처리를 비동기로 하는데
+    // DOM객체를 생성하기도 전에 해당 id값에 맞는 태그를 찾으려고 할 수도 있음. 이러한 경우를 방지하기 위해 이벤트 핸들러를 등록해놓은 것
+    // 이 페이지에 대해 전체적인 load가 끝나면 수행되도록 window.onload를 통해 설정해놓음
+</script>
+<h1 id="t1">컨텐트1</h1>
+<h2 id="t2">컨텐트2</h2>
+<p id="t3">컨텐트3</p>
+<div id="t4">컨텐트4</div>
+<img id="t5" src="../../images/totoro.png" width="100">
+<hr>
+<div id="output"></div>
+</body>
+</html>
+
+

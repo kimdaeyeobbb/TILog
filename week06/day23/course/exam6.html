@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="./util.js"></script>
+</head>
+<body>
+<h1 id="test">DOM 객체를 찾자</h1>
+<h1>그래 DOM 객체를 찾자</h1>
+<hr>
+<script>
+	let dom = document.getElementsByTagName("h1");
+	writeNewLine(dom);
+	writeNewLine(dom.length);
+<!--	/* 첫번쨰 DOM 객체에 대해 */-->
+	writeNewLine(dom[0]);  // HTMLHeadingElement
+	writeNewLine(dom[0].textContent); // innerText
+	writeNewLine(dom[0].innerHTML);
+
+<!--	/* 두번쨰 DOM 객체에 대해 */-->
+	writeNewLine(dom[1]);   // HTMLHeadingElement
+	writeNewLine(dom[1].textContent); // innerText
+	writeNewLine(dom[1].innerHTML);
+
+
+	writeNewLine("------------------------------");
+<!--	// id가 test인 DOM 객체 하나 받아옴-->
+	dom = document.getElementById("test");
+
+	writeNewLine(dom);
+	writeNewLine(dom.textContent);
+	window.setTimeout(function() {
+		const kday = ['일','월', '화', '수', '목', '금', '토'][new Date().getDay()];
+		//dom.textContent =`오늘은 ${kday}요일`;
+		dom.textContent +=`오늘은 ${kday}요일`;
+		// textContent: 컨텐츠의 내용을 바꾸는 용도로도 사용
+
+		dom.style.color ="red";
+		//
+
+		dom.style.backgroundColor ="lime"; // background-color, font-weight -> fontWeight
+		// 카멜케이스를 이용해서 WORD가 바뀌는 부분은 대문자로 기재해주어야 인식함
+	}, 5000);
+</script>
+</body>
+</html>

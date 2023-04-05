@@ -10,10 +10,13 @@
 <h1>컨텐트3</h1>
 <h1>컨텐트4</h1>
 <h2>컨텐트5</h2>
-<script src="../util.js"></script>
+<script src="./util.js"></script>
 <script>
     hr()
 	const h1doms = document.getElementsByTagName("h1");
+	// 노드리스트 객체(유사배열객체)로 받아옴
+	// 실제 리턴되는 것은 Collection 객체일것임
+
  	writeColor(h1doms, "h3", 'orange');
 	writeColor(h1doms.length, "h3", 'blue');
 	for(var i=0; i < h1doms.length; i++)
@@ -21,9 +24,7 @@
 	const h2doms = document.getElementsByTagName("h2");
 	write(h2doms.length, "h3");
 	writeColor(h2doms[0].innerHTML, "h3", "blue");
+	// innerHTML을 사용해서 컨텐츠 꺼냄
 </script>
 </body>
 </html>
-
-
-
