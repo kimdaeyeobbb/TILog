@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+<!-- open : 내가 구성한 서브창 띄우고 싶을 때 사용 -->
+	var child = window.open('', '', 'width=300, height=200');
+	child.moveTo(0, 0);
+
+	setInterval(function() {
+		child.moveBy(10, 10);
+		child.document.write(new Date());
+	}, 1000);
+</script>
+</head>
+<body>
+</body>
+</html>
