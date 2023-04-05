@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+    @font-face {
+    font-family: 'RixMomsBlanketR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/RixMomsBlanketR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+	}
+	* {
+		font-family: 'RixMomsBlanketR';
+	}
+	a {		
+		text-decoration : none;
+		font-size : 2em;
+		margin : 10px;
+	}
+</style>
+</head>
+<body>
+<h1>DOM 프로그래밍</h1>
+<hr>
+<!--onClick이 없으므로 바로 이동-->
+<a href="http://www.daum.net/" >다음으로가자</a>
+<a href="http://www.naver.com/" >네이버로가자</a>
+<a href="http://www.google.com/" >구글로가자</a>
+<hr>
+<!--html 태그 중 기본 이벤트 핸들러가 정해진 태그가 존재. -->
+<!--a 태그는 a 태그 공간 내에 클릭 이벤트가 발생하면 href의 속성값으로 페이지 이동이 일어나는 이벤트 핸들러를 내장하고 있음-->
+<a href="http://www.daum.net/" onclick="return go();">다음으로가자</a>
+<a href="http://www.naver.com/" onclick="return go();">네이버로가자</a>
+<a href="http://www.google.com/" onclick="return go();">구글로가자</a>
+
+<!--인라인 이벤트 모델에 리턴값이 false이면 default 핸들러가 수행되지 않음 (true 리턴시 수행)-->
+
+<script>
+	function go() {
+    	const answer = window.confirm("정말 갈겨?");
+    	if (answer)
+        	return true;
+    	else
+    		return false;    	
+	}
+</script>
+</body>
+</html>

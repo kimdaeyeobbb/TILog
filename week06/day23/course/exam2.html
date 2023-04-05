@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>DOM 프로그래밍</h1>
+<hr>
+<!-- 클릭 이벤트 발생하면 go함수 호출 (인자로 url 문자열 전달) -->
+<button onclick="go('http://www.daum.net/');">다음으로가자</button>
+<button onclick="go('http://www.naver.com/');">네이버로가자</button>
+<button onclick="go('http://www.google.com/');">구글로가자</button>
+
+<script>
+	function go(url) {
+    	const answer = window.confirm("정말 갈겨?");
+    	if (answer) {
+        	location.href = url;
+    	}
+	}
+</script>
+</body>
+</html>
