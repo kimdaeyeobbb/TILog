@@ -1,3 +1,143 @@
+## DOM (Document Object Model)
+
+- HTML 문서의 내용을 트리형태로 구조화하여 웹페이지와 프로그래밍 언어를 연결시켜주는 역할을 함
+  <br> (`노드`: 이때 각각의 요소와 속성 및 컨텐츠를 표현하는 단위)
+
+![img_1.png](img_1.png)
+
+### DOM 트리에 접근하는 방법
+
+- document 객체
+  - 브라우저가 불러온 웹 페이지를 나타내며 DOM 트리의 진입점 역할을 수행함
+  - document 객체를 통해 HTML 문서에 접근할 수 있음
+
+- 예시
+```js
+/* 해당 id를 가진 요소에 접근 */
+document.getElementById(); 
+
+/* 해당 모든 요소에 접근 */
+document.getElementsByTagName();
+
+/* 해당 클래스를 가진 모든 요소에 접근 */
+document.getElementsByClassName();
+
+/* css 선택자로 단일 요소에 접근하기 */
+document.querySelector('selector');
+
+/* css 선택자로 여러 요소에 접근하기 */
+document.querySelectorAll('selector'); 
+```
+
+### DOM 제어 명렁어
+
+#### :one: 이벤트 삽입
+
+- 삽입할 이벤트 형태: `target.addEventListener(type, listener)` 
+- listener 함수와 인수에는 이벤트에 대한 정보가 담겨 있음
+
+
+```html
+<body>
+    <button>Hello</button>
+    <script>
+      const myBtn = document.querySelector("button");
+      myBtn.addEventListener('click', function(){
+        console.log("hello world");
+      })
+    </script>
+</body>
+```
+
+#### :two: 클래스 제어
+
+- DOM api를 통해 요소의 class 속성을 제어할 수 있음 
+
+```html
+<body>
+    <button>버튼을 파란색으로</button>
+    <script>
+      myBtn.addEventListener('click', function(){
+        myBtn.classList.add("blue");  // blue 클래스 속성값 지정
+        myBtn.classList.remove("blue");  // 클래스 제거
+        myBtn.classList.toggle("blue");  // 클래스를 토글함. 없으면 넣어줌
+        myBtn.classList.contains("blue");  // 클래스 존재 유무 확인
+      })
+    </script>
+</body>
+```
+
+#### :three: 요소 제어 
+
+- DOM api를 이용해서 요소를 새로이 생성하고, 위치시키고, 제거할 수 있음
+
+```html
+<ul></ul>
+<button>make me more!</button>
+<style>
+  // document.createElement(target); target 요소를 생성
+  // document.createTextNode(target); target 텍스트를 생성
+  // element.appendChild(target);    target 요소를 element의 자식으로 위치시킴
+  // element.removeChild(target);    element의 target 자식 요소를 제거함 
+                                     
+  const myBtn = document.querySelector("button");
+  const myUl = document.querySelector("ul");
+
+  myBtn.addEventListener('click', function(){
+  for(let i=0; i < 5; i++){
+    const myLi = document.createElement('li');
+    myUl.appendChild(myLi);
+  }
+  })
+</style>
+```
+
+#### :four: JavaScript 문자열을 사용해 element, text 노드를 생성 및 추가
+
+- DOM api를 이용해서 요소 안의 값에 접근하여 값을 가져오거나 변경할 수 있음
+
+```html
+<body>
+<p></p>
+<input type="text">
+<button>Write Something!</button>
+
+<script>
+const myBtn = document.querySelector("button");
+const myP = document.querySelector("p");
+const myInput = document.querySelector("input");
+
+myBtn.addEventListener('click', function(){
+	myP.textContent = myInput.value;
+});
+
+// input 요소에 'input' 이벤트를 연결하여 실시간으로 값이 반영되게 만듦
+myInput.addEventListener('input', ()=>{
+  myP.textContent = myInput.value;
+});
+
+myP.innerHTML = "<strong>I'm Strong!!</strong>";
+myP.outerHTML = "<div></div>";
+
+</script>
+</body>
+```
+
+##### innerHTML
+  - 요소(element) 내에 포함된 HTML 마크업을 가져오거나 설정함
+  - innerText 속성은 요소의 렌더링된 텍스트 콘텐츠를 나타냄
+  <br>(innerText는 "사람이 읽을 수 있는" 요소만 처리함)
+
+##### textContent 
+  - textContent 속성은 노드의 텍스트 콘텐츠를 표현함
+
+
+
+
+
+
+<br>
+
 ## JS 이벤트
 
 - `이벤트`: 시스템에서 발생하는 작업 또는 사건
@@ -119,8 +259,6 @@
 
 ### 이벤트 핸들러
 
-
-
 <br>
 
 ### load event
@@ -131,28 +269,20 @@
 
 <br>
 
-
 ## canvas API
 
 - 재미로 볼것
 - [exam12.html](./exam14.html)
 
-
 <br>
-
 
 ## 이벤트 버블링 & 이벤트 캡쳐링
 
 - [stopPropagation](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation)
 - [stopPropagation2](https://www.w3schools.com/jsref/event_stoppropagation.asp)
 
-
-
-
 ## 이벤트 캡쳐링
-
 
 <br>
 
 ## JSON
-
