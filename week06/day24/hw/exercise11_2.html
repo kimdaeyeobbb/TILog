@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>고전 이벤트 모델</title>
+  </head>
+  <body>
+    <h1>이벤트 모델-고전</h1>
+    <hr />
+    <button id="red">빨강색</button>
+    <button id="blue">파랑색</button>
+    <button id="yellow">노랑색</button>
+    <hr />
+    <h2 id="today"></h2>
+    <script>
+      /* 오늘 날짜 구하기 */
+      const today = new Date();
+      const month = today.getMonth() + 1;
+      const date = today.getDate();
+      const showDate = (m, d) => {
+        return `오늘은 ${m}월 ${d}일입니다`;
+      };
+
+      /* 화면에 날짜 출력 */
+      const domDate = document.getElementById("today");
+      domDate.innerHTML = showDate(month, date);
+
+      /* 색상 변경 */
+      const doms = document.getElementsByTagName("button");
+
+      const changeColorRed = () => {
+        domDate.style.color = doms[0].id;
+      };
+      const changeColorBlue = () => {
+        domDate.style.color = doms[1].id;
+      };
+      const changeColorYellow = () => {
+        domDate.style.color = doms[2].id;
+      };
+
+      doms[0].onclick = changeColorRed;
+      doms[1].onclick = changeColorBlue;
+      doms[2].onclick = changeColorYellow;
+    </script>
+  </body>
+</html>

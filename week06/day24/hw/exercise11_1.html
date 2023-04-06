@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>인라인 이벤트 모델</title>
+  </head>
+  <body>
+    <h1>이벤트 모델-인라인</h1>
+    <hr />
+    <button onclick="changeColor('red');">빨강색</button>
+    <button onclick="changeColor('blue')">파랑색</button>
+    <button onclick="changeColor('yellow')">노랑색</button>
+
+    <hr />
+    <h2 id="today"></h2>
+    <script>
+      /* 오늘 날짜 구하기 */
+      const today = new Date();
+      const month = today.getMonth() + 1;
+      const date = today.getDate();
+      const showDate = (m, d) => {
+        return `오늘은 ${m}월 ${d}일입니다`;
+      };
+
+      /* 화면에 날짜 출력 */
+      const dom = document.getElementById("today");
+      dom.innerHTML = showDate(month, date);
+
+      /* 색상 변경 */
+      const changeColor = (inpColor) => {
+        dom.style.color = inpColor;
+      };
+    </script>
+  </body>
+</html>

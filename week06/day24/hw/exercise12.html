@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>exercise12</title>
+    <style>
+      body {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 onclick="location.href='https://ko.wikipedia.org/wiki/구구단'">
+      구구단
+    </h1>
+    <hr />
+    <div>
+      <button>1단</button>
+      <button>2단</button>
+      <button>3단</button>
+      <button>4단</button>
+      <button>5단</button>
+      <button>6단</button>
+      <button>7단</button>
+      <button>8단</button>
+      <button>9단</button>
+    </div>
+    <hr />
+    <div id="gugu"></div>
+    <script>
+      const gugudanArea = document.getElementById("gugu");
+
+      const getGuGudan = (dan) => {
+        let txt = "";
+        for (let num = 1; num <= 9; num++) {
+          txt += `${dan} X ${num} = ${dan * num} <br>`;
+        }
+
+        gugudanArea.innerHTML = txt;
+      };
+
+      const btns = document.getElementsByTagName("button");
+
+      let dan = 0;
+
+      for (let i = 0; i < 9; i++) {
+        btns[i].addEventListener("click", (e) => {
+          dan = parseInt(e.target.innerText[0]);
+          getGuGudan(dan);
+        });
+      }
+    </script>
+  </body>
+</html>
