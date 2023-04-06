@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+  </head>
+  <body>
+    <h1>DOM 프로그래밍</h1>
+    <hr />
+    <button onclick="updateTitle();">제목변경</button>
+    <button onclick="updateColor();">제목칼라변경</button>
+
+    <!--마우스를 올렸을때 이미지가 변경되게 함-->
+    <button onmouseover="updateImage();">이미지변경</button><br />
+    <img src="../../images/1.jpg" width="200" />
+
+    <script>
+      // 인덱싱을 안하면 DOM객체가 아닌 DOM객체를 보관하고 있는 Collections 객체를 가져옴
+      const dom = document.getElementsByTagName("h1")[0];
+
+      /* 제목 변경 함수 */
+      function updateTitle() {
+          const msg = window.prompt("제목을 입력하세요");
+          if (msg != "" && msg != null) {
+              dom.textContent = msg;
+          }
+
+      /*  색상 변경 함수 */
+      function updateColor() {
+          const randomValue = Math.random();
+          const colorCode = '#'+Math.round(Math.random() * 0xffffff).toString(16);
+          console.log(colorCode);
+          //dom.style.color = colorCode;
+          // color 변경 코드
+          // style 속성과 연이어 css 속성을 지정하면 스타일이 바뀜. css속성을 그대로 쓸 수 없고 style과 같이 사용해야 함
+          dom.style.backgroundColor = colorCode;
+          // background-color
+          // background-color에서의 -를 그대로 쓸 수 없으므로 카멜케이스로 바꾸어서 사용해야 함
+      }
+
+      /* 이미지 변경 함수 */
+      function updateImage() {
+      	const dom = document.getElementsByTagName("img")[0];
+          const randomValue = Math.random();
+          const imageName = Math.floor(randomValue * 10) + 1;
+          console.log(imageName)
+          dom.src = "../../images/"+imageName+".jpg";
+      }
+    </script>
+  </body>
+</html>

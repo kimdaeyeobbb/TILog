@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+  </head>
+  <body>
+    <!--이벤트 핸들러 미등록-->
+    <h1 style="color: red">세 가지 이벤트 모델</h1>
+    <hr />
+
+    <!--this.textContent 전달-->
+    <h1 onclick="alert(this.textContent);">인라인 이벤트 모델</h1>
+    <hr />
+
+    <!--heading 태그가 block 요소이므로 텍스트가 아닌 다른 영역을 클릭해도 이벤트가 발생함-->
+    <h1 id="t1">고전 이벤트 모델</h1>
+    <hr />
+
+    <h1 id="t2">표준 이벤트 모델</h1>
+    <hr />
+    <script>
+      const dom2 = document.querySelector("#t1");
+      // DOM 객체 찾음
+
+      const dom3 = document.querySelector("#t2");
+      // DOM 객체 찾음
+
+      function f2() {
+        alert(dom2.textContent);
+      }
+      function f3() {
+        alert(dom3.textContent);
+      }
+
+      /* 이벤트 처리 */
+      dom2.onclick = f2;
+      dom3.addEventListener("click", f3);
+    </script>
+  </body>
+</html>

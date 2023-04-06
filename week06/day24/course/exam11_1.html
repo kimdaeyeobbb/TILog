@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>인라인 이벤트 모델</title>
+  </head>
+  <body>
+    <h1>시간정보 출력하기</h1>
+    <hr />
+    <button onclick="startTime()">시간을 알려주라옹...</button>
+    <button onclick="stopTime()">시간 출력을 종료하라옹...</button>
+
+    <!--JS 수행 결과를 내보내는 태그-->
+    <!--div나 span 태그 등을 써도 됨-->
+    <output></output>
+
+    <script>
+      const target = document.getElementsByTagName("output")[0];
+      let interval_id;
+      function startTime() {
+        if (target.innerHTML) {
+          // target은 output 태그
+          // target.innerHTML에 뭔가 값이 있다면 수행할 코드
+
+          window.alert("그만 클릭하라옹... 이미 시간 출력하고 있음!!");
+        } else {
+          // target.innerHTML이 아무것도 가지고 있지 않거나 null인 경우
+          target.innerHTML = "<h2>" + new Date().toLocaleString() + "</h2>";
+          interval_id = window.setInterval(function () {
+            // window.setInterval - JS엔진에 의해 일정시간간격을 두고 함수 호출
+            // setInterval은 등록하는 행동에 대한 id값을 리턴함 (등록 해제를 하고 싶을 때 사용)
+            target.innerHTML = "<h2>" + new Date().toLocaleString() + "</h2>";
+          }, 1000);
+        }
+      }
+      function stopTime() {
+        target.innerHTML = "";
+        window.clearInterval(interval_id);
+        // setInterval, setTimeout은 등록하는 행동에 대한 id값을 리턴함 (등록 해제를 하고 싶을 때 사용)
+        // clearInterval을 수행하지 않으면 일정시간이 지나고 또 수행하는 것을 막을 수 없음
+      }
+    </script>
+  </body>
+</html>

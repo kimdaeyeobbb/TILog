@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+  </head>
+  <body>
+    <h1 style="color: red">세 가지 이벤트 모델</h1>
+    <hr />
+    <h1 onclick="f1(this);">인라인 이벤트 모델</h1>
+    <!--여기서 this -> 클릭이벤틀가 발생한 타겟 객체-->
+
+    <hr />
+    <h1 id="t1">고전 이벤트 모델</h1>
+    <hr />
+    <h1 id="t2">표준 이벤트 모델</h1>
+    <hr />
+    <script>
+      function f1(t) {
+        alert(t.textContent);
+        // alert(this.textContent);   // 인라인 이벤트 모델은 호출된 함수에서는 대상 객체를 참조하지 않으므로 태그 내에서 this를 전달해야함
+        // f1은 이벤트 핸들러의 함수라고 볼 수 없음. 고전 이벤트 모델은 이벤트 발생시 js엔진이 호출된 함수를 직접 해출해주지만 여기서는 f1을 직접 호출할 것임
+        //  여기서는 t 대신 this를 사용하면 window 객체를 참조하게 되므로 매개변수로 사용해서 인자값으로 this를 전달해야 함
+      }
+
+      const dom2 = document.querySelector("#t1");
+      const dom3 = document.querySelector("#t2");
+
+      // 전역적 이벤트 모델에 속하는 애들은 이벤트가 발생했을 때 js엔진이 호출해줌 (콜백 메서드.콜백 메서드 - 어떤 상황이 되었을 경우 자동으로 호출되는 메서드)
+      function f2(e) {
+        alert(e);
+        alert(e.target.textContent);
+        // 생성자 함수 내부에서의 this -> 새로이 만들어진 객체 참조
+        // 전역 코드에서의 this -> 윈도우 객체 참조
+        // 이벤트 함수에서의 this -> 이벤트가 발생하게 된 대상 객체 참조
+        // 여기서는 이벤트의 대상객체인 target 객체 참조 (아래처럼 this.textContent와 동일. 따라서 아래의 코드를 쓰는게 더 간단함)
+
+        alert(this.textContent);
+      }
+      dom2.onclick = f2;
+      dom3.addEventListener("click", f2);
+    </script>
+  </body>
+</html>
