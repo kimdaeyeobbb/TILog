@@ -285,7 +285,6 @@ console.log(whatToEat3.choice());
 - 모든 인스턴스가 공유하는 공간을 prototype을 통해 생성함
 - 프로토타입을 이용하면 메모리 공간의 낭비가 적어짐
 
-
 - [참고자료](https://poiemaweb.com/js-prototype)
 
 #### 프로토타입은 왜 등장했는가
@@ -667,44 +666,55 @@ class ChildRobot extends Robot {
 }
 ```
 
+#### 슈퍼 클래스 & 서브 클래스
+
+| 특징\명칭                      | 슈퍼 클래스                                                                                        | 서브 클래스                                                                                                                                                                                                                                                |
+| :----------------------------- | :------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 다른 명칭                      | 부모 클래스<br>베이스 클래스                                                                       | 자식 클래스<br>파생 클래스                                                                                                                                                                                                                                 |
+| 의미                           | 상속을 해줌으로써 기능이 확장된 클래스                                                             | 상속을 받아 기능을 확장하는 클래스<br>생성한 객체에서 상속받은 속성을 사용할 수 있음                                                                                                                                                                       |
+| constructor                    | 슈퍼 클래스에서 constructor 생략 가능<br>생략시 자동 생성<br>서브 클래스의 `super()`에 의해 호출됨 | 생략시 constructor(arguments){super(arguments)} 자동생성<br>인스턴스 생성 과정에서 상속받은 클래스의 속성과 메서드 접근 권한 추가를 위해 `super()`를 반드시 호출해야 함<br> `new`연산자와 함께 함수를 호출할 경우 서브 클래스의 constructor가 호출(실행)됨 |
+| 상속 받은(한) 클래스 속성 접근 | 슈퍼 클래스로 생성된 객체는 서브 클래스의 속성에 접근할 수 없음                                    | 슈퍼 클래스의 constructor 호출: `super(arg, ...)`<br>슈퍼 클래스의 프로퍼티 호출: `super.슈퍼클래스의 프로퍼티명`<br>슈퍼 클래스의 메서드 호출: `super.슈퍼클래스의 메서드명`                                                                              |
+
+<br>
+
 ### 비공개 프로퍼티
 
 - 객체 내부의 중요한 정보를 안전하게 보호하여 프로그램이 예기치 않게 변경되는 것을 방지함
 - 데이터를 외부에서 함부로 수정할 수 없게끔 도와줌
 
-
 ```js
 class Robot {
-    #password   //  클래스 내 비공개 프로퍼티 선언
+  #password; //  클래스 내 비공개 프로퍼티 선언
 
-    constructor(name, pw) {  
-        this.name = name;
-        this.#password = pw;   // 비공개 프로퍼티에 인자 할당
-    }
+  constructor(name, pw) {
+    this.name = name;
+    this.#password = pw; // 비공개 프로퍼티에 인자 할당
+  }
 
+  sayYourName() {
+    console.log(`삐리비리. 제 이름은 ${this.name}입니다. 주인님.`);
+  }
 
-    sayYourName() {
-        console.log(`삐리비리. 제 이름은 ${this.name}입니다. 주인님.`);
-    }
+  getPassword() {
+    return this.#password; // 인스턴스의 패스워드
+  }
 
-    getPassword() {
-        return this.#password   // 인스턴스의 패스워드
-    }
-
-    setPassword(pw) {     // 값을 수정
-        this.#password = pw;
-    }
+  setPassword(pw) {
+    // 값을 수정
+    this.#password = pw;
+  }
 }
 
-const robot = new Robot('DANNY', '1234');
-console.log(robot.name);   // 'DANNY'
-console.log(robot.#passowrd)   // error
+const robot = new Robot("DANNY", "1234");
+console.log(robot.name); // 'DANNY'
+console.log(robot.#passowrd); // error
 
 // Uncaught Error: Cannot read private member #passowrd from an object whose class did not declare it at <anonymous>
 ```
+
 - `#` 키워드를 이용하면 프로퍼티를 비공개로 전환할 수 있음
 - `#password`값에 접근하고 수정하기 위해서는 반드시 해당 기능의 메서드를 사용해야함
-<br> (getter, setter)
+  <br> (getter, setter)
 
 - 이외에도 클로저를 이용해서 비공개 프로퍼티를 만들 수 있음
 
@@ -713,61 +723,115 @@ console.log(robot.#passowrd)   // error
 - 외부에서 접근할 수 없는 폐쇄된 공간에 접근하기 위해 사용되는 테크닉
 - 클래스 이전에 비공개로 사용하던 방
 
-
 #### getter, setter
 
 - getter
   - 값을 불러오는 메서드
-  
 - setter
+
   - 값을 수정하는 메서드
 
-
 - 비공개 프로퍼티를 사용하는 경우 getter, setter 메서드를 이용해서 외부에서 변경 할 수 있음
-<br>(프로퍼티를 함수를 통해 가공해야하는 경우에 사용하면 좋음)
+  <br>(프로퍼티를 함수를 통해 가공해야하는 경우에 사용하면 좋음)
 
 - getter, setter 메서드를 이용해서 객체의 프로퍼티에 접근하듯 값을 다룰 수 있음
+  <br> (getter, setter를 이용해서 정보를 조회 및 수정할 수 있음)
 
 ```js
 class Robot {
-    #password
+  #password;
 
-    constructor(name, pw) {
-        this.name = name;
-        this.#password = pw;
-    }
+  constructor(name, pw) {
+    this.name = name;
+    this.#password = pw;
+  }
 
+  sayYourName() {
+    console.log(`삐리비리. 제 이름은 ${this.name}입니다. 주인님.`);
+  }
 
-    sayYourName() {
-        console.log(`삐리비리. 제 이름은 ${this.name}입니다. 주인님.`);
-    }
+  /* get, set 키워드를 사용해서 객체의 프로퍼티에 접근하듯 값을 다룰 수 있게 됨 */
+  // 메서드명도 동일해짐
+  get password() {
+    return this.#password;
+  }
 
-/* get, set 키워드를 사용해서 객체의 프로퍼티에 접근하듯 값을 다룰 수 있게 됨 */
-// 메서드명도 동일해짐
-    get password() {
-        return this.#password
-    }
-
-    set password(pw) { 
-        this.#password = pw;
-    }
+  set password(pw) {
+    this.#password = pw;
+  }
 }
 
-const bot = new Robot('재현', 1234);   // 인스턴스 생성
+const bot = new Robot("재현", 1234); // 인스턴스 생성
 
-bot.password = 5678;
-console.log(bot.password);  // 5678
+bot.password = 5678; // setter 함수의 추가로 인해 수정이 가능해짐
+console.log(bot.password); // 5678
 ```
 
+<br>
+
+### static field
+
+프로퍼티에는 2가지 종류의 프로퍼티가 존재함
+
+1. 인스턴스 프로퍼티
+
+   - 주어진 특정한 인스턴스(객체)들과 공유되는 데이터를 가짐
+   - 객체에서 접근을 해주어야 함
+   - 개별의 객체들만이 가져야 하는 속성
+
+2. 스태틱 프로퍼티
+   - 모든 객체 인스턴스들과 공유되는 데이터를 가짐
+   - 클래스에서 접근을 해주어야 함
+   - 클래스 자체가 가지는 속성
+
+```js
+class Student {
+  static isHuman = true;
+  static age = "19";
+  subject = "TypeScript";
+  #id;
+  constructor(id, name, topics) {
+    this.#id = id;
+    this.name = name;
+    this.topics = topics;
+  }
+
+  get id() {
+    return this.#id;
+  }
+  set id(val) {
+    this.#id = val;
+  }
+}
+
+let student1 = new Student(11, "danny", ["반복문", "조건문", "인터페이스"]);
+console.log(student1.isHuman); // undefined
+console.log(student1.age); // undefined
+
+console.log(student1.isHuman); // true
+console.log(Student.age); // 19
+```
+
+### 프로퍼티에 대해 알아두면 좋은 사항
+
+- 프로퍼티는 객체나 클래스의 속성(또는 상태)임
+- 프로퍼티는 값을 직접 받거나 할당할 수 있음
+- `객체.프로퍼티` 또는 `gettter 메서드`를 이용해서 프로퍼티를 조회할 수 있음
+- `객체.프로퍼티 = ~` 또는 `setter 메서드`를 이용해서 프로퍼티 재할당 및 수정이 가능함
+- `#`을 이용해서 외부로부터 접근이 불가능한 `private 필드`로 설정이 가능함
+- `static`을 이용하면 클래스 자체에 속성 혹은 상태를 지정할 수 있음
 
 <br>
 
 ## this
 
+- 생성자 함수 내부에서의 this -> 새로이 만들어진 객체 참조
+- 전역 코드에서의 this -> 윈도우 객체 참조
+- 이벤트 함수에서의 this -> 이벤트가 발생하게 된 대상 객체 참조
+
 ### 객체 안에서의 this
 
 ### 이벤트 핸들러 안에서의 this
-
 
 <br>
 
@@ -794,7 +858,6 @@ console.log(bot.password);  // 5678
 - 모든 객체는 window의 자식임 (ECMAScript상 Global 객체라고도함)
 - ECMAScript의 전역객체이면서 웹브라우저의 창이나 프레임을 제어하는 역할을 함
 
-
 #### 사용 예시
 
 ```html
@@ -802,7 +865,7 @@ console.log(bot.password);  // 5678
 <script>
   alert("Hello world");
   window.alert("Hello World");
-</script> 
+</script>
 ```
 
 ```html
@@ -816,7 +879,7 @@ console.log(bot.password);  // 5678
 
 ```html
 <script>
-  var a = {id: 1};
+  var a = { id: 1 };
   alert(a.id);
   alert(window.a.id);
 </script>
@@ -830,7 +893,6 @@ console.log(bot.password);  // 5678
 - [참고자료 3](https://www.w3schools.com/jsref/met_win_setinterval.asp)
 
 <br>
-
 
 ### location 객체
 
@@ -851,22 +913,24 @@ console.log(location.toString(), location.href);
 - location 객체는 URL을 의미에 따라서 별도의 프로퍼티를 제공함
 
 ```js
-console.log(location.protocol, 
-location.host, 
-location.port, 
-location.pathname, 
-location.search, 
-location.hash)
+console.log(
+  location.protocol,
+  location.host,
+  location.port,
+  location.pathname,
+  location.search,
+  location.hash
+);
 ```
 
 #### 현재 문서를 이동
 
 ```js
 /*  현재 문서를 http://egoing.net으로 이동한다 */
-location.href = 'http://egoing.net';
+location.href = "http://egoing.net";
 
 /*  현재 문서를 http://egoing.net으로 이동한다 */
-location = 'http://egoing.net';
+location = "http://egoing.net";
 ```
 
 #### 현재 문서를 리로드
@@ -887,7 +951,6 @@ location.reload();
 - [참고자료6](https://www.w3schools.com/html/html5_geolocation.asp)
 - [참고자료7](https://www.gov-ncloud.com/product/applicationService/geoLocation)
 
-
 - [예제코드1](./exam4.html)
 
 <br>
@@ -904,7 +967,6 @@ location.reload();
 #### navigator.platform
 
 - 브라우저가 실행 중인 운영체제정보를 알려줌
-
 
 <br>
 
@@ -926,8 +988,8 @@ location.reload();
 - 플랫폼/언어 중립적으로 구조화된 문서를 표현하는 W3C의 공식 표준임
   <br>(W3C가 표준화한 여러개의 API의 기반이 됨)
 - 브라우저는 서버로부터 응답된 웹 컨텐츠 내용을 파싱한 다음 트리구조로 각 HTML태그마다 DOM 기술을 적용하여
-JS객체를 생성함
-<br> => 바로 이 객체가 `DOM 객체`임
+  JS객체를 생성함
+  <br> => 바로 이 객체가 `DOM 객체`임
 
 - DOM 객체를 통해서 HTML 문서의 내용을 접근하여 읽는 기능 뿐만 아니라 내용을 수정/삭제/추가 등 변경하는 기능을 처리할 수 있음
 
@@ -937,17 +999,16 @@ JS객체를 생성함
 
 - body의 자식 태그 : div(1개)
 - body의 자손 태그 : div, h1, p (3개)
-- body의 자식 노드 : 
+- body의 자식 노드 :
 
 ```html
 <body>
-<div>
-  <h1></h1>
-  <p></p>
-</div>
+  <div>
+    <h1></h1>
+    <p></p>
+  </div>
 </body>
 ```
-
 
 ### document 객체
 
@@ -979,10 +1040,9 @@ JS객체를 생성함
 
 - 모든 요소들이 가지고 있는 속성
 - 찾아온 요소 객체에 대한 text 형식에 대한 컨텐츠를 꺼낼 때 사용
--  textContent는 html 태그를 태그로 인정하지 않고 일반 문자열로 인식
-<br>(태그가 태그로 렌더링 되기를 원한다면 innerHTML을 써야 함)
-<br> (과거의 innerText가 textContent로 바뀜)
-
+- textContent는 html 태그를 태그로 인정하지 않고 일반 문자열로 인식
+  <br>(태그가 태그로 렌더링 되기를 원한다면 innerHTML을 써야 함)
+  <br> (과거의 innerText가 textContent로 바뀜)
 
 - [참고자료](https://developer.mozilla.org/ko/docs/Web/API/Node/textContent)
 
@@ -993,14 +1053,11 @@ JS객체를 생성함
 
 <br>
 
-
 ### Node
 
 - [참고자료](http://www.tcpschool.com/ajax/ajax_basic_node)
 
-
 <br>
-
 
 ### setTimeOut
 
