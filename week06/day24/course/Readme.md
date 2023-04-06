@@ -118,3 +118,41 @@
 <br>
 
 ### 이벤트 핸들러
+
+
+
+<br>
+
+### load event
+
+- [exam12.html](./exam12.html)
+- [exam12_1.html](./exam12_1.html)
+- [exam12_2.html](./exam12_2.html)
+
+<br>
+
+
+## canvas API
+
+- 재미로 볼것
+- [exam12.html](./exam14.html)
+
+
+<br>
+
+
+## 이벤트 버블링 & 이벤트 캡쳐링
+
+- [stopPropagation](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation)
+- [stopPropagation2](https://www.w3schools.com/jsref/event_stoppropagation.asp)
+
+
+
+
+## 이벤트 캡쳐링
+
+
+<br>
+
+## JSON
+
