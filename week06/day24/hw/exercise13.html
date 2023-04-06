@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>exercise13</title>
+    <script src="./util.js"></script>
+  </head>
+  <body>
+    <h1>이벤트 처리 실습</h1>
+    <hr />
+    <div>
+      <button>맑음</button>
+      <button>흐림</button>
+      <button>비</button>
+    </div>
+    <hr />
+    <img src="" />
+
+    <script>
+      function clickHandler(e) {
+        // console.log("이 타겟 텍스트 컨텐츠: ", e.target.textContent);
+        // console.log("이 타겟: ", e.target);
+
+        const weathers = document.getElementsByTagName("button");
+        const sunny = weathers[0];
+        const cloudy = weathers[1];
+        const rainy = weathers[2];
+
+        const weatherImgList = {
+          맑음: "./images/sun.png",
+          흐림: "./images/cloud.png",
+          비: "./images/rain.png",
+        };
+
+        let weather = "";
+        let weatherSrc = "";
+        for (let i = 0; i <= 2; i++) {
+          weathers[i].addEventListener("click", (e) => {
+            e.stopPropagation();
+            weather = e.target.innerText;
+            weatherSrc = weatherImgList[weather];
+            //console.log("웨더: ", weatherSrc);
+            //console.log("이미지", document.getElementsByTagName("img")[0]);
+            let img = document.getElementsByTagName("img")[0];
+            img.setAttribute("src", weatherSrc);
+            //console.log("바뀐 이미지 : ", img);
+          });
+        }
+      }
+
+      window.addEventListener("click", clickHandler);
+    </script>
+  </body>
+</html>
