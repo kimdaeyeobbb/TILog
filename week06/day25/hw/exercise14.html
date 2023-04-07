@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>exercise14</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <header>
+      <h1
+        class="text-4xl text-sky-400 text-center m-8 font-bold hover:animate-pulse"
+      >
+        김대엽의 HTML5 API 실습
+      </h1>
+    </header>
+
+    <main>
+      <div class="space-x-1 space-y-4 text-center my-4">
+        <button
+          onclick="draw()"
+          class="w-1/8 bg-blue-500 hover:bg-blue-300 text-white font-bold py-2 px-4 rounded"
+        >
+          그린 그림 불러오기
+        </button>
+        <button
+          onclick="save()"
+          class="w-1/8 bg-blue-500 hover:bg-blue-300 text-white font-bold py-2 px-4 rounded"
+        >
+          데이터 저장하기
+        </button>
+        <button
+          onclick="load()"
+          class="w-1/8 bg-blue-500 hover:bg-blue-300 text-white font-bold py-2 px-4 rounded"
+        >
+          데이터 읽어오기
+        </button>
+        <button
+          onclick="remove()"
+          class="w-1/8 bg-blue-500 hover:bg-blue-300 text-white font-bold py-2 px-4 rounded"
+        >
+          데이터 삭제하기
+        </button>
+        <button
+          onclick="removeEver()"
+          class="w-1/8 bg-blue-500 hover:bg-blue-300 text-white font-bold py-2 px-4 rounded"
+        >
+          데이터 영구 삭제하기
+        </button>
+      </div>
+      <div class="flex justify-center">
+        <canvas
+          id="myCanvas"
+          width="400"
+          height="450"
+          class="shadow-xl"
+        ></canvas>
+      </div>
+      <script src="./canvas.js"></script>
+    </main>
+  </body>
+</html>
