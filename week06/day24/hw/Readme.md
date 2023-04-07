@@ -55,3 +55,71 @@
   </body>
 </html>
 ```
+
+# exercise13 풀이
+
+- 요구사항을 충족 시키기 위해서 공통 부모에 이벤트를 등록해야 함
+
+## 1번
+
+```html
+<body>
+<h1>이벤트 처리 실습</h1>
+<hr>
+<div>
+    <button>맑음</button>
+    <button>흐림</button>
+    <button>비</button>
+</div>
+<hr>
+<img src="">
+<script>
+    var dom1 = document.getElementByTagName("body")[0];
+    var dom2 = document.getElementsByTageName("img")[0];
+    
+    function changImg(e){
+        if(e.target.nodeName === "BUTTON"){
+            if(e.target.textContent === '맑음'){
+                dom2.src = "/edu/images/sun.png";
+            } else if (e.target.textContent === '흐림'){
+                dom2.src = "/edu/images/cloud.png";
+            } else {
+                dom2.src = "../../images/rain.png;
+            }
+        }
+    }
+</script>
+</body>
+```
+
+
+## 2번
+
+```html
+<header>
+    <h1>이벤트 처리 실습</h1>
+</header>
+<section id="select-weather">
+    <div id="btn-container">
+        <button class="btn" value="sun">맑음</button>
+        <button class="btn" value="cloud">흐림</button>
+        <button class="btn" value="rain">비</button>
+    </div>
+</section>
+<section id = "show-weather">
+    <div id="img-container"></div>
+</section>
+<script>
+    function showWeather(e){
+        if(e.target.tagName !== "BUTTON"){
+            return;
+        }
+        let showWeather = document.getElementsById('show-weather');
+        showWeather.innerHTML = `<img src= "../../images/${e.target.value}.png`"/>;
+    }
+    let ~
+    ~
+</script>
+```
+
+- 태그를 붙였다 떼었다 하는것보다 속성을 바꾸는게 효율이 좋다
