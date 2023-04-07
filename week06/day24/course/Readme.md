@@ -269,6 +269,55 @@ myP.outerHTML = "<div></div>";
 
 <br>
 
+### 이벤트 객체
+
+- 이벤트에서 호출되는 핸들러에는 이벤트와 관련된 모든 정보를 가지고 있는 매개변수가 전송되는데 이것이 바로
+`이벤트 객체`임
+
+```html
+<body>
+<article class="parent">
+  <ol>
+    <li><button class="btn-first" type="button">버튼1</button></li>
+    <li><button type="button">버튼2</button></li>
+    <li><button type="button">버튼3</button></li>
+  </ol>
+</article>
+<script>
+  const btnFirst = document.querySelector('.btn-first');
+  btnFirst.addEventListener('click', (event) => {
+    console.log(event);
+  });
+</script>
+</body>
+```
+
+### 이벤트 흐름
+
+브라우저 화면에서 이벤트가 발생하면 브라우저는 가장 먼저 이벤트 대상을 찾기 시작한다
+
+![img_2.png](img_2.png)
+
+
+- 브라우저가 이벤트 대상을 찾아갈 때는 최상위의 window 객체부터 document, body 순으로 DOM 트리를
+따라 내려가는데, 이를 `캡처링 단계`라 함
+
+- 이벤트 대상을 찾아가는 과정에서 브라우저는 중간에 만나는 모든 캡처링 이벤트 리스너를 실행시킴
+- 또한 이벤트 대상을 찾아가는 과정에서 브라우저는 중간에 만나는 모든 캡처링 이벤트 리스너를
+실행시킴
+
+
+- 그리고 이벤트 대상을 찾고 캡처링이 끝나면 이제 다시 DOM 트리를 따라 올라가며 만나는
+모든 이벤트 버블링 이벤트 리스너를 실행시키는데, 이를 `이벤트 버를링 단계`라 함
+
+
+- 그리고 이러한 과정에서 이벤트 리스너가 차례대로 실행되는 것을 `이벤트 전파 (event propagation)`라 함
+
+
+
+
+<br>
+
 ## canvas API
 
 - 재미로 볼것
@@ -283,6 +332,7 @@ myP.outerHTML = "<div></div>";
 
 ## 이벤트 캡쳐링
 
-<br>
 
-## JSON
+## 이벤트 버블링
+
+- 이벤트가 발생한 핸들러를 가장 먼저 수행하고, 그 다음 바로 위의 부모를 타고가면서 수행
