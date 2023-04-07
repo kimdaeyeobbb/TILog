@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <script type="application/javascript">
+      function draw_m() {
+        var m_canvas = document.getElementById("m");
+        // m이라는 id값을 가지는 DOM 객체를 받음
+
+        if (m_canvas.getContext) {
+          var m_ctx = m_canvas.getContext("2d");
+
+          m_ctx.fillStyle = "rgb(200,0,0)";
+          m_ctx.fillRect(10, 10, 100, 100);
+          // 시작위치를 캔버스 태그 박스에서 10,10 만큼 떨어진 위치로 지정
+
+          m_ctx.fillStyle = "#0c3";
+          m_ctx.fillRect(50, 50, 100, 100);
+          // 시작위치를 캔버스 태그 박스에서 50,50 만큼 떨어진 위치로 지정
+
+          m_ctx.beginPath();
+          m_ctx.arc(250, 90, 80, 0, Math.PI * 2, true);
+          // 센터 지정: x축 250, y축 90위치
+          // 반지름: 80
+          // 3시 방향(시작지점): 0
+          // Math.PI만 하면 원의 반만 그려짐
+          // true -> 반시계 방향으로 그려줌
+
+          m_ctx.fillStyle = "yellow";
+          m_ctx.strokeStyle = "blue";
+          m_ctx.fill();
+          m_ctx.stroke();
+        } else {
+          alert(
+            "사파리 브라우저나 파이어폭스 1.5 이상의 브라우저에서만 사이트 내용을 제대로 볼 수 있습니다."
+          );
+        }
+      }
+    </script>
+  </head>
+
+  <body onload="draw_m()">
+    <canvas id="m" width="500" height="300"></canvas>
+  </body>
+</html>
