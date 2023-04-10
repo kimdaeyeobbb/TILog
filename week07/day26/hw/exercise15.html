@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>exercise15</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+      window.addEventListener("load", function () {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            const jsonObj = JSON.parse(xhr.responseText);
+            const result = document.getElementById("weather");
+            const header = document.getElementById("weather-head");
+
+            header.innerHTML = "오늘의 날씨 정보 - " + jsonObj.wtext;
+            result.innerHTML =
+              "<h2 class=text-4xl m-4>" +
+              "발표 일시: " +
+              jsonObj.time +
+              "</h2>";
+            result.innerHTML +=
+              "<h3 class=text-3xl m-4>" + "온도: " + jsonObj.temp + "</h3>";
+            result.innerHTML +=
+              "<img class= m-auto " + "src =" + jsonObj.img + ">";
+          }
+        };
+        xhr.open("GET", "./content/w.json", true);
+        xhr.send();
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1 id="weather-head" class="text-5xl m-8 text-center"></h1>
+    </header>
+    <hr />
+    <main>
+      <div id="weather" class="text-center"></div>
+    </main>
+  </body>
+</html>
