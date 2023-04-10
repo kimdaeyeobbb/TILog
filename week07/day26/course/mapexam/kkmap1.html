@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Kakao 지도 시작하기</title>
+</head>
+<body>
+<!--지도를 그릭 ㅣ위한 태그로는 주로 div 태그 사용함-->
+	<div id="map" style="width:800px;height:500px;"></div>
+
+<!--	개발자로 등록 후 키를 발급받아야 함-->
+	<script  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1cc2187c8717ffab77eb12ceab5806ae"></script>
+	<script>
+		const container = document.getElementById('map');
+		const options = {
+		// 지도를 그리기 위해서는 최소 2개의 정보(center, level)가 필요함
+			center: new kakao.maps.LatLng(37.4950959654807, 127.122426977874),
+			level: 3
+		};
+		var map = new kakao.maps.Map(container, options);
+	</script>
+</body>
+</html>
