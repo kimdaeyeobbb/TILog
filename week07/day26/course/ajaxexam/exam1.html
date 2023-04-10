@@ -20,7 +20,6 @@
 		function requestAjax() {
 			const xhr = new XMLHttpRequest();
 			xhr.onload = function () {                // onreadystatechange = 함수
-			// readystatechange 이벤트 => 응답이 다 오면 4
 				const result = document.getElementById("result");
 				result.innerHTML += req.responseText + "<hr>";				
 			}
