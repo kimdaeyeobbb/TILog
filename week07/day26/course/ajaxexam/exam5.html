@@ -11,15 +11,24 @@
 	  let id, form;
 	  function handleButtonPress(e){
 	     e.preventDefault();
+	     // form 태그는 기본 이벤트 핸들러를 내장하고 있으므로 preventDefault 수행 해야함
+
 	     xhr =  new XMLHttpRequest();
 	     form = document.querySelector("#loginf");
 	     id = document.querySelector("#id");
 	     const passwd = document.querySelector("#passwd");
-	     const queryString = `id=${id.value}&passwd=${passwd.value}`;
+	     const queryParam = `id=${id.value}&passwd=${passwd.value}`;
 	     xhr.addEventListener("load", handleResponse);
+
 	     xhr.open("POST", form.action, true);
+	     // form - DOM객체를 직접 읽어옴
+	     // form 태그는 기본 이벤트 핸들러를 내장하고 있으므로 preventDefault 수행 해야함
+	     // 요청 대상- form.action
+
 	     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	     xhr.send(queryString);
+		// 이러한 MIME type을 꼭 전달해주어야 함
+
+	     xhr.send(queryParam);
 	  }
 	  function handleResponse() {
 		 const jsonObj = JSON.parse(xhr.responseText);
