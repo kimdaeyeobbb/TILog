@@ -15,15 +15,25 @@ function getImage() {
 	xhr.onload = function(e) {
   		if (this.status == 200) {
     		const blob = e.target.response
+    		// load 이벤트 이므로 e.target을 써도됨. e.target은 load 이벤트가 발생한 대상 객체 (httpRequest 객체)
+    		// blob -> 이진 데이터를 다룸
+
     		const img = document.createElement('img');
+    		// 이 이미지는 서버로부터 받아온 이미지에 대한 이진 컨텐츠를 가지고 document에 출력해야하므로 img 태그를 하나 만듦
+    		// img 태그에 대한 DOM객체를 직접 만듦
+
     		img.width=100;
     		img.height=100;
     		img.src = URL.createObjectURL(blob);
-    		document.body.appendChild(img);    
+    		// 응답 내용을 가지고 가상 url을 만듦 (컨텐츠를 가지고 url을 만듦)
+
+    		document.body.appendChild(img);
+    		// 컨텐츠를 가지고 body 태그에 append
   		}
 	};
 	xhr.open('GET', `/edu/images/${imgname}.jpg`, true);
 	xhr.send();
+	// 네트워크 창의 xhr -> XMLHttpRequest를 통해 요청한 것
 }
 </script>
 </body>
