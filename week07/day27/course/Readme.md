@@ -250,7 +250,6 @@ result = sum.reduce((prev, cur, i) => {
 ## 9. 비동기 프로그래밍
 
 - fetch를 이용해서 AJAX 프로그래밍을 할 수 있음
-- 
 
 
 
@@ -680,6 +679,84 @@ http://localhost:8088/edu/queryget?guestName=%EB%8C%80%EB%8B%88&num=10&food=%EB%
 
 - 전달되는 name & value쌍의 길이 제한이 없게 만들고 싶거나 내용이 외부에 안보이게 만들고 싶을 떄 사용
 
+
+
+<BR>
+
+
+## 요청 재지정
+
+- 클라이언트에서 요청한 페이지 대신 다른 페이지를 클라이언트가 보게 되는 기능으로서 redirect 방법과 forward 방법으로 나뉜다
+
+### forward
+![img_16.png](img_16.png)
+
+- 클라이언트가 요청했을 때 빨간녀석이 대신 응답함 (근데 클라이언트는 빨간녀석이 대신했다는 사실을 모름)
+- MVC 패턴에서 많이 사용함
+- 다른 웹 어플리케이션에서는 불가능 (같은 애플리케이션 내에서 많이 사용)
+
+#### 구현
+
+- RequestDispatcher 의 forward() 메서드를 사용한다.
+
+##### 예시
+
+- http://localhost:8088/forward 입력시 에러 발생
+- http://localhost:8088/edu/forward 입력시 에러 발생
+
+```java
+package core;
+import java.io.IOException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+@WebServlet("/forward")  // 매핑정보. 요청시 /edu/forward 입력시 doGet 메서드가 호출됨
+public class ForwardServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("ForwardServlet 수행");
+// 호출되자마자  출력
+		RequestDispatcher rd =
+				request.getRequestDispatcher("/edu/clientexam/output.html");
+		// context path인 edu를 추가하면 에러가 발생 - 스스로 /edu를 무조건 붙임
+		// 같은 웹 애플리케이션 안에서만 되고 다른 웹 애플리케이션에서는 안되게 하기 위해 스스로 /edu를 이미 붙임
+		// 따라서 포워드할 대상을 지정할 경우에는 context path를 빼고 나머지만 주는것임
+
+//				request.getRequestDispatcher("/clientexam/output.html");
+		// 리퀘스트 디스패쳐 객체를 생성해서 포워드 대상정보를 넘겨줌
+		// 대상: /clientexam/output.html
+
+
+		/*RequestDispatcher rd = 
+				request.getRequestDispatcher("http://www.naver.com/");*/
+		rd.forward(request,  response);
+	}
+}
+
+```
+
+
+### redirect
+
+![img_17.png](img_17.png)
+
+- 클라이언트로 다시 왔다감
+
+- 노란애가 수행하다가 만든결과를 빨간애한테 넘길 수 있음 (객체 공유)
+- 클라이언트가 노란애를 응답시 응답코드: 302, 303
+- 클라이언트 유저는 요청이 바뀌었다고 느낌
+- 같은 웹 애플리케이션이어야 한다는 제한이 없고, 다른 웹 사이트여도 가능함
+<BR> (클라이언트가 다음,구글, 네이버,... 등으로 넘겨도 됨)
+- 점선은 클라이언트와 서버간의 action
+
+- 스프링에서 자기 보다 일을 더 잘하는 컨트롤러가 있으면 redirect해서 더 일을 잘하는 컨트롤러를 요청
+<br> (이러한 케이스를 제외하고 대부분은 forward)
+
+#### 구현
+- HttpServletResponse 의 sendRedirect() 메서드를 사용한다
 
 
 
