@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>링크로 서블릿 요청하기</h1>
+
+<!--get방식의 장점 -->
+<a href="/edu/queryget?guestName=둘리&num=11&food=갈비&food=떡볶이">둘리</a>
+<br>
+<a href="/edu/queryget?guestName=또치&num=22">또치</a>
+<br>
+<a href="/edu/queryget?guestName=듀크&num=33&food=쌀국수">
+<img src="/edu/images/duke.png" width="100" height=100></a>
+<hr>
+<h1>이름과 좋아하는 숫자 전달하기(GET)</h1>
+<form method="get" action="/edu/queryget">
+<!--    name 속성의 값이 쿼리문자열의 name이 됨 -> 서버에서 해당 쿼리문자열을 추출할 때의 이름이 되므로 반드시 모두 맞춰주어야 함-->
+<input type="text" name="guestName" 
+         placeholder="이름을 입력하세요" required><br>
+<input type="number" name="num" 
+ placeholder="좋아하는 숫자를 입력하세요" required><br>
+<input type="checkbox" name="food" value="볶음밥">볶음밥
+<input type="checkbox" name="food" value="탕수육">탕수육
+<input type="checkbox" name="food" value="피자">피자
+<input type="checkbox" name="food" value="파스타">파스타<br>
+<input type="submit" value="요청(GET)">
+</form>
+<br>
+<hr>
+<h1>이름과 좋아하는 숫자 전달하기(POST)</h1>
+<!--post방식 또한 메서드 속성이 post인것만 다르고 요청방식은 동일-->
+<form method="post" action="/edu/querypost">
+<input type="text" name="guestName" 
+         placeholder="이름을 입력하세요" required><br>
+<input type="number" name="num" 
+ placeholder="좋아하는 숫자를 입력하세요" required><br>
+<input type="checkbox" name="food" value="볶음밥">볶음밥
+<input type="checkbox" name="food" value="탕수육">탕수육
+<input type="checkbox" name="food" value="피자">피자
+<input type="checkbox" name="food" value="파스타">파스타<br>
+<input type="submit" value="요청(POST)">
+</form>
+</body>
+</html>
+
+
+
+
