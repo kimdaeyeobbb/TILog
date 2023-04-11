@@ -112,7 +112,55 @@ let snackImg = response.snackImg();
 - 접근하고자 하는 url과 매개변수로 네트워크 요청을 보낼 수 있음
 
 
+### setTimeout
 
+- `setTimeout`: 일정 시간 후에 특정 코드, 함수를 의도적으로 지연한 다음 실행하고 싶을 때 사용하는 함수
+- for문을 처리하는 동안 다른 작업도 수행하기 위해서 setTimeout 설정을 통해 함수를 비동기 형태로 전환하였다
+
+
+```js
+function time(){
+  setTimeout(()=>{
+    const start = Date.now();
+    for(let i=0; i<10000000; i++){
+    }
+    const end = Date.now();
+    console.log(end-start + "ms");
+  },0);
+}
+
+console.log("시작");
+time();
+console.log("종료");
+```
+
+`setTimeout`<br>
+- 첫번쨰 파라미터: 호출될 콜백함수
+- 두번쨰 파라미터: 지연시간 (ms단위. 1000은 1초, 10000은 10초)
+- 지연시간 뒤에 콜백함수가 실행됨
+
+
+
+- 만약 `time`함수가 끝난 뒤 어떤 작업을 수행하려면 콜백 함수를 파라미터로 전달해주면 됨
+```js
+function time(callback) {
+    setTimeout(() => {
+        const 시작 = Date.now();
+        for (let k = 0; k < 100000000; k++) {
+
+        }
+        const 끝 = Date.now();
+        console.log(끝 - 시작 + 'ms');
+        callback();
+    }, 0);
+}
+
+console.log('시작');
+time(() => {
+    console.log('작업이 끝났습니다.');
+});
+console.log('다음 작업'); 
+```
 
 
 <BR>
@@ -296,7 +344,7 @@ send(문자열);   // POST -> POST의 경우 Query 문자열을 인수로 지정
     - text/plain
     - application/json(text/json)
     - image/gif
-    - image/jpg
+    - image/jpg 
     - image/png (이미지는 가급적 png 권장. 용량은 작고 해상도가 높으므로0)
 
 
