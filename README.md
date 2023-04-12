@@ -11,5 +11,5 @@
 | 4주차 | 참조타입<br/>java.base 모듈<br/>날짜와 시간 형식화<br/>Collections<br/>제네릭<br/>입출력<br/>스트림<br/>객체직렬화<br/>URL <br> Inner Class <br> JDBC                                                                                                      | [4주차 내용 정리 링크](./week04/src) |
 | 5주차 | MVC<br>제네릭<br>멀티 스레드<br/>와일드카드 타입 파라미터<br>제한된 타입 파라미터<br/> 람다식<br/>스트림<br/>네트워크<br/>WEB<br/>HTTP<br/>HTML<br/>CSS                                                                                                              | [5주차 내용 정리 링크](./week05/src) |
 | 6주차 | CSS<br/>JS 변수<br>JS 자료형<br/>JS 연산<br>JS 조건문<br>JS 반복문<br>BOM<br/>JS 배열<br/>JS 함수<br/>JS 예외처리<br/>JS DOM<br/>JS 이벤트<br/>JS 이벤트 버블링<br/>JS 이벤트 캡처링<br/> Canvas API<br/>Multimedia API<br/>Drag&Drop API<br/>Web storage API<br/> |   [6주차 내용 정리 링크](./week06)   |
-| 7주차 | AJAX<br/>XML<br/>JSON<br/>동기/비동기<br/>JS ES6<br/>HTTP<br/>서블릿                                                                                                                                                                   |   [7주차 내용 정리 링크](./week07)   |
+| 7주차 | AJAX<br/>XML<br/>JSON<br/>동기/비동기<br/>JS ES6<br/>HTTP<br/>서블릿<br/>세션<br/>                                                                                                                                                            |   [7주차 내용 정리 링크](./week07)   |
 
