@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>reservation</title>
+</head>
+<body>
+    <header>
+        <h1>펜션 예약 서비스</h1>
+    </header>
+    <hr>
+    <main>
+        <form action="/edu/reservation" method="post">
+            <fieldset>
+                <legend>펜션 예약 서비스</legend>
+                <div>
+                    <label for="subscriber">예약자명 :</label>
+                    <input type="text" name="subscriber" id="subscriber" placeholder="예약자명을 입력하세요"/>
+                </div>
+                <div>
+                    <label for="pw">예약암호 :</label>
+                    <input type="password" name="pw" id="pw" placeholder="예약암호를 입력하세요"/>
+                </div>
+                <div>
+                    룸선택 :
+                    <input type="radio" name="room" id="dooly" value="둘리">
+                    <label for="dooly">둘리</label>
+                    <input type="radio" name="room" id="heedong" value="희동">
+                    <label for="heedong">희동</label>
+                    <input type="radio" name="room" id="douner" value="도우너">
+                    <label for="douner">도우너</label>
+                    <input type="radio" name="room" id="ddochi" value="또치">
+                    <label for="ddochi">또치</label>
+                </div>
+                <div>
+                    추가요청사항 :
+                    <input type="checkbox" name="extraReq" id="barbeque" value="바베큐">
+                    <label for="barbeque">바베큐</label>
+                    <input type="checkbox" name="extraReq" id="swimmingPool" value="수영장">
+                    <label for="swimmingPool">수영장</label>
+                    <input type="checkbox" name="extraReq" id="fishing" value="낚시">
+                    <label for="fishing">낚시</label>
+                    <input type="checkbox" name="extraReq" id="breakfast" value="조식">
+                    <label for="breakfast">조식</label>
+                </div>
+                <div>
+                    <label for="bookedDate">예약날짜: </label>
+                    <input type="date" name="bookedDate" id="bookedDate" >
+                </div>
+                <hr>
+                <input type="submit" value="보내기">
+                <input type="reset" value="다시작성하기">
+            </fieldset>
+        </form>
+    </main>
+</body>
+</html>
