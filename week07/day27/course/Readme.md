@@ -121,7 +121,7 @@ function func1(...args) {
 
 func1(1,2,3,4,5);
 // args에 1,2,3,4,5가 한꺼번에 배열로 담겨 인자로 넘겨진다.
-// arg1에는 1, arg2에는 2, arg3에는 나머지 3,4,5가 배열로 담겨 인자로 넘겨진다. 
+
 ```
 
 ```js
@@ -129,6 +129,7 @@ function func2(arg1, arg2, ...arg3) {
     console.log(`arg1: ${arg1}, arg2: ${arg2}, arg3: [${arg3}]`) 
     // arg1: 1, arg2: 2, arg3: [3,4,5]
 }
+// arg1에는 1, arg2에는 2, arg3에는 나머지 3,4,5가 배열로 담겨 인자로 넘겨진다. 
 
 func2(1,2,3,4,5);
 ```
