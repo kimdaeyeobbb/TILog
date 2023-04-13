@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>productlog</title>
+    <!--    <script src="https://cdn.tailwindcss.com"></script>-->
+  </head>
+  <body>
+    <!--<header>-->
+    <!--    <h1-->
+    <!--            class="text-5xl font-extrabold dark:text-white my-2.5 mx-0 flex justify-center h-20"-->
+    <!--    >-->
+    <!--        상품 선택 페이지-->
+    <!--    </h1>-->
+    <!--</header>-->
+    <!--<main>-->
+    <!--    <h2-->
+    <!--            class="text-4xl font-bold dark:text-white my-3.5 mx-0 flex justify-center"-->
+    <!--    >-->
+    <!--        원하는 상품을 클릭해 주세요!! 마구마구^^-->
+    <!--    </h2>-->
+    <!--    <hr />-->
+    <!--    <section class="flex flex-row items-stretch">-->
+    <!--        <div-->
+    <!--                class="border-2 border-gray-500/100 m-4 hover:opacity-70 shadow-2xl"-->
+    <!--        >-->
+    <!--            <img src="C:\Users\kimdy\Desktop\DY\Git\dktechin_TIL\week07\day27\course\edu\images\1.jpg" alt="" />-->
+    <!--        </div>-->
+    <!--        <div-->
+    <!--                class="border-2 border-gray-500/100 m-4 hover:opacity-70 shadow-2xl"-->
+    <!--        >-->
+    <!--            <img src="./images/2.jpg" alt="" />-->
+    <!--        </div>-->
+    <!--        <div-->
+    <!--                class="border-2 border-gray-500/100 m-4 hover:opacity-70 shadow-2xl"-->
+    <!--        >-->
+    <!--            <img src="./images/3.jpg" alt="" />-->
+    <!--        </div>-->
+    <!--        <div-->
+    <!--                class="border-2 border-gray-500/100 m-4 hover:opacity-70 shadow-2xl"-->
+    <!--        >-->
+    <!--            <img src="./images/4.jpg" alt="" />-->
+    <!--        </div>-->
+    <!--        <div-->
+    <!--                class="border-2 border-gray-500/100 m-4 hover:opacity-70 shadow-2xl"-->
+    <!--        >-->
+    <!--            <img src="./images/5.jpg" alt="" />-->
+    <!--        </div>-->
+    <!--    </section>-->
+    <!--    <section class="flex items-stretch">-->
+    <!--        <div-->
+    <!--                class="border-2 border-gray-500/100 m-4 hover:opacity-70 shadow-2xl"-->
+    <!--        >-->
+    <!--            <img src="./images/6.jpg" alt="" />-->
+    <!--        </div>-->
+    <!--        <div-->
+    <!--                class="border-2 border-gray-500/100 m-4 hover:opacity-70 shadow-2xl"-->
+    <!--        >-->
+    <!--            <img src="./images/7.jpg" alt="" />-->
+    <!--        </div>-->
+    <!--        <div-->
+    <!--                class="border-2 border-gray-500/100 m-4 hover:opacity-70 shadow-2xl"-->
+    <!--        >-->
+    <!--            <img src="./images/8.jpg" alt="" />-->
+    <!--        </div>-->
+    <!--        <div-->
+    <!--                class="border-2 border-gray-500/100 m-4 hover:opacity-70 shadow-2xl"-->
+    <!--        >-->
+    <!--            <img src="./images/9.jpg" alt="" />-->
+    <!--        </div>-->
+    <!--        <div-->
+    <!--                class="border-2 border-gray-500/100 m-4 hover:opacity-70 shadow-2xl"-->
+    <!--        >-->
+    <!--            <img src="./images/10.jpg" alt="" />-->
+    <!--        </div>-->
+    <!--    </section>-->
+    <!--    <div class="m-32 border-2 border-blue-500">-->
+    <!--        <h3-->
+    <!--                class="text-3xl font-bold dark:text-white my-4 mx-0 flex justify-center"-->
+    <!--        >-->
+    <!--            선택한 상품 리스트-->
+    <!--        </h3>-->
+    <!--        <hr />-->
+    <!--        <div class="p-4">-->
+    <!--            <ul-->
+    <!--                    class="max-w-md space-y-1 list-disc list-inside dark:text-gray-400"-->
+    <!--            >-->
+    <!--                <li>p001 상품 3개</li>-->
+    <!--                <li>p003 상품 1개</li>-->
+    <!--                <li>p007 상품 2개</li>-->
+    <!--            </ul>-->
+    <!--        </div>-->
+    <!--        <button>상품 비우기</button>-->
+    <!--    </div>-->
+    <header>
+      <h1>상품 선택 페이지</h1>
+    </header>
+    <main>
+      <h2>원하는 상품을 클릭해주세요!! 마구마구^^</h2>
+      <hr />
+      <section id="img-container"></section>
+      <section id="chosen-products-wrapper">
+        <h3>선택한 상품 리스트</h3>
+        <hr />
+        <article id="chosen-product"></article>
+        <button id="empty">상품 비우기</button>
+      </section>
+    </main>
+
+    <script>
+      const imgContainer = document.querySelector("#img-container");
+      const chosenproduct = document.querySelector("#chosen-product");
+      const empty = document.querySelector("#empty");
+      function createImgElement() {
+        let img;
+        for (let i = 1; i < 11; i++) {
+          img = document.createElement("img");
+          img.id = i;
+          img.src = `./images/${i}.jpg`;
+          img.style.width = "200px";
+          img.style.height = "200px";
+          img.style.margin = "10px";
+          img.style.border = "1px solid black";
+          img.style.cursor = "pointer";
+          imgContainer.appendChild(img);
+        }
+      }
+
+      function createResult(json) {
+        const str = JSON.parse(json);
+        let ul = "<ul>";
+        let li;
+        Object.keys(str).forEach((key) => {
+          li = `${key} : 상품 ${str[key]}개 <br />`;
+          ul += li;
+        });
+        ul += "</ul>";
+        chosenproduct.innerHTML = ul;
+      }
+
+      function emptyResult(json) {
+        const str = JSON.parse(json); // xml이 아닌 json이므로 파싱필요
+        let ul = "<ul>";
+        let li;
+        Object.keys(str).forEach((key) => {
+          li = `${key} : ${str[key]} <br />`;
+          ul += li;
+        });
+        ul += "</ul>";
+        chosenproduct.innerHTML = ul;
+      }
+
+      empty.addEventListener("click", (e) => {
+        e.preventDefault();
+        const xhr = new XMLHttpRequest();
+
+        xhr.onload = () => {
+          if (xhr.status === 200) {
+            emptyResult(xhr.responseText);
+          }
+        };
+        xhr.open("GET", "/edu/basket");
+        xhr.send();
+      });
+
+      imgContainer.addEventListener("click", (e) => {
+        e.preventDefault();
+        const target = e.target;
+        console.log("타겟 아이디", target);
+        if (!isNaN(target.id)) {
+          const xhr = new XMLHttpRequest();
+
+          xhr.onload = () => {
+            if (xhr.status === 200) {
+              createResult(xhr.responseText);
+            }
+          };
+          xhr.open("GET", `/edu/basket?imgId=${target.id}`);
+          xhr.send();
+        }
+      });
+
+      onload = createImgElement;
+    </script>
+    <!--</main>-->
+  </body>
+</html>
