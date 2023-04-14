@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #findLotto{
+            color: red;
+        }
+        #submitImg{
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>로또 번호 탐색기</h1>
+</header>
+<main>
+    <h2 id="findLotto">로또 번호를 맞춰보세요!!!</h2>
+    <hr>
+    <form action="/mvc/lotto1" method="get">
+        <label for="num">1부터 6까지의 숫자를 입력하세요: </label>
+        <input type="number" id="num" name="num">
+        <!--            이미지를 input 태그로 구현하면 x,y좌표가 같이 전송되는 것이 디폴트-->
+        <!--            이를 이용하여 다르게 서비스를 구현할 수 있을 것임-->
+        <input type="image" src="./images/clover.png" alt="제출버튼" id="submitImg">
+    </form>
+</main>
+</body>
+</html>
