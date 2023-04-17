@@ -3,6 +3,8 @@ package week07.day30.hw;
 // private 타입 멤버변수 – hour, minute
 // 생성자와 getter
 public class TimeVO {
+    // getter만 있는것이 VO
+    // getter와 setter 모두가 있는 것이 DTO
     private int hour;
     private int minute;
 
@@ -15,16 +17,8 @@ public class TimeVO {
     public int getHour() {
         return hour;
     }
-
-    public void setHour(int hour) {
-        this.hour = hour;
-    }
-
     public int getMinute() {
         return minute;
     }
 
-    public void setMinute(int minute) {
-        this.minute = minute;
-    }
 }
