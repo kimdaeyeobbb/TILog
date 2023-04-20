@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--	속성으로 주는 것-->
+<bean id="messageBean" class="sample6.MessageBeanImpl"  
+      c:name="Dooly"  
+      p:phone="123-4567"
+      p:outputter-ref="outputRef" />
+<!--	p: 뒤에 호출하고 싶은 프로퍼티명을 작성-->
+<!--p:outputter-ref => ref를 안붙이면 outputRef라는 문자를 전달해버림 (value속성으로 구분하기 위해서 -ref를 붙인 것임)-->
+<!--다른 bean객체에 참조값을 전달하는 상황이면 프로퍼티에 -ref를 붙이는것이 관례임-->
+
+
+<!--	bean으로 등록 (객체 생성해서 등록) 하면서 filePath 설정-->
+<bean id="outputRef" class="sample6.FileOutput"  
+      p:filePath="c:/Temp/data.txt"/>
+
+<!--	단축형을 사용하지 않으면 constructor-arg, property등 서브 태그를 사용-->
+
+
+<!--	서브 태그로 주는것 (속성으로 주는것과 결과가 같음) -->
+<!-- <bean id="messageBean" class="sample6.MessageBeanImpl">
+	<constructor-arg  value="Dooly"/>	
+	<property name="phone"  value="123-4567"/>
+	<property name="outputter" ref="outputRef"/>
+</bean>
+
+<bean id="outputRef" class="sample6.FileOutput">
+	<property name="filePath">
+		<value>data.txt</value>
+	</property>
+</bean> -->
+
+</beans>
+
+
+
+
