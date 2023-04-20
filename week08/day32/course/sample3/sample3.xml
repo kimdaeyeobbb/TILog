@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--	prototype 설정 => 싱글톤과 반대 -->
+<bean id="userService" class="sample3.UserServiceImpl"  scope="prototype"/>
+<bean id="obj1" class="sample3.UserVo">
+<!--	둘리로 초기화되는 userVO 객체 생성-->
+	<constructor-arg value="Dooly"/>	
+</bean>
+<bean id="obj2" class="sample3.UserVo">
+	<constructor-arg value="Duke"/>	
+</bean>
+</beans>

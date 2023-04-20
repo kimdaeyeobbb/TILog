@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--	id라는 속성에 의해 messageBean1이라 작성-->
+<!--	sample1.MessageBeanImpl 객체를 생성 -->
+	<bean id="messageBean1" class="sample1.MessageBeanImpl" >
+<!--		constructor injection. 예를 객체 생성할 떄 생성되는 bean 객체에  인자로 strawberry로 전달하여 객체 생성-->
+<!--		xml문서 형식으로 작성할 경우 스트로베리의 가격이 바뀔떄 유지보수가 용이함 -> 선언적인 프로그래밍-->
+		<constructor-arg>
+			<value>strawberry</value>
+		</constructor-arg>
+
+<!--		객체 생성시 set cost 호출하면서 3000을 넣어달라는것-->
+		<property name="cost">
+			<value>3000</value>
+		</property>
+	</bean>	
+
+<!--	id속성값이 이름이 됨-->
+	<bean id="messageBean2" class="sample1.MessageBeanImpl" >
+
+		<!--		peach라는 impl 클래스 객체를 생성-->
+<!--		value라는 서브 태그 하나를 줬음 -> 문자열을 하나를 받는 애가 있으므로 호출이 될것임-->
+		<constructor-arg>
+			<value>peach</value>
+		</constructor-arg>
+
+<!--		value는 이렇게 속성으로 작성해도되고 messageBean1처럼 서브태그로 작성해도 됨-->
+		<property name="cost"  value="2000" />	
+	</bean>	
+</beans>

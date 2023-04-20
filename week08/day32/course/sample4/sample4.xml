@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--	abstractTest 클래스를 객체로 등록하고자 함-->
+<!--	추상 클래스는 스스로 객체를 생성하지 못하지만 팩토리 메서드를 내장하고 있음.-->
+
+<!--	factory-method -->
+<bean id="test" class="sample4.AbstractTest" 
+                          factory-method="getInstance"/>
+
+</beans>
