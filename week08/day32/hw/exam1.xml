@@ -3,20 +3,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+<!--	constructor-arg나 property 불필요. 빈태그만 작성해보라는 것-->
+	<bean id="morningGreeting" class="exam1.MorningGreetingImpl"/>
+	<bean id="afternoonGreeting" class="exam1.AfternoonGreetingImpl"/>
+	<bean id="eveningGreeting" class="exam1.EveningGreetingImpl"/>
+	<bean id="nightGreeting" class="exam1.NightGreetingImpl"/>
 
-
-<!--	constructor-arg나 property 피룡없음. 빈태그만 작성해보라는 것-->
-	<bean id="morningGreeting" class="exam1.MorningGreetingImpl">
-	</bean>
-
-	<bean id="afternoonGreeting" class="exam1.AfternoonGreetingImpl">
-	</bean>
-
-	<bean id="eveningGreeting" class="exam1.EveningGreetingImpl">
-	</bean>
-
-	<bean id="nightGreeting" class="exam1.NightGreetingImpl">
-	</bean>
-
+<!--	생성자로 객체 생성을 못하기 때문에 팩토리 메서드를 사용해야 함-->
 	<bean id="localDateTime" class="java.time.LocalDateTime" factory-method="now" />
 </beans>
