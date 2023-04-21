@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="sampleanno5" />
+
+<!--	constructor injection-->
+<!--	서브 태그 constructor-arg를 이용해서 둘리라는 값을 주면서 string 객체 초기화-->
+	<bean id="userName" class="java.lang.String">
+		<constructor-arg value="둘리" />
+	</bean>
+
+</beans>
+
+
+
+
+
+
+
+

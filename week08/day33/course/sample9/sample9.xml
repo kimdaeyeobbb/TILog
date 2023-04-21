@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--	bean 객체 5개 생성-->
+
+<!--	user -> setter injection 사용-->
+<bean id="user"  class="sample9.User">
+<!--	프로퍼티 서브태그 사용-->
+	<property name="name" value="Dooly"/>
+	<property name="age"  value="10"/>
+	<property name="hobby" value="swimming"/>
+</bean>
+
+<!--	UserShow의 bean 태그들-->
+<!--	인자를 안받는 객체 생성자를 생성하고 종료 -->
+<!--	해당 빈 태그를 작성할때 constructor-bean 태그가 있는지 유무에 따라 생성자의 인자 유무를 파악-->
+<!--	얘는 인자를 안받는 생성자 객체를 생성함-->
+<bean id="myProcess0"  class="sample9.UserShow" />
+
+<!--	밑에 3개 모두 setter injection-->
+<!--	constructor-arg, property 서브태그 작성을 하지 않아도됨. 하지만 세세한 작성은 힘듦-->
+
+<!--	setter 메서드는 프로퍼티명이 있음. setter의 set을 뺀 나머지를 소문자로 바꾼것이 setter 메서드의 프로퍼티명-->
+<!--	autowire="byName" => 이름으로 injection 해달라는 것 -->
+<!--	byName => 프로퍼티명과 같은 bean 객체를 생성하겠다는 것-->
+<!--	프로퍼티명과 똑같은 객체를 찾아서 만들겠다는 것-->
+<bean id="myProcess1"  class="sample9.UserShow"  autowire="byName"/>
+<!--	autowire="byType" => 타입으로 injection 해달라는 것 -->
+<!--	매개변수 타입과 똑같은 타입의 객체를 찾아서 설정하겠다는 것-->
+<bean id="myProcess2"  class="sample9.UserShow"  autowire="byType"/>
+<!--	생성자를 통해서 injection을 하겠다는것을 지정함-->
+<bean id="myProcess3"  class="sample9.UserShow"  autowire="constructor"/>
+
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

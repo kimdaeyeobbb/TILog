@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+<!--	얘는 setter injection (prorperty라는 서브태그를 추가했으므로) -->
+<!--	(setter 메서드에 의해 설정되는)property라는 서브태그에 의해 객체가 주입-->
+<!-- 테스트1 
+<bean id="myFood" class="sample10.MyFoodMgr">
+	<property name="favoriteFood" ref="favoriteFood"/>
+	<property name="unFavoriteFood" ref="unFavoriteFood"/>
+</bean> -->
+
+
+<!--	테스트2-->
+<!--	Food 객체 2개 생성 (좋아하는 음식, 좋아하지 않는 음식) -->
+<bean id="favoriteFood" class="sample10.Food" >
+	<property name="foodName" value="Bread"/>
+	<property name="foodPrice" value="1500"/>
+</bean>
+<bean id="unFavoriteFood" class="sample10.Food" >	
+	<property name="foodName" value="Noodle"/>
+	<property name="foodPrice" value="2500"/>
+</bean> 
+
+<!-- 테스트3 -->
+<bean id="myFood" class="sample10.MyFoodMgr" autowire="constructor"/>
+
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

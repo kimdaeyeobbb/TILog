@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- How to set properties using XML namespace -->
+<!--	인덱스 개념으로 0,1 을 쓰고 싶으면 언더바(_)를 꼭 붙여야함 -->
+<bean id="developer" class="sample7.Developer"
+        					c:_0="dooly"  c:_1="1500000" p:dept="Development 1 Team"/>
+<bean id="engineer" class="sample7.Engineer"
+        					c:name="duke"  c:salary="2500000" p:dept="Technology 1 Team"/>
+<!--c: constructor injection. 생성시 호출될 argument 지정-->
+
+
+<bean id="emp1"  class="sample7.Emp"
+                           	c:_0="Dooly" c:_1="1500000"/>
+<bean id="emp2"  class="sample7.Emp"
+							c:name="Duke" c:salary="2500000"/>
+</beans>
+
+
+
+
+
+
+
+
+
+
+

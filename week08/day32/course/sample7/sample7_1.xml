@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="developer" class="sample7.Developer">
+<!--	객체 생성시 아래 2개를 호출-->
+	<constructor-arg value="dooly"/>
+	<constructor-arg value="1500000"/>
+
+<!-- 객체 생성시	dept(department) 정보를 Development 1 Team로 설정 하겠다는 것-->
+	<property name="dept"   value="Development 1 Team"/>
+</bean>
+
+<bean id="engineer" class="sample7.Engineer">
+	<constructor-arg   value="duke"/>
+	<constructor-arg   value="2500000"/>
+	<property name="dept"   value="Technology 1 Team"/>	
+</bean>
+
+</beans>

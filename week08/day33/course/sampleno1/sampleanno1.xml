@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+<!--	context또한 네임스페이스 선언이 되어있음-->
+
+
+<!--	sampleno1을 지정하여 application context 객체 생성시-->
+<!--	해당 폴더에 있는 소스들을 하나씩 열어보면서 annotation이 있는지를 확인 -> annotaion에 맞는 객체 생성-->
+따라서 component-scan이 반드시 있어야 함
+<context:component-scan base-package="sampleanno1"/>
+
+<bean id="favoriteFood" class="sampleanno1.Food" 
+				p:foodName="Bread" p:foodPrice="1500"/>
+<bean id="unFavoriteFood" class="sampleanno1.Food" 
+				p:foodName="Noodle" p:foodPrice="2500"/> 
+				
+</beans>
+
+
