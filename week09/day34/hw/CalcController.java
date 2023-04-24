@@ -19,7 +19,7 @@ public class CalcController {
 
         String errMsg = "나눗셈 연산시 두 번째 숫자는 0일 수 없습니다!!";
         if (secondNum != 0){
-            int result = 0;
+            double result = 0;
             switch (operator){
                 case "plus":
                     result = firstNum+secondNum;
