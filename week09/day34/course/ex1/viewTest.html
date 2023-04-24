@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<h2>요청 방식 : [[${ #request.method }]]</h2>
+<h2>요청 대상 : [[${ #request.requestURI }]]</h2>
+<hr>
+<!-- param.pageno이름으로  클라이언트에서 오는 쿼리문자열의 value를 추출해서 이 자리에 출력-->
+<h2>쿼리 문자열 : [[${ param.pageno }]]</h2>
+<hr>
+<a th:href='${ #request.getHeader("referer") }'>다시 요청 해보자</a>
+</body>
+</html>
+
+
+
+
+

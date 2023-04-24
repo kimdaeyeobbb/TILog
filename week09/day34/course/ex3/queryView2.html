@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>응답용JSP</title>
+</head>
+<body>
+<h2>Forward from QueryStringController2 to queryView2.html</h2>
+<hr>
+<!--	if 태그 -> 스프링EL식 혹은 타임리프식이라 함. -->
+<!-- queryDTO!=null이 참이면 ul 태그가 나타나고 거짓이면 ul을 내보내지 않음 -->
+<!--타임리프의 if속성을 쓰지 않으면 내용이 비어있을 것임. 하지만 ul태그니까 ...은 뜰것임.-->
+<!--if속성은 참일경우에 처리되게 만듦-->
+<ul th:if="${queryDTO != null}">
+	<li>[[${ queryDTO.testName }]]</li>
+	<li>[[${ queryDTO.testAge }]]</li>
+	<li>[[${ queryDTO.testAddr }]]</li>
+</ul>
+<!-- spring이 없으면 spring 부분은 출력되지 않음-->
+<h3>Total Query String : [[${ spring }]]</h3>
+<hr>
+<a th:href='${ #request.getHeader("referer") }'>입력화면</a>
+</body>
+</html>
