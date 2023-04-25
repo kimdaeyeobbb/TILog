@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>우리팀 소개</title>
+</head>
+<body>
+<h1>우리팀 소개</h1>
+<hr />
+<button id="myTeam">우리 팀명</button>
+<button id="myTeamMate">우리 팀원</button>
+<br />
+<section id="introduce"></section>
+<script>
+      /* 팀 소개 */
+      const teamBtn = document.getElementById("myTeam");
+      teamBtn.addEventListener("click", showTeam);
+
+      function showTeam() {
+        // AJAX 이용하여 서버에서 비동기통신 요청
+        const xhr = new XMLHttpRequest(); // XMLHttpRequest 객체 생성
+        xhr.onreadystatechange = function () {
+          if (this.readyState === 4 && this.status === 200) {
+            // ReadyState: 4 => request에 대한 처리가 끝났으며 응답할 준비가 완료됨
+            // HTTP status: 200 => 정상
+            const jsonObj = JSON.parse(this.responseText); // JSON.parse => json 형식의 문자열을 읽어서 js객체로 리턴해주는 api
+            document.getElementById(
+              "introduce"
+            ).innerHTML = `<h2>우리 팀의 팀명은 ${jsonObj.teamName}입니다.</h2>`;
+            //
+          }
+        };
+
+        xhr.open("GET", "/myteam", true);
+        // 비동기 방식으로 Request를 오픈 (method, 요청보낼 url, 비동기 조작 여부)
+        // GET 메서드 -> URL의 일부분인 쿼리문자열로 데이터를 서버로 전송. send 메서드의 인수는 무시되고 request body는 null로 설정됨
+        // POST 메서드 -> 데이터(페이로드)를 Request Body에 담아서 전송함
+
+        xhr.send(); // Request를 전송. request body에 담아서 전송할 인수를 전달할 수 있음
+      }
+
+      /* 팀원 소개 */
+      const teamMateBtn = document.getElementById("myTeamMate");
+      teamMateBtn.addEventListener("click", showTeamMate);
+
+      function showTeamMate() {
+        const xhr = new XMLHttpRequest(); // XMLHttpRequest 객체 생성
+        xhr.onreadystatechange = function () {
+          if (this.readyState === 4 && this.status === 200) {
+            let intro = document.getElementById("introduce");
+            const jsonObj = JSON.parse(this.responseText);
+
+            intro.innerHTML = `<h2>${jsonObj.teamName}팀의 팀원들을 소개합니다.</h2>`;
+            intro.innerHTML += "<ul>";
+
+            for (const info of jsonObj.teamMember) {
+              intro.innerHTML += `<li>
+                ${info.name}: 별명은 ${info.nicName}이고 좋아하는 음식은 ${info.food}입니다.
+                </li>`;
+            }
+            intro.innerHTML += "</ul>";
+          }
+        };
+
+        xhr.open("GET", "/myteam", true);
+        xhr.send();
+      }
+    </script>
+</body>
+</html>
