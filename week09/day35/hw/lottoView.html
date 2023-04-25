@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>LottoView</title>
+</head>
+<body>
+<h1>로또 결과</h1>
+<hr>
+<div th:utext="${choice.result}" style="color: red"></div>
+<img th:src="${choice.imgName}"/>
+<hr>
+<a th:if="${choice.imgName == 'images/rain.png'}" th:href='${ #request.getHeader("referer") }' th:text="재시도...."></a>
+</body>
+</html>
