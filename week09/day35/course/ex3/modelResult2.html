@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<!--data1의 이름으로 전달된 것이 content가 되게 만듦 -->
+<h3>data1 : [[${ data1 }]]</h3>
+
+<!--data2라는 이름으로 전달된 value를 뒤에 출력하고자 함-->
+<h3 th:text="|data2 : ${data2}|"></h3>
+<h3 th:text="'data2 : '+${data2}"></h3>
+</body>
+</html>

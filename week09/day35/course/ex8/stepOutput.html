@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <style>
+        table, th, td  {
+            border : 1px solid black;
+            border-collapse: collapse;
+        }
+        td {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<h2>전달된 스텝 정보입니다.</h2>
+<table>
+    <tr><th>스텝이름</th><th>전화번호</th><th>나이</th></tr>
+    <tr>
+
+        <!--    kkk라는 이름으로 저장된 도메인 객체를 꺼내어서 map 객체이므로 name을 키값으로 사용. 꺼냈을때 map 객체가 아니면 name을 프로퍼티명으로 사용하겠다는 것 -->
+        <!--    프로퍼티명으로 사용하겠다는 것을 getname을 추출할 것을 뜻함-->
+        <td>[[${ kkk.name }]]</td>
+
+        <!--    getphoneNumber한것을 뜻함-->
+        <td>[[${ kkk.phoneNumber }]]</td>
+
+        <!--    getAge한것을 뜻함-->
+        <td>[[${ kkk.age }]]</td>
+    </tr>
+</table>
+<hr>
+<a th:href='${ #request.getHeader("referer") }'>입력화면으로...</a>
+</body>
+</html>

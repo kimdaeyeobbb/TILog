@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>JSP test example</title>
+</head>
+<body>
+<h2>Complete Result</h2>
+<hr>
+<!-- session은 #기호없이 사용될 수 있는 내장객체-->
+<!--session이라는 이름으로 보관된 객체는 hash map 객체임 -> 뒤에오는 count1 같은 것들이 map 객체 안에 보관된 객체의 id 값으로 쓰임-->
+<!-- http session안에서 session 객체 안에 들어있는 count1이라는 이름으로 보관된 객체를 꺼내달라는 것-->
+<h3>Objects stored in count1 names :
+    <span th:text="${ session.count1 } ? '있음' : '없음'"></span></h3>
+<h3>Objects stored in count2 names :
+    <span th:text="${ session.count2 } ? '있음' : '없음'"></span></h3>
+</body>
+</html>
+
+
+
+
+
+
+
