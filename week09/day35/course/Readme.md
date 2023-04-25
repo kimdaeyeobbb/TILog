@@ -255,4 +255,30 @@
 
 - 페이지 소스보기 -> 서버단에서 처리된 결과가 남아있음
 
+<br>
 
+
+## 컨트롤러 메서드의 리턴 타입
+
+### @RequestBody & @ResponseBody
+
+#### @RequestBody
+
+- HTTP request body를 전달 방식 그대로 또는 자바 객체로 변환하여 전달받는 데 사용함
+
+```java
+String test2(@RequestBody String param) 
+PersonVO test3(@RequestBody PersonVO vo)
+Map test4(@RequestBody Map<String,String> map
+```
+
+
+#### @ResponseBody
+
+- `@ResponseBody`를 이용하면 자바 객체를 HTTP response body로 전송할 수 있음
+- 이 때는 view를 거치지 않고 컨트롤러가 직접 응답하므로 응답 형식을 설정해야 함
+
+```java
+@RequestMapping(value = "/body/json/{id}", produces = "application/json; charset=utf-8") 
+@RequestMapping(value = "/body/xml/{id}", produces = "text/xml; charset=utf-8")
+```
