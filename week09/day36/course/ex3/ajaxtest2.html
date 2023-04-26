@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>New Web Project</title>
+	<script>
+	function go(target) {
+		let request = new XMLHttpRequest();
+		request.onload = function(){ // load 이벤트 -> 404 응답이 오든 200응답이 오든 load 이벤트는 동일하게 작동
+		// load 이벤트 발생만으로 성공적으로 원하는 결과가 왔음을 보장할 수는 없는 통신방식이므로 status를 통해 상태코드가 200임을 확인해야 홤
+			if (request.status == 200) {
+			// 응답 상태코드: 200 => 성공적으로 전달된 것
+				var result = document.getElementById("result");
+				result.innerHTML += "<h3>"+request.responseText+"</h3>";  // 응답된 json 내용을 h3 태그와 함께
+				let jsonDOM = JSON.parse(request.responseText);  // js 객체로 만들어서
+				alert(jsonDOM.name);  // name 정보만 경고창에 내보냄
+			}
+		};
+<!--		요청할때마다 DUTE문자열을 같이 전달-->
+<!--target이라는 매개변수에 전달된 getJSON1,2,3 전달-->
+		request.open('GET', '/'+target+'?id=DUKE', true);
+		request.send();
+	}
+</script>
+</head>
+<body>
+<h1>JavaScript 로 구현하는 AJAX 프로그램 - JSON</h1>
+<button onclick="go('getJSON1')">getJSON1호출</button>
+<button onclick="go('getJSON2')">getJSON2호출</button>
+<button onclick="go('getJSON3')">getJSON3호출</button>
+<hr>
+<output id="result"></output>
+</body>
+</html>
+
+
+
+
+
