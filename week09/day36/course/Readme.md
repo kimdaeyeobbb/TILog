@@ -99,3 +99,23 @@ Map test4(@RequestBody Map<String,String> map)
 ### log4j2
 
 - log4j의 version2
+
+<br>
+
+## 스프링 MVC상 파일 업로드 구현
+
+- Multi part를 인자로 받기 위해 Controller 메서드의 매개변수 타입을 다음 3가지 중 하나로 지정해야함
+
+
+```
+/* 1. 멀티파트 파일 타입 */
+xxx(MultipartFile mfile)
+
+/* 2. 멀티파트 파일 vo클래스 타입 */
+xxx(MultipartFile 타입을 멤버변수로 정의한 VO클래스 vo)
+xxx(MultipartFile[] 타입을 멤버변수로 정의한 VO클래스 vo) → 다중 파일일 때 
+
+/* 3. MultipartRequest 타입 */
+xxx(MultipartRequest mreq) → 다중 파일일 때
+```
+
