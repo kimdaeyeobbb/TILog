@@ -22,5 +22,8 @@ public class StudyPathController {
         RedirectView redirectView =  new RedirectView();
         redirectView.setUrl(url);
         return redirectView;
+        // return "redirect:"+url꼴로 써주면 객체 생성하지 않아도 됨
+        // redirect시 redirect: 만 붙여주면 나머지는 스프링이 알아서 함
+        // 다른 웹 사이트이므로 uri가 아니라 url를 기재해야 함
     }
 }
