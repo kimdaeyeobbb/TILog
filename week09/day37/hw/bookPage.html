@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>책 정보 출력</h1>
+<hr>
+<form name="frmSubmit" method="get">
+    <button onclick="displayDiv(1)">모든 도서</button>
+    <button onclick="displayDiv(2)">가격이 높은 순으로</button>
+    <button onclick="displayDiv(3)">가격이 20000원 보다 높은 도서</button>
+    <button onclick="displayDiv(4)">웹프로그래밍 도서</button>
+    <button onclick="displayDiv(5)">데이터베이스와 인프라 도서</button>
+    <button onclick="displayDiv(6)">도서명에 자바를 포함하는 도서</button>
+    <button onclick="displayDiv(7)">도서명에 스프링을 포함하는 도서</button>
+    <button onclick="displayDiv(8)">분류별 도서 가격의 평균</button>
+</form>
+<hr>
+<table th:if="${list}">
+    <tr th:if="${vo.id} == 0" th:each="vo : ${list}">
+        <td>[[${ vo.kind }]] [[${ vo.price }]]</td>
+    </tr>
+    <tr th:unless="${vo.id} == 0" th:each="vo : ${list}">
+        <td>[[${ vo.id }]] [[${ vo.title }]] [[${ vo.price }]]  [[${ vo.kind }]]</td>
+    </tr>
+</table>
+<h3 th:unless="${list}" th:text="${msg}"></h3>
+<script>
+    function displayDiv(num){
+        var theForm = document.frmSubmit;
+        switch(num) {
+            case 1:
+                theForm.action = "/bookinfo/b1";
+                break;
+            case 2:
+                theForm.action = "/bookinfo/b2";
+                break;
+            case 3:
+                theForm.action = "/bookinfo/b3";
+                break;
+            case 4:
+                theForm.action = "/bookinfo/b4";
+                break;
+            case 5:
+                theForm.action = "/bookinfo/b5";
+                break;
+            case 6:
+                theForm.action = "/bookinfo/b6";
+                break;
+            case 7:
+                theForm.action = "/bookinfo/b7";
+                break;
+            case 8:
+                theForm.action = "/bookinfo/b8";
+                break;
+        }
+        theForm.submit();
+    }
+</script>
+</body>
+</html>
