@@ -1,4 +1,4 @@
-package week09.day37.course.ex1;
+package com.example.springedu.domain;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,5 +10,5 @@ public class MeetingDTO {
 	private int id;
 	private String name;
 	private String title;
-	private String meetingDate;	
+	private String meetingDate;
 }

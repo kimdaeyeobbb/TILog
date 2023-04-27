@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="resource.MeetingMapper">
+	<!--	select명령을 selectList라는 메서드와함께 수행시켰을 때 MeetingDTO 객체를 포함한 리스트 객체를 실행시키라는것-->
+	<!-- 	수행단위를 리스트객체에 담아서 리턴해줌-->
+	<select id="selectMeeting"  resultType="MeetingDTO">
+		select id, name, title, date_format(meetingdate, '%Y/%m/%d %H:%i') meetingdate from Meeting
+	</select>
+	<!-- 	<select id="selectOneMeeting"  resultType="MeetingDTO" parameterType="_int" >-->
+	<!--    	select id, name, title, date_format(meetingdate, '%Y/%m/%d %H:%i') meetingDate  from Meeting where id = #{id}-->
+	<!-- 	</select>-->
+	<select id="searchMeetingK"  parameterType="string" resultType="MeetingDTO">
+		-- name값과 똑같은 name컬럼값들을 출력
+		select id, name, title, date_format(meetingdate, '%Y/%m/%d %H:%i') meetingDate from meeting where title like concat('%',#{key},'%')
+	</select>
+	<select id="searchMeetingN"  parameterType="string" resultType="MeetingDTO">
+		select id, name, title, date_format(meetingdate, '%Y/%m/%d %H:%i') meetingDate from meeting where name = #{name}
+	</select>
+
+	<!--	dml 명령 - insert, delete, update -->
+	<!--	insert, delete, update => int형을 return 한다고 고정이 되어있으므로 resultType을 명시하는게 의미없음 -->
+	<!--	동적 파라미터를 사용함 -> name, title, meetingDate -->
+	<insert id="insertMeeting"  parameterType="MeetingDTO">
+		insert into meeting (name, title, meetingdate) values (#{name}, #{title}, date_format(#{meetingDate}, '%Y/%m/%d %H:%i'))
+	</insert>
+
+	<!--	_int는 int의 별칭-->
+	<!--	parameterType은 정수형 숫자 하나라는 뜻-->
+	<delete id="deleteMeeting"  parameterType="_int"  >
+		delete from meeting where id = #{id}
+	</delete>
+
+	<!--	업데이트할 글에 대한 id, 업데이트하는 name, title, meetingDate를 동적으로 받아옴-->
+	<!--	파라미터 타입을 도메인 객체형으로 함 => 동적 파라미터로 사용할 경우 이름도 동일해야하고 대소문자구별에도 주의해야 함 -->
+	<update id="updateMeeting"  parameterType="MeetingDTO"  >
+		update meeting set
+						   name = #{name},
+						   title = #{title},
+						   meetingdate = date_format(#{meetingDate}, '%Y/%m/%d %H:%i')
+		where id = #{id}
+	</update>
+
+	<!--	댓글내용-->
+	<select id="replySelectMeeting"  resultType="ReplyVO" parameterType="_int"   >
+		select id, name, content from reply where refid = #{refid}
+	</select>
+
+	<!--	insert 태그사용 -> insert 명령을 수행하겠다는 것임.-->
+	<!--	댓글 테이블에 insert-->
+	<!--	id 컬럼을 제외한 나머지 컬럼에 값을 집어넣어야 하므로 values의 동적 파라미터와 컬럼 리스트도 반드시 써주어야 함-->
+	<!--	동적 파라미터 -> ReplyVO가 가지고 있는 변수들 -> 이 변수들을 꺼내서 컬럼들에 저장하겠다는 것 -->
+	<!--	refid -> 이 글을 작성하게한 메인글의 id가 전달되도록 컨트롤러 부분에서 구현-->
+	<insert id="replyInsertMeeting"  parameterType="ReplyVO">
+		insert into reply (name, content, refid) values (#{name}, #{content}, #{refid})
+	</insert>
+</mapper>

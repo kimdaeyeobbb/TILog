@@ -1,57 +1,58 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org/">
 <head>
-<style>
-    @font-face {
-   	 	font-family: 'OTWelcomeRA';
-    	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/OTWelcomeRA.woff2') format('woff2');
-   		font-weight: normal;
-    	font-style: normal;
-    }
+    <style>
+        @font-face {
+            font-family: 'OTWelcomeRA';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/OTWelcomeRA.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
 
-    * {
-    	font-family: 'OTWelcomeRA';
-    }
-	td{
-		border-bottom : 2px dotted green;
-		padding-left : 20px;
-	}
-	tr:hover{ 
-		background-color : pink;	
-		font-weight : bold;
-	}
-	td:nth-child(2){
-		width : 300px;
-	}
-	input, textarea {
-		padding : 5px;
-		border-radius : 5px;
-	}
-	div {
-		margin-top : 20px;
-	}
-	button {
-		padding-top : 5px;
-	}
-</style>
+        * {
+            font-family: 'OTWelcomeRA';
+        }
+        td{
+            border-bottom : 2px dotted green;
+            padding-left : 20px;
+        }
+        tr:hover{
+            background-color : pink;
+            font-weight : bold;
+        }
+        td:nth-child(2){
+            width : 300px;
+        }
+        input, textarea {
+            padding : 5px;
+            border-radius : 5px;
+        }
+        div {
+            margin-top : 20px;
+        }
+        button {
+            padding-top : 5px;
+        }
+    </style>
 </head>
 <body>
+<!--이정도의 타임리프는 이해할 수 있어야 함-->
 <th:block th:if="${ list }" >
-	<h1 onclick="location.href='/meeting'">미팅 스케쥴</h1>
-	<hr>
-	<table>
-			<tr th:each="vo : ${list}">
-			<td th:class="${vo.id}">[[${ vo.name }]]</td>
-			<td th:class="${vo.id}" th:onclick="|displayReply(${vo.id})|" >[[${ vo.title }]]</td>
-			<td th:class="${vo.id}">[[${ vo.meetingDate }]]</td>
-			<td><a th:href ="@{/meeting/delete(id=${vo.id})}"><img src = "/images/delete.png" width ='20'></a></td>
-			<td><img th:onclick="|displayUpdateForm(${vo.id})|" src="/images/edit.png" width ='20'></td>
-			<td><img th:onclick="|insertReply(${vo.id})|" src="/images/comment.png" width ='25'></td>
-			</tr>
-	</table>
+    <h1 onclick="location.href='/meeting'">미팅 스케쥴</h1>
+    <hr>
+    <table>
+        <tr th:each="vo : ${list}">
+            <td th:class="${vo.id}">[[${ vo.name }]]</td>
+            <td th:class="${vo.id}" th:onclick="|displayReply(${vo.id})|" >[[${ vo.title }]]</td>
+            <td th:class="${vo.id}">[[${ vo.meetingDate }]]</td>
+            <td><a th:href ="@{/meeting/delete(id=${vo.id})}"><img src = "/images/delete.png" width ='20'></a></td>
+            <td><img th:onclick="|displayUpdateForm(${vo.id})|" src="/images/edit.png" width ='20'></td>
+            <td><img th:onclick="|insertReply(${vo.id})|" src="/images/comment.png" width ='25'></td>
+        </tr>
+    </table>
 </th:block>
 <th:block th:if="${ msg }" >
-	<script th:inline="javascript">
+    <script th:inline="javascript">
 		alert([[${ msg }]]);
 	</script>
 </th:block>
@@ -60,7 +61,7 @@
 <button onclick="displayDiv(2);">미팅 정보 검색</button>
 <th:block th:if="${ button }" >
     <hr>
-	<button onclick="location.href='/meeting'">[[${ button }]]</button>
+    <button onclick="location.href='/meeting'">[[${ button }]]</button>
 </th:block>
 <script>
 function displayDiv(type) {
@@ -129,31 +130,31 @@ function insertReply(id) {
 }
 </script>
 <div id="write"  style="display:none">
- <hr><h2 id="divT">미팅정보 작성</h2>
- <form method = "post" action = "/meeting/insert">
- <input type="hidden" name="id" value="0">
- 미팅 대상 이름 : <input id="m_name" type="text"  name="name">
- <br>
- 미팅 목적 : <br>
- <textarea id="m_title"  rows="3" cols="60" name = "title" ></textarea>
- <br>
- 날짜와 시간 :  <input id="m_dt" type="datetime-local" name="meetingDate">
- <br><br>
- <input type = "submit" value = "등록">
- <input type="button"  value="취소" onclick="document.getElementById('write').style.display='none';return false">
- </form>
+    <hr><h2 id="divT">미팅정보 작성</h2>
+    <form method = "post" action = "/meeting/insert">
+        <input type="hidden" name="id" value="0">
+        미팅 대상 이름 : <input id="m_name" type="text"  name="name">
+        <br>
+        미팅 목적 : <br>
+        <textarea id="m_title"  rows="3" cols="60" name = "title" ></textarea>
+        <br>
+        날짜와 시간 :  <input id="m_dt" type="datetime-local" name="meetingDate">
+        <br><br>
+        <input type = "submit" value = "등록">
+        <input type="button"  value="취소" onclick="document.getElementById('write').style.display='none';return false">
+    </form>
 </div>
 <div id="search" style="display:none">
- <hr>
- <form method = "get" action ="/meeting/search">
- 검색어 : <input type = "search" name = "keyword" >
- <input type = "submit" value = "검색">
- </form>
- <hr>
- <form method = "get" action ="/meeting/searchname">
- 이름으로 검색: <input type = "search" name = "name" >
- <input type = "submit" value = "검색">
- </form>
+    <hr>
+    <form method = "get" action ="/meeting/search">
+        검색어 : <input type = "search" name = "keyword" >
+        <input type = "submit" value = "검색">
+    </form>
+    <hr>
+    <form method = "get" action ="/meeting/searchname">
+        이름으로 검색: <input type = "search" name = "name" >
+        <input type = "submit" value = "검색">
+    </form>
 </div>
 </body>
 </html>
