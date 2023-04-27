@@ -7,3 +7,4 @@
 | 0424 | Thymeleaf<br/>                | [34일차 내용 링크](./day34/course) | [34일차 실습 내용 링크](./day34/hw) |
 | 0425 | Thymeleaf<br/>Spring MVC<br/> | [35일차 내용 링크](./day35/course) | [35일차 실습 내용 링크](./day35/hw) |
 | 0426 | Spring MVC<br/>               | [36일차 내용 링크](./day36/course) | [36일차 실습 내용 링크](./day36/hw) |
+| 0427 | MyBatis<br/>                  | [37일차 내용 링크](./day37/course) | [37일차 실습 내용 링크](./day37/hw) |
