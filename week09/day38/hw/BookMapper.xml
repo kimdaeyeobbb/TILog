@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lab1">
+    <!--   1. 모두출력하기 -->
+    <select id="exam1" resultType="BookDTO" >
+        select id, title, price, kind from book
+    </select>
+
+    <!--    2. 가격이 높은 순으로 출력하기-->
+    <select id="exam2" resultType="BookDTO" >
+        select id, title, price, kind from book order by price desc
+    </select>
+
+    <!--    3.20000원 이상인 도서들만 출력하기-->
+    <select id="exam3" resultType="BookDTO" >
+        select id, title, price, kind from book where price >= 20000
+    </select>
+
+    <!--    4. 웹 프로그래밍 도서들만 출력하기-->
+    <select id="exam4" resultType="BookDTO">
+        select id, title, price, kind from book where kind like '%b02%'
+    </select>
+
+    <!--    5. 데이터베이스와 인프라 도서들만 출력하기-->
+    <select id="exam5" resultType="BookDTO">
+        select id,title,price,kind from book where kind = "b04" or "b05"
+    </select>
+
+    <!--    6. 도서명에 어떤 단어를 포함하는 도서들만 출력하기-->
+    <select id="exam6" resultType="BookDTO" parameterType="string">
+        select id, title, price, kind from book where title like concat('%',#{title},'%')
+    </select>
+
+    <!--    7. 분류별 도서 가격의 평균을 출력하기-->
+    <select id="exam7" resultType="BookDTO">
+        select TRUNCATE(avg(price),0) as price, kind from book group by kind
+    </select>
+
+    <!--    insert 추가 구현-->
+    <insert id="insert" parameterType="BookDTO">
+        insert into book(title, price, kind) values (#{title}, #{price}, #{kind})
+    </insert>
+</mapper>
