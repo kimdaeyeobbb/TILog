@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!--http://localhost:8088/part?startNum=1&endNum=14 입력후 확인-->
+<!--http://localhost:8088/part?startNum=5&endNum=9 =>  MILLER ~ BLAKE-->
+<h1>Emp 테이블에서 읽어오기</h1>
+<hr>
+
+<th:block th:if="${num}">
+<!--num이라는 이름으로 보관된 값이 있으면 여기를 출력-->
+	<h2>데이터는 총 [[${ num }]]개가 있어요.....</h2>
+</th:block>
+
+
+<th:block th:if="${list}">
+<!--	list 라는 이름으로 보관된 값이 있으면 여기를 출력-->
+	<ul>
+	<th:block th:each="emp : ${list}">
+<!--		li를 리스트가 가지고 있는 요소의 개수만큼 반복-->
+		<li>[[${emp}]]</li>
+	</ul>
+</th:block>
+</body>
+</html>
