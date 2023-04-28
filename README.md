@@ -13,5 +13,5 @@
 | 6주차 | CSS<br/>JS 변수<br>JS 자료형<br/>JS 연산<br>JS 조건문<br>JS 반복문<br>BOM<br/>JS 배열<br/>JS 함수<br/>JS 예외처리<br/>JS DOM<br/>JS 이벤트<br/>JS 이벤트 버블링<br/>JS 이벤트 캡처링<br/> Canvas API<br/>Multimedia API<br/>Drag&Drop API<br/>Web storage API<br/> |   [6주차 내용 정리 링크](./week06)   |
 | 7주차 | AJAX<br/>XML<br/>JSON<br/>동기/비동기<br/>JS ES6<br/>HTTP<br/>서블릿<br/>세션<br/>JSP<br/>MVC<br/>                                                                                                                                       |   [7주차 내용 정리 링크](./week07)   |
 | 8주차 | JUnit<br/>Spring IoC<br/>Spring DI<br/>Spring MVC<br/>                                                                                                                                                                         |   [8주차 내용 정리 링크](./week08)   |
-| 9주차 | Spring MVC<br/>Thymeleaf<br/>MyBatis                                                                                                                                                                                                       |   [9주차 내용 정리 링크](./week09)   |
+| 9주차 | Spring MVC<br/>Thymeleaf<br/>MyBatis<br/>LOG<br/>                                                                                                                                                                                   |   [9주차 내용 정리 링크](./week09)   |
 
