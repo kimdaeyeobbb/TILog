@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title></head>
+<body>
+<h1>SpringEL 표현식</h1>
+<h3>Object</h3>
+<ul>
+    <li>${user.username} = <span th:text="${user.username}"></span></li>
+    <li>${user['username']} = <span th:text="${user['username']}"></span></li>
+    <li>${user.getUsername()} = <span th:text="${user.getUsername()}"></span></li>
+</ul>
+<h3>List</h3>
+<ul>
+    <li>${users[0].username} span> = <span th:text="${users[0].username}"></span></li>
+    <li>${users[0]['username']} = <span th:text="${users[0]['username']}"></span></li>
+    <li>${users[0].getUsername()} = <span th:text="${users[0].getUsername()}"></span></li>
+</ul>
+<h3>Map</h3>
+<ul>
+    <li>${userMap['userA'].username} = <span th:text="${userMap['userA'].username}"></span></li>
+    <li>${userMap['userA']['username']} = <span th:text="${userMap['userA'] ['username']}"></span></li>
+    <li>${userMap['userA'].getUsername()} = <span th:text="${userMap['userA'].getUsername()}"></span></li>
+</ul>
+<h1>지역 변수 - (th:with)</h1>
+
+<!--first라는 이름으로 쓰겠다는 것 -> first를 list 내 첫번째에 담아서 사용-->
+<!--태그안에서 사용가능한 지역변수를 만들게 됨-->
+<!--컨트롤러가 first라는 이름으로 전달한 것은 없으나 with를 사용하여 first라는 이름으로 보관하여 사용하겠다고 지정함-->
+<div th:with="first=${users[0]}">
+    <p>첫 번째 사람의 이름은 <span th:text="${first.username}"></span></p>
+</div>
+<div th:with="unico=${users[1]}">
+    <p>두 번째 사람의 이름은 <span th:text="${unico.username}"></span></p>
+</div>
+<hr>
+<!--이 div 태그 내에서는 defautl로 user라는 이름을 가진 객체를 사용하겠다는 것-->
+<div th:object="${user}">
+    <!--이 DIV 태그내에는 user이라는 이름으로 전달된 객체의 추출하고자하는 property명만 줌-->
+    <p>이름 : <span th:text="*{username}"></span></p>
+    <p>나이 : <span th:text="*{age}"></span></p>
+</div>
+</body>
+</html>

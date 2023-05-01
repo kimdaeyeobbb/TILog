@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title></head>
+<body>
+<h2>자바스크립트와 타임리프</h2>
+
+<script>
+    var username = [[${user.username}]];
+    var age = [[${user.age}]];
+    //자바스크립트 내추럴 템플릿
+    var username2 = /*[[${user.username}]]*/ "test username";
+    //객체
+    var user = [[${user}]];
+    alert("첫 번째 스크립트 태그 : 출력될까요? "+username);
+</script>
+
+<!--타임리프의 처리 결과를 코드영역에서 사용하고자하면 th:inline="javascript"라고 지정해주어야함-->
+<!--이 스크립트 태그내에서 처리되는 타임리프 코드는 자바스크립트 구문에 알맞게 바꾸어 적용시키라는 것-->
+<!-- 자바스크립트 인라인 사용 -->
+<script th:inline="javascript">
+<!--th: inline="javascript"-->
+<!--스크립트 태그 내에서도 타임리프코드 결과를 포함시킬 수 있게 만들어줌-->
+<!--    소스코드보기를 사용해서 바뀐 코드를 확인할 것-->
+<!--    js 내에서 인용부호로 묶여있지 않으면 변수로 인식함-->
+
+    var username = [[${user.username}]];
+    var age = [[${user.age}]];
+    //자바스크립트 내추럴 템플릿
+    var username2 =  /*[[${user.username}]]*/ "test username";
+    //객체
+    var user = [[${user}]];
+    alert("두 번째 스크립트 태그 : 출력될까요? "+username);
+</script>
+
+<h3>자바스크립트 코드 영역에서도 타임리프를 사용할 수 있을까요?</h3>
+<script th:inline="javascript">
+<!--타임리프 코드가 javascript에 알맞게 바꾸어서 작성됨-->
+<!--js에서 문자열 데이터는 인용부호로 감싸서 표현함-->
+
+<!--타임리프 구문이 적용되는 부분 -> 대괄호로 구성되어야 함-->
+    [# th:each = "user, stat : ${users}"]
+<!--아래의 2줄 수행코드를 users에 포함된 데이터의 개수만큼 반복-->
+
+    var user[[${stat.count}]] = [[${user}]];
+    console.log(user[[${stat.count}]])
+    [/]
+</script>
+</body>
+</html>
