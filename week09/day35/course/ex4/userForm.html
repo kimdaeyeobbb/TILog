@@ -1,5 +1,6 @@
-<!DOCTYPE html>
+<!DOCTYPE html
 <html xmlns:th="http://www.thymeleaf.org">
+<!--        타임리프 네임스페이스를 사용하여 문서에서 타임리프 태그를 사용할 수 있도록 지정-->
 <head>
     <meta charset="UTF-8">
     <title>Enter member information</title>
@@ -11,6 +12,7 @@
     </style>
 </head>
 <body>
+<!--action -> 전송될 데이터가 전달될 URL. method -> 전송 방식을 지정하는 방식.-->
 <form action="/userSave" method="post">
     <table>
         <tr>
@@ -24,7 +26,11 @@
         <tr>
             <td>Favorite Fruit</td>
             <td>
+<!--                th:each => 타임리프 반복문 태그로서, popularFruit 배열 요소를 반복하며 처리-->
                 <div th:each="fruit:${popularFruit}">
+<!--                    th:value => 체크박스에서 선택한 값을 설정하는 태그-->
+<!--                    value => 입력 필드의 초기값을 설정하는 속성-->
+<!--                    [[$(fruit}]] => 타임리프 템플릿에서 변수 값을 출력하는 표현식-->
                     <input type="checkbox" name="favoriteFruit" th:value="${fruit}">[[${fruit}]]
                 </div>
             </td>
