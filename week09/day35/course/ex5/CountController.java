@@ -7,8 +7,10 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.example.springedu.domain.CountDTO;
 @Controller
-@SessionAttributes({"count1", "count2"})  // sessionAttribute가 쓰이지 않았다면 count1이든 count2는 ~스코프가 되었을 것임
-// 둘다 세션 attribute를 갖는다고 지정했으므로
+@SessionAttributes({"count1", "count2"})
+// @SessionAttributes: 해당 메서드가 리턴한 객체를 모델에 추가하여 뷰에서 사용할 수 있도록 해줌
+// sessionAttribute가 쓰이지 않았다면 count1이든 count2는  request 스코프가 되었을 것임
+// 2개의 CountDTO객체인 count1과 count2를 세션 스코프로 생성
 public class CountController {
 	// http://localhost:8088/count?num1=10&num2=20 꼴이어야 함 num1, num2를 입력하지 않으면 null이 들어가서 error
 	@ModelAttribute("count1")
@@ -24,8 +26,9 @@ public class CountController {
 	@RequestMapping(value="/count")
 	public void handle(@ModelAttribute("count1") CountDTO vo1,
 					   @ModelAttribute("count2") CountDTO vo2, int num1, int num2) {
-		// countDTOM 객체 -> 세션스코프를 갖는 객체를 만들어서 쓰고 싶으면 ModelAttribute를 정의한 커멘드 객체를 만들고 에노테이션 지정
+		// countDTO 객체 -> 세션스코프를 갖는 객체를 만들어서 쓰고 싶으면 ModelAttribute를 정의한 커멘드 객체를 만들고 에노테이션 지정
 		// 이렇게 보관되는 객체가 sessionAttribute를 갖도록 sessionScoep 지정
+		// CountDTO -> 누적 값을 저장하는 countNum 필드를 갖는 DTO 클래스 -> 이 클래스는 컨트롤러에서 세션 스코프로 사용됨
 
 		// num1, num2 =>  클라이언트로부터 전달된 쿼리문자열 전달받음 -> 여기서 num1, num2 추출
 		// 디스패처서블릿이 ~을 자동 변환해줌

@@ -1,6 +1,7 @@
 package com.example.springedu.domain;
+
 public class CountDTO {
-	private int countNum;
+	private int countNum;  // 누적 값을 저장
 	public CountDTO() {
 		System.out.println("CountVO 객체 생성!!");
 	}
