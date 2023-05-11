@@ -299,3 +299,274 @@ public class WebMvcConfig implements WebMvcConfigurer {
 ```
 
 
+<br>
+
+
+### 필터 VS 인터셉터
+
+|대상|필터(Filter)|인터셉터(Interceptro)|
+|:---:|:---:|:---:|
+|a|a|a|
+
+
+
+<br>
+
+## 에러 처리
+
+### @ExceptionHandler
+
+- 예외와 관련된 전용 어노테이션
+- 어떤 예외가 발생했을 때 어느 메서드가 수행되어 예외처리를 대신하게 만듦
+<br> (try-catch로 대신해도 되지만, 그러면 컨트롤러 메서드마다 try-catch를 각각 설정해야하는 불편함이 존재)
+<br> (AOP를 사용해도됨)
+
+- 스프링 컨트롤러에서 정의한 메서드 `@RequestMapping`에서 기술한 예외가 발생할 경우 자동으로 받아낼 수 있음
+- 이를 이용하여 컨트롤러에서 발생하는 예외를 View단인 JSP 등으로 보내서 처리할 수 있음
+- 지역적으로 각 컨트롤러에 적용이 됨 
+<br>(특정 컨트롤러 안에서만 예외처리가 적용됨)
+
+
+<br>
+
+### @ControllerAdvice
+
+- `@Controller`나 `@RestController`에서 발생하는 예외 등을 catch하는 기능을 가지고 있음
+- 클래스 위에 `@ControllerAdvice`를 붙이고 어떤 예외를 잡아낼 것인지 내부 메서드를 선언하여 메서드 상단에 `@ExceptionHandler(예외클래스명.class)`와 같이 기술함
+- 클래스에 정의하는 어노테이션
+- 전역적으로 모든 컨트롤러에 적용되는 exception
+<br> (예외에 대한 핸들러 메서드를 필요한만큼 만들것)
+
+- **지역과 전역이 만났을 때 지역이 우선순위가 높다**
+
+
+<br>
+
+# Spring WebSocket
+
+- http 프로토콜은 `단방향 통신` (무전기로 통신하는 것과 같이 동시에 얘기할 수 없고, 한쪽에서 얘기가 마쳐야 다른 한쪽에서 얘기할 수 있음)
+- 웹 소켓을 사용하면 이와 달리 `양방향 통신`이 가능해진다
+
+
+- 단방향 통신
+  - TV방송, 라디오
+  - 데이터를 수신만 할 수 있고 TV, 라디오를 통해 데이터를 보낼 수 없음
+
+## 웹 소켓
+
+- HTTP 환경에서 클라이언트와 서버간에 하나의 TCP 연결을 통해 실시간으로 전이중 통신 (전송 및 수신 시스템이 동시에 서로 통신)을 가능하게 하는 프로토콜
+<br> (가정집 전화기 처럼 `양방향으로 송신과 수신이 가능한 것`)
+
+![img_3.png](img_3.png)
+
+|                                         HTTP                                          |                                                                                                                                                                                              웹 소켓                                                                                                                                                                                               |
+|:-------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| 클라이언트가 서버에게 접속 요청을 해야함 <br/>stateless (접속상태가 유지되지 않는 프로토콜)<br/>웹 소켓 통신과 달리 주고받고가 불가능함 | 서버에게 웹 소켓 통신을 하자라고 요청을 보냄<br/>-> 서버가 웹 소켓 통신을 할 마음이 없거나 준비가 되어있지 않으면 reject<br/><br/>하지만 허용해주면 이때부터 프로토콜이 바뀌어서 웹 소켓 통신으로함<br/>-> 이때부터 클라이언트한테 줌<br/>http 프로토콜 처럼 url 문자열을 웹 소켓 통신을 클라이언트가 먼저 요청<br/>-> 이에대해 서버가 허용해서 handshaking이 일어나면 접속상태를 끊지 않고 원하는 만큼 주고 받음<br/>=> 일반적인 HTTP 통신과의 차이점<br/><br/> 필요한만큼 계속 보낼 수 있음 <br/><br/>여기서 빨간선이 웹 소켓 통신 <br/>(원하는 만큼 주고받을 수 있는 양방향 통신이 웹소켓 통신의 기본 처리구조)<br/> |
+
+
+- 실시간 알림, 실시간 채팅 등 실시간이라는 키워드가 들어가는 기능들을 위해서는 대부분 웹 소켓 기술이 필요함
+
+
+- 예시
+
+![img_5.png](img_5.png)
+![img_6.png](img_6.png)
+
+
+
+### 웹 소켓 통신 방식
+
+- `웹 소켓`
+  - `전 이중 통신`
+  - 연속적인 데이터 전송의 신뢰성을 보장하기 위해 Handshake 과정을 진행함
+  - HTTP 요청 기반으로 Handshake 과정을 거쳐서 연결을 수립함<br> (기존의 다른 TCP 기반 프로토콜은 TCP layer에서의 handshake를 통해 연결을 수립)
+
+![img_7.png](img_7.png)
+
+- 원래 HTTP 프로토콜 기반으로만 통신이 가능한 것들이 웹 소켓 기반으로 통신이 가능하게 만들어짐
+  (프로토콜을 바꾸게됨 = 업그레이드를 함)
+
+- 클라이언트가 서버에게 '통신할까?' 라고 요청했을 때 서버가 'OK'를 해주면 통신하게 되고 '끊자' 하면 끊어짐
+
+![img_8.png](img_8.png)
+
+<br>
+
+
+### 웹 소켓 탄생 배경
+
+
+
+- 폴링
+  - 주기적으로 클라이언트가 서버에게 request
+  - 요청받았는데 response할게 없으면 종료
+  - 인터넷 사용자가 많을 때 사용 
+
+
+- 롱폴링
+  - 서버가 줄 response가 없으면 기다렸다가 response가 생기면 받아서 돌아옴
+  - 인터넷 사용자가 적을 때 사용
+
+=> 통신 횟수를 줄이고자하는 판단에서 사용<br>
+=> 웹 소켓이 없었을 때에는 폴링이나 롱폴링 등의 방식으로 통신<br>
+=> 웹 소켓이 도입된 이후에 원하는 만큼 주고받을 수 있게 통신을 할 수 있게됨<br>
+
+![img_9.png](img_9.png)
+
+<br>
+
+### 웹 소켓 통신의 동작 방식
+
+![img_10.png](img_10.png)
+
+서버가 통신을 허용하면 응답코드를 응답을 받아들이는 클라이언트에게 응답을 함
+<br>
+
+
+### 웹 소켓 통신 방식의 특징
+
+- 양방향 통신이 가능해짐
+- 실시간 통신이 가능해짐
+
+<br>
+
+### 웹 소켓 통신의 구현
+
+
+![img_11.png](img_11.png)
+- 서버와 클라이언트에 관계없이 웹 소켓 관련 이벤트 핸들러를 구현하여 처리함
+- 웹 소켓 통신과 관련된 이벤트
+  - 오픈 이벤트 (웹 소켓 통신이 시작 될 때 발생)
+  - close 이벤트 (웹 소켓 통신이 끊어질때 발생)
+  - 메세지 이벤트 (상대방에게서 메세지가 올때마다 발생하는 이벤트)
+  - 에러 이벤트 (에라가 발생할 때 발생하는 이벤트)
+
+
+<br>
+
+
+### 웹 소켓 클라이언트 구현
+
+- HTML5에서 제공하는 웹소켓 API + JS를 이용
+
+
+- `서버 연결`
+  - HTML5가 제공하는 WebSocket 객체를 통해 서버 연결을 수행
+  - 일반 통신은 ws, 보안 통신은 wss 프로토콜을 이용
+
+```JS
+let ws = new WebSocket("웹 소켓 URL 문자열");  // 웹 소켓 객체 생성 
+웹 소켓 URL 문자열 : ws://서버주소/웹 소켓 서버 프로그램의 매핑명 
+```
+ws를 줌으로써 이 문자열은 웹 소켓 문자열임을 알림
+<br>
+
+웹 소켓 객체가 생성되는 동안 인자로 주어지는 웹 소켓 URL 문자열을 가지고 웹 소켓이 생성됨
+
+
+<br>
+
+- `데이터 송신`
+  - 웹 소켓 객체의 send() 메서드로 데이터를 서버로 송신함
+
+```js
+ws.send("전송하려는 메시지")
+```
+
+<br>
+
+- `데이터 수신`
+  - 서버에서 전송되는 데이터를 받으려면 message 이벤틀르 구현함
+  - js는 단일 스레드 환경임 -> 비동기를 기본 모토로 삼음
+
+```js
+ws.onmessage = function(e){
+  e.data로 추출되어 수신받은 메시지 처리
+}
+```
+
+전역 이벤트 모델인 경우 `on+이벤트명`으로 함수를 등록
+
+
+<br>
+
+### 웹 소켓 관련 이벤트
+
+```
+open : 웹 소켓 서버와 접속이 일어나면 발생하는 이벤트이다.
+close : 웹 소켓 서버와 접속이 해제되면 발생되는 이벤트이다.
+message : 웹 소켓 서버로 부터 메시지가 수신되면 발생되는 이벤트이다. 
+error : 웹 소켓 오류가 생기면 발생되는 이벤트이다.
+```
+
+
+<br>
+
+### 웹 소켓으로 구현한 채팅 클라이언트 예제
+
+
+```html
+<body>
+  <div id='chatt'>
+    <h1>웹 소켓 채팅</h1>
+    <input type='text' id='mid' value='게스트'>
+    <input type='button' value='채팅참여' id='btnJoin'> <br/>
+    <div id='talk'></div>
+    <div id='sendZone'>
+    <textarea id='msg' >안녕...</textarea>
+    <input type='button' value='전송' id='btnSend'>
+    </div>
+  </div>
+  <script>
+    function getId(id){
+        return document.getElementById(id);
+    }
+    let data = {};//전송 데이터(JSON)
+    let ws ;
+    let mid = getId('mid');
+    let btnJoin = getId('btnJoin');
+    let btnSend = getId('btnSend'); let talk = getId('talk');
+    let msg = getId('msg');
+    btnJoin.onclick = function(){
+        ws = new WebSocket("ws://" + location.host + "/chatt");
+        ws.onmessage = function(msg){
+            let data = JSON.parse(msg.data); let css;
+            if(data.mid == mid.value){
+                css = 'class=me';
+            }else{
+                css = 'class=other';
+            }
+         let item = `<div ${css}>
+        <span><b>${data.mid}</b></span> [ ${data.date} ]<br/> <span>${data.msg}</span>
+         </div>`;
+        talk.innerHTML += item; talk.scrollTop=talk.scrollHeight;//스크롤바 하단으로 이동
+    }
+    this.style.color = 'blue'; this.value = '채팅참여중';
+    }
+    msg.onkeyup = function(ev){
+      if(ev.keyCode == 13){ send();
+      }
+    }
+    btnSend.onclick = function(){
+     send();
+    }
+    function send(){
+      if(msg.value.trim() != ''){
+        data.mid = getId('mid').value;
+        data.msg = msg.value;
+        data.date = new Date().toLocaleString(); let temp = JSON.stringify(data); ws.send(temp);
+      }
+      msg.value ='';
+    }
+    </script> 
+</body>
+```
+
+![img_13.png](img_13.png)
+
+프로토콜 통신방식을 `웹 소켓`방식으로 바꾸자고 제안한 것을 확인할 수 있음
+
+- `http://192.168.0.227:8088/chattstart/`처럼 입력해서 옆의 동료와 채팅을 활 수 있음
+
+<br>
+
