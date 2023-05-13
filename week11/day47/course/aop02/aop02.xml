@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="customer" class="aop02.CustomerService"/>
+	<bean id="emp" class="aop02.EmpService"/>
+
+	<!-- Advice: 횡단(공통)관심사항 -->
+	<!--	어드바이스 객체도 빈으로 등록해야 함-->
+	<bean id="myAdvice" class="aop02.MyAspect"/>
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+	<!-- Advisor = Advice(횡단(공통)관심사항) + pointCut(핵심관심사항) -->
+	<bean class="org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor">
+		<property name="advice" ref="myAdvice"/>
+		<!--	메서드명, 리턴값 유형을 모두 *처리 -> 누구든 적용하겠다는것. 접근제어자는 Public으로 설정.   .. 을주는것은 all을뜻함 (모든것을 줄 수 있음)-->
+		<property name="expression" value="execution(public * *(..))"/>
+	</bean>
+
+</beans>
+		<!-- AOP : aspectj검색후 pom.xml에 aspectjrt, aspectweaver추가 -->

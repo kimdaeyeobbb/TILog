@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="myAdvice" class="aop03.MyAspect"/>
+	<bean id="customer" class="aop03.CustomerService"/>
+	<bean id="emp" class="aop03.EmpService"/>
+
+	<!--	aop라는 prefix를 붙임 -> 빈 객체로 클래스이름을 지정하는 등의 작업이 필요없어짐-->
+	<!--	빈으로 관련된 클래스를 등록할 필요가 없어짐.-->
+	<!--aop라는 namespace에 속하는 공간임을 알려줌-->
+	<aop:config>
+		<aop:aspect ref="myAdvice">
+			<aop:pointcut  id="logPointCut" expression="execution(* work())" />
+			<aop:before method="login" pointcut-ref="logPointCut"/>
+			<aop:after  method="logout" pointcut-ref="logPointCut"/>
+		</aop:aspect>
+	</aop:config>
+
+</beans>

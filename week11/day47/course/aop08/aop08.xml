@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!--	예전방식으로 처리한 예제-->
+
+	<aop:config>
+		<!--	around방식의 advice-->
+		<aop:aspect id="logAspect" ref="loggingAdvice">
+			<!--		sayhello메서드가 호출되었을 때. *은 하나로 표현-->
+			<aop:around method="logAround" pointcut="execution(* sayHello())"/>
+		</aop:aspect>
+	</aop:config>
+	<!--	logginAdvice 객체 생성후 이 이름으로 빈 태그 등록-->
+	<bean id="loggingAdvice" class="aop08.LoggingAdvice"/>
+	<!--	프로퍼티 인젝션-->
+	<!--	메세지빈 impl생성할떄 setname하라는것 -->
+	<bean id="proxy" class="aop08.MessageBeanImpl" p:name="스프링"/>
+
+</beans>
+ 
+ 
+ 
+ 
+ 

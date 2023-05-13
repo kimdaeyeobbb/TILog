@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!--	아래 주석 관련 내용을 어노테이션으로 옮겨감-->
+	<!--	aspectj-autoproxy가 있어야함-->
+	<context:component-scan base-package="aop04"/>
+	<aop:aspectj-autoproxy/>
+	<bean id="target" class="aop04.MyServiceImpl"/>
+
+	<!--
+    <aop:config>
+        <aop:aspect ref="myAdvice">
+        이런 조건으로 적용하도록 조건 제시
+            <aop:before method="login" pointcut="execution(* work())"/>
+            <aop:after  method="logout" pointcut="execution(* work())"/>
+        </aop:aspect>
+    </aop:config>
+    -->
+
+</beans>
