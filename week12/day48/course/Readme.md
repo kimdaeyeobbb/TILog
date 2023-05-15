@@ -323,3 +323,91 @@ List<Member> result = em.createQuery("select m from Member m where m.username li
 ```java
 
 ```
+
+
+<br>
+
+
+## TypedQuery
+
+- 반환할 타입을 명확하게 지정할 수 있을 때 사용
+
+```java
+TypedQuery<Member> query = em.createQuery("select m from Member as m",Member.class);
+
+List<Member> members = query.getResultList();
+TypedQuery<String> query = em.createQuery("select m.username from Member as m",String.class);
+
+List<String> names = query.getResultList();
+
+
+// count -> 결과는 하나의 행. 1행 1열
+TypedQuery<Long> query = em.createQuery("select count(m.username) from Member as m", Long.class);
+// 따라서 singleresult에 담음. 
+        //결과를 예측할 수 있을 때 typedquery 사용
+Long su = query.getSingleResult();
+```
+
+
+<br>
+
+## Query
+
+- 반환 타입을 명확하게 지정할 수 없을 때 사용
+
+```java
+Query query = em.createQuery("select m.username, m.age from Member m");
+```
+
+- 조회 타입이 `String 타입의 username과 Integer 타입의 age`이므로 반환 타입이 명확하지 않음
+- Query 객체는 조회 대상이 둘 이상이면 `Object[]`를 반환하고 조회 대상이 하나면 Object를 반환함
+
+
+
+```java
+List<Object[]> resultList = query.getResultList();
+
+for (Object[] objects : resultList) {
+ String userName = (String) objects[0];
+ Integer age = (Integer) objects[1];
+ }
+
+List resultList = query.getResultList();
+for (Object o : resultList) {
+ Object[] objects = (Object[]) o;
+ String userName = (String) objects[0];
+ Integer age = (Integer) objects[1];
+}
+
+
+// 카운트한 결과가 어떤 타입으로 추출될지 모른다면 쿼리객체 생성해서 object 형으로 받아도 됨
+Query query = em.createQuery("select count(m.username) from Member m");
+Object su = query.getSingleResult();
+
+
+// string 형으로 추출할 떄에도 object형으로 받게끔 쿼리 객체로 처리해도 됨
+Query query = em.createQuery("select m.username from Member m");
+List<Object> resultList = query.getResultList();
+```
+
+
+<br>
+
+
+## 결과 조회 API
+
+
+
+
+<BR>
+
+
+
+## JPA 기본키 매핑
+
+- mysql 사용시 identity 방법을 이용하자
+
+### IDENTITY
+
+- 기본키 생성을 DB에 위임하는 전략
+- 
