@@ -1,11 +1,11 @@
 package jpamvcexam.model.vo;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="student")  // 테이블이름 매칭 시킴
 public class Student {
     @Id
     private String name;
