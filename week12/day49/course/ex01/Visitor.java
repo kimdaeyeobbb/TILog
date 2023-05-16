@@ -13,7 +13,7 @@ public class Visitor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;  // 자동증가하는 특성을 가지는 id
 	private String name;
-	//	@CreationTimestamp  // 이것을 주석처리해서 한번 진행해보자
+	@CreationTimestamp  // 이 칼럼은 멤버변수에 따로 값을 지정하지 않았을 경우 자동으로 현재시간 기준 날짜 데이터 생성. 얘가 주석으로 막혀있으면 writeDate에는 값을 생성하지 않음
 	private java.sql.Date writeDate;
 	private String memo;
 
