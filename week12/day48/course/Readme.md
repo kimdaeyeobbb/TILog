@@ -98,13 +98,33 @@ database data <-> orm <-> object 필드
 
 ### 2. 유지보수
 
+- 필드를 하나만 추가해도 관련된 SQL과 JDBC 코드를 젅부 수행해야 했지만, JPA는 이를 대신 처리해주기 때문에 
+개발자가 유지보수해야하는 코드가 줄어듦
+
+
+
 ### 3. 패러다임의 불일치를 해결
+
+- JPA는 연관된 객체를 사용하는 시점에 SQL을 전달할 수 있고, 같은 트랙잭션 내에서
+조회할 때 동일성도 보장하므로 다양한 패러다임의 불일치를 해결함
+
 
 
 ### 4. 성능
 
+- 애플리케이션과 데이터베이스 사이에서 성능 최적화 기회를 제공함
+- 같은 트랜잭션 내에서는 같은 엔티티를 반환하므로 데이터베이스와의 통신 횟수를 줄일 수 있음
+- 또한, 트랜잭션을 commit하기 전까지 메모리에 쌓고 한 번에 SQL을 전송함
+
+
+
 
 ### 5. 데이터 접근 추상화와 벤더 독립성
+
+- RDB는 같은 기능이라도 벤더마다 사용법이 다르기 때문에
+처음 선택한 데이터베이스에 종속되고 변경이 어려움
+- JPA는 애플리케이션과 데이터베이스 사이에서 추상화된 데이터 접근을 제공하므로 종속이 되지 않도록 함
+- 만약 데이터베이스가 변경되더라도 JPA에게 알려주면 간단하게 변경이 가능함
 
 
 <br>
@@ -321,7 +341,14 @@ List<Member> result = em.createQuery("select m from Member m where m.username li
 
 
 ```java
+//JPQL : select m from Member m where m.age > 18
 
+JPAFactoryQuery query = new JPAQueryFactory(em);
+QMember m = QMember.member;
+List<Member> list = query.selectFrom(m)
+ .where(m.age.gt(18))
+ .orderBy(m.name.desc())
+ .fetch();
 ```
 
 
@@ -391,12 +418,6 @@ List<Object> resultList = query.getResultList();
 ```
 
 
-<br>
-
-
-## 결과 조회 API
-
-
 
 
 <BR>
@@ -410,4 +431,3 @@ List<Object> resultList = query.getResultList();
 ### IDENTITY
 
 - 기본키 생성을 DB에 위임하는 전략
-- 
