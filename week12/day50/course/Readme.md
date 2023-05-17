@@ -328,4 +328,88 @@ JPQL 쿼리를 작성하는 것이 좋다. <br>쿼리를 직접 실행하려면 
 - 스프링 프레임워크는 스프링부트보다 초기 환경설정에 걸리는 시간이 더 길어짐
 - 스프링 프레임워크는 스프링부트와 달리 WAS가 내장되어있지 않음
 
+- `DAO`: 대표적인 서비스모델. 여기서는 Repository를 뜻함
+
+
 ![img_7.png](img_7.png)
+
+- 먼저 요청을 받는것은 수많은 filter와 dispatcher servlet
+- 컨트롤러만 수행하고 리턴할수도, 직접 리턴(rest controleer)할 수도 있음
+<br> (view를 통해 리턴하는 것은 thymeleaf를 사용함으로써 가능해짐)
+
+
+<br>
+
+### Spring Boot test
+
+- 스프링부트 기반 프로그램 각각이 잘 작동하는지는 확인하고 싶을 때 사용
+- 스프링 부트는 서블릿 기반의 웹 개발을 위한 spring-boot-starter-web, 
+유효성 검증을 위한 spring-boot-starter-validation 등 spring-boot-starter 의존성을 제공하고 있음
+
+
+
+- 테스트를 위한 spring-boot-starter-test 역시 존재하는데, 다음과 같은 라이브러리들이 포함됨
+1. JUnit 5
+   - 자바 애플리케이션의 단위 테스트를 위한 사실상의 표준 테스트 도구
+2. Spring Test & Spring Boot Test
+   - 스프링 부트 애플리케이션에 대한 유틸리티 및 통합 테스트 지원
+3. AssertJ
+   - 유연한 검증 라이브러리
+4. Hamcrest 
+   - 객체 Matcher를 위한 라이브러리
+5. Mockito
+   - 자바 모킹 프레임워크
+6. JSONassert
+   - JSON 검증을 위한 도구
+7. JsonPath
+   - JSON용 XPath
+
+
+<br>
+
+#### 테스트를 위해 클래스에 정의하는 어노테이션
+
+- `spring-boot-starter-test 의존성`을 추가하면 스프링이 미리 만들어둔 테스트를 위한 다양한 어노테
+  이션을 사용해 편리하게 테스트를 작성할 수 있음
+
+```java
+@SpringBootTest
+// 프로젝트 전체를 테스트. 필요한 컴포넌트를 등장시켜서 테스트가 가능하도록 해줌
+
+@WebMvcTest
+// webMVC를 단위테스트 해줌
+// 웹 부분만 테스트할 때 사용
+// 내가 만든 컨트롤러의 결과가 원하는 응답 결과를 제대로 불러오는지 확인
+// 추가로 필요한 repository, service등은 직접 객체 지정해주어야 함
+
+@DataJpaTest
+// JPA부분만 단위 테스트를 해주는 클래스 (repository만 테스트)
+// 단위 테스트 -> 내가 만든 repository가 제대로 작동하는지 테스트하는 것
+
+
+@RestClientTest
+@JsonTest
+@JdbcTest
+```
+
+
+##### `@DataJpaTest`
+
+```java
+@DataJpaTest
+@Rollback(false)
+class MyRepositoryTests {
+ // ...
+}
+```
+
+테스트용으로 수행한 DML명령은 자동으로 롤백 (default가 롤백) (테스트 프로그램이 아니라면 default가 commit)
+<br>
+
+- 테스트하고나서 수행결과가 반영되게 하고 싶으면 `@Rollback(false)`로 설정
+
+
+- mysql이라는 데이터베이스를 연동하면 `@AutoConfigureTestDatabase(replace = Replace.NONE)`설정해서 내장 데이터베이스를 쓰지 않게끔 해주어야 함
+
+
+- 내장 데이터베이스(`H2`)를 쓴다면 이를 설정할 필요가 없다
