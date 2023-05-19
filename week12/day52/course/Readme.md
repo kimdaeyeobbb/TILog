@@ -108,9 +108,15 @@
 1. 리소스가 URI로 식별되게 함
 2. 리소스를 만들거나 업데이트를 하거나 삭제를 할 때 등 REST Message에 표현을 담아서 전송하고 처리함 <br> (representation 전송을 통한 resource 조작)
 3. Self-descriptive message (자체 표현 구조)
-
+4. Hypermedia As The Engine of Application State(HATEOAS)
 
 <br>
+
+
+##### Uniform Interface를 만족해야하는 이유?
+
+- 서버와 클라이언트의 독립적인 진화를 위하여
+<br> (서버의 기능이 변경되어도 클라이언트를 업데이트할 필요가 없어짐)
 
 
 ## Talend 실습
@@ -144,3 +150,179 @@
   
 
 
+<br>
+
+## REST
+
+- 스마트폰과 태블릿 등 서버에 접근하는 디바이스의 종류가 다양해지고 있기에 디바이스의 종류에 상
+  관없이 공통으로 데이터를 처리할 수 있도록 하는 방식
+
+
+<br>
+
+## REST API?
+
+![img_3.png](img_3.png)
+
+- `REST 아키텍처 스타일을 따르는 API` 로서 분산 하이퍼미디어 시스템(웹)을
+  위한 아키텍처 스타일(제약조건 집합)
+
+- REST API는 사용자가 어떠한 요청을 했을 때 HTML을 리턴하지 않고, 사용자가 필요로 하는 결과(데이터)만을 리턴해주는
+  방식(JSON, XML)
+
+
+- REST 기반으로 서비스 API를 구현한 것으로 최근 `OpenAPI(누구나 사용할 수 있도록
+  공개된 API: 구글 맵, 공공 데이터 등)`, `마이크로 서비스(하나의 큰 애플리케이션을 여러 개의 작은
+  애플리케이션으로 쪼개어 변경과 조합이 가능하도록 만든 아키텍처)` 등을 제공하는 업체 대부분은
+  REST API를 개발하고 활용함
+
+
+### REST API의 특징
+
+
+<br>
+
+
+### URI 설계시 유의 사항
+
+
+
+
+#### :six: 파일 확장자는 URI에 포함시키지 않음
+
+```
+
+```
+
+
+
+<br>
+
+## REST API 설계 예시
+
+- 프론트엔드 웹에서 서버에 데이터를 요청하거나 배달 앱에서 서버에 주문을 넣거나 할 때 오늘날 널
+리 사용되는 것이 REST 란 형식의 API임
+
+
+- 과거의 SOAP (Simple Object Access Protocol)이라는
+  복잡한 형식을 대체한 것이라 볼 수 있음
+
+
+- REST 의 가장 중요한 특성은 각 요청이 어떤 동작이나 정보를 위한
+  것인지를 그 요청의 모습 자체로 추론 가능하다는 것임
+
+
+- 어떤 학원에서 반과 학생들에 대한 API
+  를 만들 때 다음과 같이 사용하는 주소만으로도 대략적으로 이것이 무슨 요청인지 파악할 수 있음
+
+```
+https://(사이트도메인)/classes
+https://(사이트도메인)/classes/2
+https://(사이트도메인)/classes/2/students
+https://(사이트도메인)/classes/2/students/15
+https://(사이트도메인)/classes/2/students?sex=male
+https://(사이트도메인)/classes/2/students?page=2&count=10
+```
+
+또한 요청을 보낼 떄 HTTP 요청 메서드를 사용해서 정보를 조회하는 것뿐만 아니라 생성, 수정, 삭제 등 또한 처리할 수 있음
+
+
+<br>
+
+
+## 오늘날의 REST API
+
+- 오늘날의 대부분의 “REST API”는 사실 REST를 따르지 않고 있음<br>
+  (REST의 제약조건 중에서 특히 Self-descriptive와 HATEOAS를 잘 만족하지 못함)
+
+
+
+- REST를 따를 것인지는 API를 설계하는 이들이 스스로 판단하여 결정해야 함
+<br> (REST를 따르겠다면 Self-descriptive와 HATEOAS를 만족시켜야 함)
+  - Self-descriptive 는 custom media type이나 profile link relation 등으로 만족시킬 수 있음
+  - HATEOAS는 HTTP 헤더나 본문에 링크를 담아 만족시킬 수 있음
+
+
+<br>
+
+
+## Spring에서의 Rest API 개발 지원
+
+
+- Spring REST는 코어 모듈이 포함되어있다. 따라서 이를 따로 설치할 필요가 없다.
+  <br> (단, HATEOAS는 따로 설치해야한다)
+
+
+- Spring REST
+  - 응답용 view가 따로 있는게 이나라 컨트롤러가 직접 응답하는 것
+
+
+
+### RestController
+
+- default는 JSON
+- SpringBoot 에서는 별도의 xml파일 설정 없이 어노테이션으로 등록
+- Spring4부터 @RestController 어노테이션 지원
+- `RsetController = Controller + ResponseBody`
+- View를 갖지 않는 REST Data(JSON/XML)를 반환 (데이터 포맷으로 반환)
+
+<br>
+
+
+### 사용 가능한 어노테이션
+
+![img_4.png](img_4.png)
+
+- request body는 post방식만 가능 + 기본이 JSON임
+
+
+<br>
+
+
+## @ResponseBody 와 @esponseEntity
+
+- 클라이언트한테 응답이 오면 디스패처 서블릿이 응답함
+![img_5.png](img_5.png)
+
+### `@ResponseBody`
+![img_6.png](img_6.png)
+
+- 컨트롤러가 직접 클라이언트에게 응답함 (디스패처 서블릿이 응답하지 않음)
+
+- 클라이언트에게 응답할 바디를 직접 담아서 보냄
+
+- 응답헤더에 추가하거나 status설정은 어렵다. 따라서 이럴 떄에는 ResponseEntity객체를 사용함 
+
+### `ResponseEntity`
+
+- 어노테이션이 아닌 API임
+- 컨트롤러가 직접응답할 때 최적화된 API
+- ResponseBody를 정의한 컨트롤러는 컨트롤러가 직접 응답하겠다는 것임
+
+
+- ResponseEntity에는 응답상태코드, 응답헤더, 응답바디를 포함하고 있다
+<br> (각각을 설정하여 보내는것이 가능)
+![img_7.png](img_7.png)
+
+
+- Constructor보다는 Builder 패턴을 사용하는 것이 좋다
+
+
+<br>
+
+## HAL
+
+- Hypertext Application Language
+- JSON 또는 XML 코드 내의 외부 리소스에 대한 링크와 같은 하이퍼미디어를 정의하기 위한 Internet Draft ("진행 중인 작업")표준 규칙
+- 하이퍼링크: url 문자열
+
+
+<br>
+
+## HATEOAS
+
+- 클라이언트가 필요에 의해 추가적인 액션을 취할 수 있도록 하는 문자열 개발 기술
+- HATEOAS를 적용하는 것은 HAL방식을 제공하는 것과 동일하다
+
+
+<br>
