@@ -9,3 +9,4 @@
 | 0517 | Spring Data JPA<br/> | [50일차 내용 링크](./day50/course) | [실습 링크](./day50/hw) |
 | 0518 | Spring REST API<br/> | [51일차 내용 링크](./day51/course) | [실습 링크](./day51/hw) |
 | 0519 | Spring REST API<br/> | [52일차 내용 링크](./day52/course) | [실습 링크](./day52/hw) |
+| 0520 | Spring REST API<br/> | [53일차 내용 링크](./day53/course) | [실습 링크](./day53/hw) |
