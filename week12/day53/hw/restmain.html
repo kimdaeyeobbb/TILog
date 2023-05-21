@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body>
+    <header>
+      <h1>5조의 REST API 실습</h1>
+    </header>
+    <hr />
+    <main>
+      <div>
+        <button id="actor-list">둘리와 친구들 보기</button>
+      </div>
+      <hr />
+      <div id="actor-details"></div>
+      <hr />
+    </main>
+    <script>
+      document.getElementById("actor-list").addEventListener("click", async function () {
+        try {
+          const response = await fetch("/all");
+          console.log("리스폰스: "+response);
+          if (response.ok) {
+            const data = await response.json();  // 응답을 json 형태로 파싱
+            console.log("받아온 json 데이터: "+ data);
+            const actors = data._embedded.comicActorModelList;
+            console.log("배우들 정보: " +actors);
+            actors.forEach(function (actor) {
+              const name = actor.name;
+              const href = actor._links.self.href;
+              createActorButton(name, href);
+            });
+          } else {
+            console.error("에러 정보: " + response.status);
+          }
+        } catch (error) {
+          console.error("요청 실패");
+        }
+      });
+
+      function createActorButton(name, href) {
+        const button = document.createElement("button");
+        button.textContent = name;
+        button.addEventListener("click", function () {
+          fetchActorDetails(href);
+        });
+        document.getElementById("actor-details").appendChild(button);
+      }
+
+      async function fetchActorDetails(href) {
+        try {
+          const response = await fetch(href);
+          if (response.ok) {
+            const data = await response.json();
+            const actorDetails = data;
+            let detailsHtml = "<h2>" + actorDetails.name + "</h2>";
+            detailsHtml += "<h3>Address: " + actorDetails.addr + "</h3>";
+            detailsHtml += "<img src='" + "../images/" + actorDetails.image + "' alt='" + actorDetails.name + "'>";
+            document.getElementById("actor-details").innerHTML = detailsHtml;
+          } else {
+            console.error("fetchActorDetails 에러: " + response.status);
+          }
+        } catch (error) {
+          console.error("fetchActorDetails 요청 실패");
+        }
+      }
+    </script>
+  </body>
+</html>
