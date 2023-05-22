@@ -6,7 +6,6 @@
   </head>
   <body>
     <!-- http://localhost:3000/exam21로 확인 -->
-    <!-- springedu2 서버를 기동시켜야 제대로 작동함 -->
     <h1>AJAX 기술로 REST API 요청(CORS)</h1>
     <hr />
     <button onclick="getAll()">GET(ALL)</button>
@@ -17,22 +16,26 @@
       /*  ajaxrequest -> 클래스 정의와 객체 생성을 동시에 한 것 */
       // 한번 할당한 객체에 새로운 멤버을 추가할수는 있지만, 담고있는 객체외의 다른 객체를 다시 담을 수는 없음
       const ajaxrequest = {
-        // 객체를 만들어서 처리
         get(url) {
-          return fetch(url);
+          return fetch(url); // fetch이용하여 간단하게 해결 (GET방식일 떄에는 fetch 방식 수행하면됨).
+          // 요청하면서 쿼리 수행하고 싶으면 url을 붙여주면됨.
         },
         getOne(url) {
           return fetch(url);
         },
         post(url, payload) {
+          // POST와 PUT은 GET과는 달리 request body에 payload가 필요함
+          // 객체를 넘겨줘야함
+          // header 속성에 객체 형식으로
           return fetch(url, {
-            method: "POST",
-            headers: { "content-Type": "application/json" },
-            body: JSON.stringify(payload),
+            method: "POST", // PUT은 여기서 PUT으로만 바꾸면 됨
+            headers: { "content-Type": "application/json" }, // content-Type: 실제 요청헤더. application/json: 요청 body안에 담아서 전달할 데이터의 형식 지정  (반드시 문자열이어야 함. 여기서는 json 문자열)
+            body: JSON.stringify(payload), // Json형식의 문자열로 변환을 시켜줘야 함 (반드시 필요한 작업))
           });
         },
         delete(url) {
           return fetch(url, { method: "DELETE" });
+          // GET과 거의 유사
         },
       };
 
@@ -49,7 +52,7 @@
 
       function getOne() {
         ajaxrequest
-          .get("http://localhost:8088/boards/1")
+          .get("http://localhost:8088/boards/1") // 1번글만 불러옴 -> path로 지정해서 전달하는것이 rest의 일반적인 url 작성 형식
           .then((response) => {
             if (!response.ok) throw new Error(response.statusText);
             return response.json();
@@ -61,6 +64,7 @@
       function postData() {
         ajaxrequest
           .post("http://localhost:8088/boards", {
+            // js객체를 줌
             boardNo: 5,
             title: "꽃잎 한 장처럼",
             content: "수도생활 50년, 좋은 삶과 관계를 위한 통찰",
@@ -77,7 +81,7 @@
 
       function deleteData() {
         ajaxrequest
-          .delete("http://localhost:8088/boards/5")
+          .delete("http://localhost:8088/boards/5") // 삭제하고자하는 글의 url을 path에 포함시킴. rest의 url 문자열 작성규칙 -> 한종류의 문자열을 그대로 가져가면서 상황에 따라서 url에 조금씩 추가하는 방식을 권장함.
           .then((response) => {
             if (!response.ok) throw new Error(response.statusText);
             return response.text();
