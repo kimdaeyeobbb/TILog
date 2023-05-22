@@ -374,7 +374,9 @@ https://daum.net:8088
 
 - 위 자바 파일에 아래의 코드를 추가 
 ```java
-@CrossOrigin(origins= "*", allowedHeaders ="*")  // 어떤 요청방식도 모두 허용하겠다는 것
+@CrossOrigin(origins= "*", allowedHeaders ="*") 
+// 어떤 요청방식도 모두 허용하겠다는 것
+// 가장 간단한 방식. 이를 통해 CORS 스펙을 만족하는 컨트롤러 프로그램이 됨
 ```
 
 
@@ -517,4 +519,199 @@ public class BoardController {
 - 서버가 누구든지 가져가도 된다는 응답 header를 같이 클라이언트에 내려보내줘야 함
 
 
-- 
+<br>
+
+
+## 비동기 프로그래밍
+
+
+### 비동기 처리
+
+- 특정 코드의 연산이 끝날 때까지 (특정 로직의 실행이 끝날 떄까지) 코드의 실행을 멈추지 않고(기다려주지 않고) 다음 코드를 먼저 실행하는 자바스크립트의 특성
+
+
+### 비동기 처리의 필요성
+
+- 화면에서 서버로 데이터를 요청했을 때 서버가 언제 그 요청에 대한 응답을 줄지도 모르는 상황에서 다른 코드를 실행하지 않고 마냥 기다릴 수는 없기 때문에 비동기 처리가 필요하다
+  - 동기적 처리를 하면 코드를 실행하고나서 기다려야하므로 웹 애플리케이션을 실행하는데 있어 시간이 길어질 것이다
+
+
+- 웹에서 서버로 데이터를 요청했을 때 요청이 완료되기 전까지 아무것도 실행되지 않는다면 화면이 멈춘것처럼 보일 뿐만 아니라 하나의 프로그램을 실행하는데 많은 시간이 소요됨
+  - 하지만 실행순서가 중요할 떄가 있다. 예컨대 코드가 서버에서 요청한 데이터값을 이용해야하는 경우 데이터를 받아온 다음에 코드가 실행되는것이 필요한데, 이러한 경우에 `비동기 처리`가 필요하다
+
+
+### 콜백함수
+
+- 다른 함수의 인자로 전달되는 함수 (매개변수로 넘겨진 함수)
+- 함수 A의 호출에서 매개변수로 함수 B가 전달되어, 특정 이벤트가 발생했거나 특정 시점이 되면 다시 호출되는 함수B를 `콜백함수`라 함
+
+```javascript
+function dessert(count, eat, good) {
+		count < 3 ? eatDessert() : goodDessert();
+}
+
+function eatDessert() {  // 콜백함수
+    console.log('오늘 먹어야 할 간식을 먹어주세요');
+}
+
+function goodDessert() {   // 콜백함수
+    console.log('오늘 먹어야할 간식을 모두 먹었습니다');
+}
+
+dessert(4, eatDessert, goodDessert);
+```
+
+
+
+
+
+
+### 비동기 처리의 종류
+
+
+#### :one: Promise
+
+- 자바스크립트 비동기 처리에 사용되는 갳체
+- 주로 서버에서 받아온 데이터를 화면에 표시할 때 사용함
+- 응답에 관한 정보를 가지고 있는 객체로 then, catch를 통해 결과값을 처리함
+
+
+##### 프로미스의 3가지 상태 (처리과정)
+
+- `new Promise()`로 프로미스를 생성하고 종료될 때까지 3가지 상태를 가짐
+
+###### Pending(대기)
+
+- 비동기 처리 로직이 아직 완료되지 않은 상태
+
+```javascript
+new Promise()
+// new Promise() 메서드를 호출하면 대기(Pending)상태가 됨
+```
+
+```javascript
+new Promise(function(resolve, reject){
+    // 로직
+})
+// new Promise()를 호출할 때 콜백함수를 선언할 수 있고, 콜백함수의 인자는 resolve, reject임
+```
+
+
+###### Fullfilled(이행)
+
+- 비동기 처리가 완료되어 프로미스가 결과값을 반환해준 상태
+
+
+- 콜백 함수의 인자 `resolve`를 아래와 같이 실행하면 이행(Fulfilled) 상태가 됨
+```javascript
+new Promise(function(resolve, reject){
+    resolve();
+})
+```
+
+- 이행 상태가 되면 아래와 같이 `then()`을 이용하여 처리 결과값을 반환 받을 수 있음
+
+```javascript
+function getData(){  // Promise 객체를 반환하는 비동기 함수
+    return new Promise(function(resolve, reject){  
+        // Promise 객체 생성 (Promise 객체는 콜백함수로 resolve, reject를 인자로 받음)
+        var data = 100;
+        resolve(data); 
+        // resolve 함수를 호출하여 Promise를 성공상태로 바꿈
+      // Promise의 완료 결과로 data값을 갖게 됨
+    })
+}
+
+/* resolve()의 결과값 data를 resolvedData로 받음*/
+getData()
+    .then(   // then 메서드를 사용하여 Promise 객체의 성공 콜백을 등록함
+            // then 메서드는 Promise가 성공상태가 되었을 때 실행될 함수를 등록하능 역할을 함
+        function (resolvedData){
+            console.log(resolvedData);   // 100
+        }
+    )
+```
+
+Promise의 fulfilled 상태는 `완료`라고 볼 수 있다
+
+
+###### Rejected(실패)
+
+- 비동기 처리가 실패하거나 오류가 발생한 상태
+
+
+- `new Promise()`로 프로미스 객체를 생성하면 콜백 함수의 인자로 `resolve`, `reject`를 사용할 수 있음
+- 이때 `reject`를 아래와 같이 호출하면 실패(Rejected)상태가 됨
+
+```javascript
+new Promise(function(resolve, reject){
+    reject();
+})
+```
+
+- 그리고, 실패 상태가 되면 실패한 이유(실패 처리의 결과값)를 `catch()`로 받을 수 있음
+
+```javascript
+function getData(){
+    return new Promise(function (resolve, reject) { 
+        reject(new Error("요청에 실패했습니다."))
+    })
+}
+
+/* reject()의 결과 값 Error를 err에 받음*/
+getData()
+    .then()
+    .catch(function(err){
+        console.log(err); // Error: 요청에 실패했습니다.
+    })
+```
+
+
+
+#### :two: async/await
+
+- Promise를 기반으로 하지만 then, catch를 사용하지 않고 try-catch를 사용함
+
+#### :three: fetch
+
+- 접근하고자하는 url과 매개변수로 네트워크 요청을 보낼 수 있음
+
+
+<br>
+
+
+## 모듈
+
+
+- 자바스크립트의 코드 중 일부를 재사용할 때 모듈 개념을 사용함
+- 모듈은 자바스크립트 소스 파일 하나에 불과함
+
+![img_13.png](img_13.png)
+
+
+- 모듈에 특수한 지시자 `export`, `import`를 적용하면 다른 모듈을 불러와서 불러온 모듈에 있는 함수를
+호출하는 것과 같은 기능 공유가 가능함
+
+
+### 모듈 내보내기
+- `export`지시자를 변수나 함수 앞에 붙이면 외부 모듈에서 해당 변수나 함수에 접근할 수 있음
+
+![img_14.png](img_14.png)
+
+### 모듈 가져오기
+
+- `import`지시자를 사용하면 외부 모듈의 기능을 현재 모듈로 가져올 수 있음
+
+- 하나의 js파일에서 또 다른 js파일을 import 하는 것은 가능하다.
+  
+
+- 명명된 내보내기를 가져올 때
+
+![img_15.png](img_15.png)
+
+
+
+
+- 기본 내보내기를 가져올 떄
+
+![img_16.png](img_16.png)
