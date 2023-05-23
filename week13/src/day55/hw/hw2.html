@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <title>Vue실습1-소스53</title>
+</head>
+<body>
+<h1>입력폼 활용</h1>
+
+<div id="app">
+  <label for="name">이름: </label>
+  <input type="text" id="name" placeholder="이름" v-model="myName" /><br />
+  <label for="myColor">{{ favoriteColor }}</label><br />
+  <input type="radio" value="red" v-model="myColor" /> 빨강
+  <br />
+  <input type="radio" value="green" v-model="myColor" /> 녹색
+  <br />
+  <input type="radio" value="blue" v-model="myColor" /> 파랑색<br />
+  <input type="radio" value="yellow" v-model="myColor" /> 노랑색<br />
+  <input type="radio" value="gray" v-model="myColor" /> 회색<br />
+
+  <p v-bind:style="{color: myColor}">
+    내 이름은{{ myName }}이고 좋아하는 색은 {{ colorText }}입니다
+  </p>
+</div>
+<script>
+  const { createApp } = Vue;
+  createApp({
+    data() {
+      return {
+        nameLabel: "이름: ",
+        myName: "",
+        favoriteColor: "좋아하는 색은: ",
+        myColor: "",
+      };
+    },
+    computed: {
+      colorText() {
+        const colorNames = {
+          red: "빨강",
+          green: "녹색",
+          blue: "파랑색",
+          yellow: "노랑색",
+          gray: "회색",
+        };
+        return colorNames[this.myColor] || "";
+      },
+    },
+  }).mount("#app");
+</script>
+</body>
+</html>
