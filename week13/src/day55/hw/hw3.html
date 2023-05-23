@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Vue.js sample</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+<h1>간단한 계산기</h1>
+<div id="app">
+  <input type="number" v-model.number="num1" /><input type="number" v-model.number="num2" />
+  <div>
+    <button @click="add(num1,num2)">덧셈계산</button>
+    <button @click="minus(num1,num2)">뺼셈계산</button>
+    <button @click="mul(num1,num2)">곱셈계산</button>
+    <button @click="div(num1,num2)">나눗셈계산</button>
+  </div>
+  <p>결과는 {{ result }} 입니다.</p>
+</div>
+<script>
+  const { createApp } = Vue;
+  createApp({
+    data() {
+      return {
+        result: 0
+      };
+    },
+    methods: {
+      add: function (num1,num2) {
+        this.result = num1+num2;
+        this.num1 = "";
+        this.num2 = "";
+      },
+      minus: function (num1,num2){
+        this.result = num1-num2;
+        this.num1 = "";
+        this.num2 = "";
+      },
+      mul: function(num1,num2){
+        this.result = num1*num2;
+        this.num1 = "";
+        this.num2 = "";
+      },
+      div: function(num1, num2){
+        this.result = num1/num2;
+        this.num1 = "";
+        this.num2 = "";
+      }
+    },
+  }).mount("#app");
+</script>
+</body>
+</html>

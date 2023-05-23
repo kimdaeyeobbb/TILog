@@ -14,7 +14,12 @@
 
 <div id="app">
   <label for="name">이름: </label>
-  <input type="text" id="name" placeholder="이름" v-model="myName" /><br />
+  <input
+          type="text"
+          id="name"
+          placeholder="이름"
+          v-model.Lazy="myName"
+  /><br />
   <label for="myColor">{{ favoriteColor }}</label><br />
   <input type="radio" value="red" v-model="myColor" /> 빨강
   <br />
