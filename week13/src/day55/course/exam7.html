@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Vue.js sample</title>
+	<link rel="stylesheet" href="style.css" />
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+<h2>입력한 문자열 표시</h2>
+<!-- div: 컨테이너 태그 -->
+<div id="app">
+	<!-- v-model 지시자. myName: 뷰객체가 리턴하는 속성명과 동일.
+      v-model -> 양방향 바인딩의 역할을 하는 지시자.
+      input 태그 -> 사용자에게 입력받을 수 있는 태그. 입력받은 내용을 myName이라는 속성에 binding
+      뷰 객체 쪽에서 컨테이너 태그에 전달하는 것 뿐만 아니라 뷰 객체의 속성의 값에 역으로 넣어줌. (양방향 바인딩이 가능한 지시자)
+      myName의 값을 v-model 속성에 의해 동기화를 하게 되는 결과가 됨
+              속성의 값으로 사용할 때에는 v-bind 사용.-->
+	<input v-model="myName" placeholder="이름" />
+	<p>나는 {{ myName }} 입니다.</p>
+</div>
+<script>
+	const { createApp } = Vue;
+	createApp({
+		data() {
+			return {
+				myName: "",
+			};
+		},
+	}).mount("#app");
+</script>
+</body>
+</html>
