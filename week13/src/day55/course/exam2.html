@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Vue.js sample</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+<h1>Date 객체 출력</h1>
+<hr />
+<!-- div 태그가 이 앱의 내용을 반영하는 컨테이너 태그임 -->
+<!-- 태그는 어떤 태그든 컨테이너로 사용될 수 있다 -->
+<div id="app">
+    <!-- 태그의 content 부분에 특정 내용을 출력하고 싶을 때 {{ 내용 }} 꼴을 사용 (겹중괄호를 이용해서 객체의 속성값을 이용하게 함. mustache) -->
+    <h3>오늘 날짜 : {{ today }}</h3>
+    <h3>현재 시간 : {{ ctime }}</h3>
+</div>
+<script>
+    const { createApp } = Vue;
+
+    /* createApp - root component */
+    createApp({
+        // App객체를 하나 만들고
+        data() {
+            // 2.x에서는 data가 일반 속성이지만, 3.x에서는 함수로 바뀜
+            // 컨테이너에서 사용가능한 여러 데이터를 제공하는 객체를 리턴하게끔 구현하면 됨
+            let d = new Date();
+            return {
+                /* Data 객체의 메서드 호출 */
+                // 이 내용을 컨테이너 태그에 반영할 수 있음
+                today: d.toLocaleDateString(), // 오늘 날짜
+                ctime: d.toLocaleTimeString(), // 현재시간
+            };
+        },
+    }).mount("#app"); // app 객체의 내용을 포함하고자하는 태그를 찾아서 mount함 -> 이 태그를 컨테이너라 함
+</script>
+</body>
+</html>

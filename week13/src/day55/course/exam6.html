@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Vue.js sample</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+<!-- compute 속성에 할당된 것 - computed 객체 -->
+<h1>Computed 속성</h1>
+<hr />
+
+<!-- 컨테이너 태그 -->
+<div id="app">
+    <!-- h3과 mustache를 이용한 출력. 지시자는 사용하지 않음 -->
+    <!-- content -> data1라는 이름으로 전달되는 value 등 -->
+    <h3>{{data1}}</h3>
+    <h3>{{data2}}</h3>
+    <h3>{{data3}}</h3>
+    <h3>{{data4}}</h3>
+</div>
+<script>
+    const { createApp } = Vue;
+    // createApp에게 전달되는 객체가 최상위 컴포넌트의 역할을 함
+    // Vue computed라는 속성등..
+
+    let now = new Date();
+    createApp({
+        /* 얘만 뷰객체의 속성 */
+        data() {
+            return {
+                data1: "둘리",
+            };
+        },
+        /* computed라는 속성에 정의되어 있는 객체의 메서드들임 */
+        computed: {
+            data2() {
+                return this.data1 + " 입니다!";
+                // 다른 객체의 같은 멤버에 접근시 this 사용
+            },
+            data3() {
+                let randNum = Math.floor(Math.random() * 2 + 1);
+                if (randNum % 2) return "홀수";
+                else return "짝수";
+            },
+            data4() {
+                let now = new Date();
+                if (now.getHours() < 12) return "오전";
+                else return "오후";
+            },
+        },
+    }).mount("#app");
+</script>
+</body>
+</html>

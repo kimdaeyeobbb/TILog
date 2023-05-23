@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Vue.js sample</title>
+	<link rel="stylesheet" href="style.css" />
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+<h2>v-text 와 v-html 속성</h2>
+<hr />
+<div id="app">
+	<!-- v-text와 동일한 취급 -->
+	<p>{{ myText }}</p>
+
+	<!-- 뷰 객체가 제공하는 내용을 뷰의 지시자(derective)를 이용하여 출력 -->
+	<!-- 뷰 객체가 제공하는 속성명을 제공 -->
+	<!-- 뷰 객체가 제공하는 myText라는 이름으로 된 것을 받음  -->
+	<!-- html 태그를 일반 문자열로 다룸 -->
+	<p v-text="myText"></p>
+	<!-- html 태그를 태그 취급해줌 -->
+	<p v-html="myText"></p>
+</div>
+<script>
+	const { createApp } = Vue;
+	createApp({
+		data() {
+			return {
+				myText: "<h1>안녕? Vue!!!</h1>",
+			};
+		},
+	}).mount("#app");
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Vue.js sample</title>
+	<link rel="stylesheet" href="style.css" />
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	<style>
+		/* atype 클래스 속성을 갖는 태그들의 스타일 지정 */
+		.atype {
+			border: 1px solid red;
+		}
+
+		.btype {
+			color: blue;
+			font-weight: bold;
+		}
+	</style>
+</head>
+
+<body>
+<h2>HTML 태그의 속성에 Vue 객체의 데이터 바인딩</h2>
+<hr />
+<!-- 컨테이너 태그 -->
+<div id="app">
+	<!-- v-bind -> 뷰에서 가장 많이 쓰이는 지시자 중 하나. 바인딩하라는 것. 전달되는 뷰 객체의 특정한 속성의 값을 여기에 정의되어있는 속성에 묶겠다는것(대입하겠다는것) -->
+	<!-- v-bind 지시자는 : 뒤에 오는 어떤 속성명의 뷰 객체의 특정 데이터 값을 value로 짚어넣음 -->
+	<!-- fileName이라는 이름으로 전달된 속성의 값을 넣겠다는것 -->
+	<!-- src속성값을 동적으로 전달. (오늘 요일에 따라서 인사말을 다르게 출력, 컬러를 다르게 출력하는 등 동적인 처리가 가능해짐) -->
+	<img v-bind:src="fileName" />
+	<hr />
+
+	<!-- v-bind:href="" -->
+	<a v-bind:href="myURL">링크를 v-bind로 지정</a>
+	<hr />
+
+	<!-- 태그마다 스타일 속성 지정가능. css관련된 스타일 속성. 자바스크립트 객체 형식으로 주고 있음 -->
+	<!-- css에서 -가 붙는애들은 -를 뺴고 그다음에 오는 단어의 첫글자를 대문자로 바꿔서 써주어야 함 -->
+	<!-- 케밥 표기법을 사용한 css 속성명들은 그대로 사용할 수 없고, 카멜 케이스 표현법으로 바꿔서 사용해야 함 -->
+	<!-- 스타일 속성값을 지정할 때에는 자바스크립트 객체 형식으로 지정해야 함. 속성명은 카멜 케이스로 바꿔서 사용해야 함 -->
+	<p v-bind:style="{textAlign:myAlign}">우측정렬을 v-bind 로 지정</p>
+	<hr />
+	<p v-bind:style="{ color: myColor }">문자색을 v-bind로 지정</p>
+	<p v-bind:style="{ fontSize: mySize }">글자크기를 v-bind로 지정</p>
+	<!-- 객체 형식이므로 ,로 여러개를 나열할 수 있음 -->
+	<p v-bind:style="{ backgroundColor: myBackColor, 땡땡떙 }">
+		배경색을 v-bind로 지정
+	</p>
+	<hr />
+
+	<!-- 클래스 속성 - 클래스 속성의 값을 가지고 있는 속성명을 줌 -->
+	<!-- 여기서 myClass는 atype임 -->
+	<p v-bind:class="myClass">v-bind로 클래스 지정</p>
+	<!-- 2개 이상 지정하려면 array방식을 이용 - atype, btype 모두가 적용됨 -->
+	<p v-bind:class="[myClass, darkClass]">v-bind로 복수의 클래스 지정</p>
+	<p v-bind:class="{'atype': isON}">데이터로 클래스 ON/OFF</p>
+</div>
+<script>
+	const { createApp } = Vue;
+	createApp({
+		data() {
+			return {
+				// 전달되는 뷰객체
+				// createApp이라는 함수에 의해 뷰객체가 탑재됨
+				fileName: "images/duke.png",
+				myURL: "https://v3-docs.vuejs-korea.org/", // 뷰 한국어 가이드 페이지
+				/* 태그들이 화면에 렌더링될 떄 뷰객체를 통해 전달된 각종 속성의 값을 반영하여 속성값 혹은 스타일 값으로 쓰려는 의도에서 제공 */
+				myAlign: "right", // 우측 정렬
+				myColor: "#E08000",
+				mySize: "2em",
+				myBackColor: "aqua",
+				myClass: "atype",
+				darkClass: "btype",
+				isON: false, // false일 경우에는 적용하지 않음.
+			};
+		},
+	}).mount("#app");
+</script>
+</body>
+</html>

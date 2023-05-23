@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Vue.js sample</title>
+	<link rel="stylesheet" href="style.css" />
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+<h2>여러가지 데이터형을 표시하는 예제</h2>
+<div id="app">
+	<!--  뷰객체를 통해 제공되는 각각의 속성명을 통해 출력 -->
+	<p>{{ myNumber }}</p>
+	<p>{{ myText }}</p>
+	<p>{{ myBool }}</p>
+	<p>{{ myPrice * 1.08 }}</p>
+	<p>{{ "안녕하세요~ "+ myName + "님" }}</p>
+	<p>{{ myName.substr(0,1) }}</p>
+	<p>{{ myArray }}</p>
+	<p>{{ myArray[2] }}</p>
+	<p>{{ myTea }}</p>
+	<p>{{ myTea.name }} - {{ myTea.price }}원</p>
+	<p>{{ myCoffee }}</p>
+	<p>{{ myCoffee[1].name }} - {{ myCoffee[1].price }}원</p>
+</div>
+<script>
+	const { createApp } = Vue;
+	// 태그의 contetnt 부분에 app객체가 제공한 데이터의 내용을 표현하고 있음
+	let coffeeList = [
+		// 겍체 배열 (배열 내의 내용이 객체임)
+		{ name: "아메리카노", price: 3000 },
+		{ name: "라떼", price: 4000 },
+		{ name: "돌체라떼", price: 5000 },
+	];
+	createApp({
+		data() {
+			return {
+				// createApp에 의해 사용가능한 객체들s
+				// vue 객체가 제공하는 타입에는 제한이 없다!
+				myNumber: 12345,
+				myText: "Hello!!!",
+				myBool: true,
+				myPrice: 500,
+				myName: "유니코",
+				myArray: ["둘리", "또치", "도우너"],
+				myTea: { name: "녹차", price: 3000 },
+				myCoffee: coffeeList,
+			};
+		},
+	}).mount("#app"); // 값이 반영되도록 mount 시키고 있음
+</script>
+</body>
+</html>
