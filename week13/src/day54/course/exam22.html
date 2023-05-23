@@ -13,7 +13,7 @@
             // setTimeout -> 비동기적으로 결과값을 반환하는 것을 모방
             var result = num1 + num2;
             console.log(num1 + " + " + num2 + " = ");
-            resolve(result);
+            resolve(result);  // resolve가 호출되면 프로미스가 대기상태 이행 상태로 넘어가기 때문에 .then() 로직으로 넘어감
           }, 2000);
         });
       }
