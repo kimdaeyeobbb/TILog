@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Vue.js sample</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+	<h2>컴포넌트를 만들어서 표시</h2>
+	<div id="app">
+<!--		컨테이너 태그 내에서 컴포넌트를 사용하려면 태그명에 해당되는 태그를 기재해서 사용-->
+		<my-comp-tag1></my-comp-tag1>
+		<my-comp-tag2></my-comp-tag2>
+		<my-comp-tag3></my-comp-tag3>
+		<hr>
+		<my-comp-tag1></my-comp-tag1>
+	</div>
+	<script>
+		const { createApp } = Vue;
+
+		const MyComponent1 = {
+			template: '<p class="my-comp">안녕? 둘리~~</p>'
+		}
+		const MyComponent2 = {
+			template: '<p class="my-comp">안녕? 도우너~~</p>'
+		}
+		const MyComponent3 = {
+			template: '<p class="my-comp">안녕? 또치~~</p>'
+		}
+		createApp({
+			// createApp => root component
+			// data, method, watch, computed,... 등에 관한 정보를 가지고 있음
+			components: {  // components -> 컴포넌트로 사용하고자하는 대상들을 key & value 형식으로 등록
+				/* 태그명: 속성명 꼴로 사용 */
+				'my-comp-tag1': MyComponent1,
+				'my-comp-tag2': MyComponent2,
+				'my-comp-tag3': MyComponent3,
+			}
+		}).mount('#app');
+	</script>
+	<style>
+		.my-comp {
+			width: 300px;
+			background-color: #ffffe0;
+			border: solid;
+			border-color: darkorange;
+			border-radius: 8px;
+			padding: 8px;
+		}
+	</style>
+</body>
+
+</html>
