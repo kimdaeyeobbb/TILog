@@ -17,5 +17,5 @@
 | 10주차 | 프로젝트<br/>개인학습<br/>                                                                                                                                                                                                             |  [10주차 내용 정리 링크](./week10)   |
 | 11주차 | 프로젝트<br/>개인학습<br/>스프링부트 로깅<br/>Spring Scheduling<br/>Filter<br/>Interceptor<br/>Spring WebSocket<br/>AOP<br/>                                                                                                                  |  [11주차 내용 정리 링크](./week11)   |
 | 12주차 | JPA<br/>Spring Data JPA<br/>Spring REST API<br/>                                                                                                                                                                               |  [12주차 내용 정리 링크](./week12)   |
-| 13주차 | 웹 렌더링 방식<br/>ES6<br/>CORS<br/>모듈<br/>                                                                                                                                                                                               |  [13주차 내용 정리 링크](./week13)   |
+| 13주차 | 웹 렌더링 방식<br/>ES6<br/>CORS<br/>모듈<br/>Vue directive<br/>Vue method<br/>Vue computed<br/>Vue watch<br/>axios<br/>                                                                                                                     |  [13주차 내용 정리 링크](./week13)   |
 
