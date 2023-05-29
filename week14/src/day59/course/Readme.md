@@ -137,3 +137,49 @@
 
 getter나 action을 통해 store내의 데이터를 읽어가고 변경할 수 있음
 
+
+<br>
+
+## Pinia 메서드 - `$patch`
+
+
+- Pinia의 store 상태를 업데이트할 때 사용됨
+- `$patch` 메서드를 사용하면 일부 상태 속성만 업데이트 할 수 있으며, 나머지 속성은 변하지 않음 
+<br> (주어진 상태 속성만 업데이트하고 나머지는 이전 상태를 유지함)
+
+
+```js
+import { defineStore } from 'pinia';
+
+export const useMyStore = defineStore({
+  id: 'myStore',
+  state: () => ({
+    count: 0,
+    name: 'Danny',
+    age: 25,
+  }),
+  actions: {
+    increment() {
+      this.count++;
+    },
+    patchNameAndAge(newName, newAge) {
+      this.$patch({
+        // $patch 메서드는 일부 상태만 업데이트할 때 유용
+        name: newName,
+        age: newAge,
+      });
+    },
+  },
+});
+
+```
+
+
+
+<br>
+
+
+# watch
+
+- 특정 데이터의 변화를 감지하여 자동으로 특정 로직을 수행해주는 속성
+
