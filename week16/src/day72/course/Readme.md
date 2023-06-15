@@ -568,5 +568,176 @@ unicohttpd:
 <br>
 
 
-# AWS
+
+# 클라우드
+
+- 네트워크상에서 다양한 서비스를 필요에 따라서 이용하는 시스템 형태
+- 시스템 구축에 필요한 네트워크/서버/스토리지/애플리에키션을 서비스로 제공함
+
+
+
+## 클라우드 컴퓨팅
+
+- `클라우드 컴퓨팅`은 `서로 다른 물리적인 위치에 존재하는 컴퓨팅 자원을 가상화 기술로 통합해 제공하는 기술`을 뜻함
+
+- 컴퓨팅 자원
+  - 컴퓨터에 내장되어 있는 각종 S/W, H/W 및 저장 매체를 뜻함
+  - 클라우드 컴퓨팅 환경을 통해 사용자는 웹에서만 접속하면 언제 어디서나 원하는 컴퓨팅 자원을 클라우드로부터 제공받아 사용할 수 있음
+  - 그 대가로 사용자는 사용한 컴퓨팅 자원만큼 비용을 지급하면 됨
+    - 따라서 더 이상 값비싼 S/W를 구입하고 설치할 필요가 없어짐
+    - 또한 디스크 용량에 대한 걱정없이 원하는 자료를 저장하고 어디서나 확인이 가능해짐
+
+
+## 클라우드 시스템
+
+- 시스템을 보유하는 것이 아니라 필요할 때만 시스템을 이용하는 것
+
+
+## 클라우드 시스템 구축 형태
+
+![img_26.png](img_26.png)
+
+### :one: on-demand 형태
+
+- 필요할 떄마다 빌리는 것
+
+### :two: on-premise 형태
+
+- 자체적으로 구축하는 것
+
+<br>
+
+## 클라우드 종류
+
+![img_27.png](img_27.png)
+
+### 퍼블릭 클라우드
+
+- 클라우드 서비스 기업이 인터넷을 통해 불특정 다수의 기업 및 개인에게 컴퓨팅 리소스를 빌려주는 서비스
+
+
+### 프라이빗 클라우드
+
+- 기업이 직접 클라우드 환경을 구축하고 내부에서만 컴퓨팅 리소스를 사용하는 서비스
+
+
+### 하이브리드 클라우드
+
+![img_28.png](img_28.png)
+
+<br>
+
+## AWS EC2
+
+- EC2 (Elastic Compute Cloud)
+  - AWS에서 제공하는 클라우드 컴퓨팅 서비스
+  - 이 서브시를 이용하면 아마존이 각 세계에 구축한 데이터 센터의 서버용 컴퓨터들의 자원을 원격으로 사용할 수 있음
+  - 즉, `아마존으로부터 한 대의 컴퓨터를 임대하는 것`
+
+
+
+### AWS EC2의 장점
+
+- 용량을 늘리거나 줄일 수 있음
+- 사용한만큼 지불하므로 저렴하다.
+- 사용자가 인스턴스를 완전히 제어할 수 있다.
+- 보안 및 네트워크 구성, 스토리지 관리 효과적이다.
+
+
+### 맥에서 PuTTY 대신 ssh 사용해서 EC2 접속하기
+
+1. `.pem`파일이 있는 경로로 진입
+
+2. 읽기 및 쓰기 권한 부여
+```shell
+chmod 600 awsedu.pem
+```
+
+
+3. 접속
+
+```shell
+ssh -i [pem 파일명] ec2-user@퍼블릭 IPv4주소
+```
+
+
+- 아래 결과가 나오면 성공
+
+```shell
+Are you sure you want to continue connecting (yes/no/[fingerprint])? y
+Please type 'yes', 'no' or the fingerprint: y
+Please type 'yes', 'no' or the fingerprint: yes
+Warning: Permanently added '3.35.13.102' (ED25519) to the list of known hosts.
+   ,     #_
+   ~\_  ####_        Amazon Linux 2023
+  ~~  \_#####\
+  ~~     \###|
+  ~~       \#/ ___   https://aws.amazon.com/linux/amazon-linux-2023
+   ~~       V~' '->
+    ~~~         /
+      ~~._.   _/
+         _/ _/
+       _/m/'
+```
+
+#### 추가 내용
+
+- 타임존 변경 (한국 시간으로 변경)
+```shell
+date
+sudo rm /etc/localtime
+
+# 이 리눅스 머신의 날짜와 시간 처리를 우리나라의 타임존에 알맞게 설정
+sudo ln -s /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+date
+```
+
+<br>
+
+
+## aws-linux에 도커 엔진과 도커 컴포즈를 설치하기
+
+- `yum`
+  - Yellodog Update Modified의 약자
+  - 레드햇 계열의 리눅스 배포판에서 사용하는 프로그램(패키지) 설치 관리 도구
+
+
+
+```shell
+# yum의 저장소 업데이트를 처리
+sudo yum update -y
+
+# 도커 설치
+sudo yum -y install docker
+
+# 도커 시작
+sudo service docker start
+
+# 권한 부여 : docker 명령은 root 사용자 권한으로 수행되는 명령이다. 그러므로 일반 사용자의
+# 경우에는 sudo 명령을 앞에 붙여서 도커 명령을 실행시켜야 한다. 다음 명령을 수행하면 해당 
+# 사용자를 도커 그룹에 추가하여 sudo 명령을 사용하지 않고도 도커 명령을 사용할 수 있게 한다.
+sudo usermod -a -G docker ec2-user
+
+# auto-start에 docker 등록
+sudo chkconfig docker on
+
+# 도커 버전 확인
+docker version
+
+# 최신 docker compose를 해당 링크를 통해서 전달받는다.
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+
+# 권한 부여
+sudo chmod +x /usr/local/bin/docker-compose
+
+# 설치 확인
+docker-compose version
+
+# 도서 엔진이 잘 설치되었는지 그리고 네트워크 인바운드 설정이 제대로 되었는지 확인하기 위해 다음 명령을 실행시켜서 확인한다.
+# 브라우저로 요청 : http://AWS퍼블릭 IPv4 주소:8089/ --> It Works 라는 페이지가 출력된다.
+
+sudo docker run --name myhttpd -d -p 8089:80 httpd
+
+docker stop myhttpd
+```
 
