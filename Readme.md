@@ -1,5 +1,3 @@
-<p align="center"><img src="img.png"></p>
-
 # Today I Learned
 
 |  주차  | 내용                                                                                                                                                                                                                                                          |          주차별 내용 정리           |
